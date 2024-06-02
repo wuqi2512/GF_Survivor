@@ -1,0 +1,8 @@
+﻿#	特效表				
+#	Id		EntityId	ActiveSeconds	AnimName
+#	int		int	float	string
+#	特效编号	策划备注	实体编号	活跃时间	动画名称
+	10000	爆炸特效	70000	1.017	ExplosionAnim
+	10001	死亡爆炸特效	70001	0.517	DeadExplosionAnim
+	10002	受击特效	70002	0.350	HitAnim
+	10003	挥砍特效	70003	0.350	SlashAnim
