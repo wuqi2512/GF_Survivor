@@ -43,7 +43,7 @@ public class EnemyLogic : Targetable
     {
         base.OnDead();
 
-        GameEntry.Event.Fire(this, HideEnemyEventArgs.Create(Id));
+        GameEntry.Event.Fire(this, HideEnemyEventArgs.Create(Id, true));
     }
 
     private void OnCollisionStay2D(UnityEngine.Collision2D collision)

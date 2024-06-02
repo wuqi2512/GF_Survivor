@@ -60,6 +60,12 @@ public class HeroLogic : Targetable
         m_LastMoveDirection = Vector2.right;
     }
 
+    public override void TakeDamage(int damage)
+    {
+        GameEntry.Event.Fire(this, PlayerHpChangedEventArgs.Create(m_Hp, m_Hp - damage));
+
+        base.TakeDamage(damage);
+    }
     private static Vector2 GetInput()
     {
         float x = Input.GetAxis("Horizontal");

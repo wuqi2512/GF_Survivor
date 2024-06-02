@@ -11,34 +11,23 @@ public partial class PauseMenuForm : UGuiForm
 
         GetBindComponents(this.gameObject);
 
-        m_Btn_Resume.OnClick += () =>
-        {
-            GameEntry.UI.CloseUIForm(this);
-        };
-
-        m_Btn_Restart.OnClick += () =>
-        {
-            m_ProcedureMain.Restart();
-            GameEntry.UI.CloseUIForm(this);
-        };
-
-        m_Btn_MainMenu.OnClick += () =>
-        {
-            m_ProcedureMain.GotoMenu();
-            GameEntry.UI.CloseUIForm(this);
-        };
+        m_Btn_Resume.OnClick += OnBtnResumeClick;
+        m_Btn_Restart.OnClick += OnBtnRestartClick;
+        m_Btn_MainMenu.OnClick += OnBtnMainMenuClick;
     }
 
     protected override void OnOpen(object userData)
     {
         base.OnOpen(userData);
 
-        m_ProcedureMain = (ProcedureMain)userData;
+        m_ProcedureMain = userData as ProcedureMain;
         if (m_ProcedureMain == null)
         {
             Log.Warning("ProcedureMain is invalid when open PauseMenuForm.");
             return;
         }
+
+        m_ProcedureMain.Pause();
     }
 
     protected override void OnClose(bool isShutdown, object userData)
@@ -46,5 +35,23 @@ public partial class PauseMenuForm : UGuiForm
         base.OnClose(isShutdown, userData);
 
         m_ProcedureMain = null;
+    }
+
+    private void OnBtnResumeClick()
+    {
+        m_ProcedureMain.Resume();
+        Close();
+    }
+
+    private void OnBtnRestartClick()
+    {
+        m_ProcedureMain.Restart();
+        Close();
+    }
+
+    private void OnBtnMainMenuClick()
+    {
+        m_ProcedureMain.GotoMenu();
+        Close();
     }
 }

@@ -35,5 +35,6 @@ namespace StarForce
         TileMapForm = 103,
 
         PauseMenuForm = 104,
+        InGameForm = 105,
     }
 }

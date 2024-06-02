@@ -16,9 +16,10 @@ namespace StarForce
     public class ProcedureMain : ProcedureBase
     {
         private bool m_GotoMenu = false;
-        private LevelController m_LevelController;
+        public LevelController LevelController { get; private set; }
         private CinemachineVirtualCamera m_VirtualCamera;
         private Vector2 m_ScreenSizeInWorld;
+        private int m_InGameFormSerialId;
 
         public override bool UseNativeDialog
         {
@@ -38,6 +39,16 @@ namespace StarForce
             
         }
 
+        public void Pause()
+        {
+
+        }
+
+        public void Resume()
+        {
+
+        }
+
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
@@ -48,23 +59,30 @@ namespace StarForce
             GameEntry.Event.Subscribe(DamageEventArgs.EventId, HandleDamageInfo);
             GameEntry.Event.Subscribe(HideEnemyEventArgs.EventId, HideEnemyInLevel);
             GameEntry.Event.Subscribe(BeDamagedEventArgs.EventId, BeDamaged);
-            
+            GameEntry.Event.Subscribe(LevelStateChangeEventArgs.EventId, OnLevelStateChange);
+            GameEntry.Event.Subscribe(PlayerHpChangedEventArgs.EventId, OnPlayerHpChanged);
+
             m_VirtualCamera = GameObject.FindObjectOfType<CinemachineVirtualCamera>();
             m_ScreenSizeInWorld = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, -Camera.main.transform.position.z));
 
-            m_LevelController = new LevelController(m_VirtualCamera, m_ScreenSizeInWorld);
-            m_LevelController.OnEnter();
+            m_InGameFormSerialId = (int)GameEntry.UI.OpenUIForm(UIFormId.InGameForm, this);
+            LevelController = new LevelController(m_VirtualCamera, m_ScreenSizeInWorld);
+            LevelController.OnEnter();
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
-            m_LevelController.OnLeave();
+            LevelController.OnLeave();
+
+            GameEntry.UI.CloseAllLoadedUIForms();
 
             GameEntry.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OpenUIFormSuccess);
             GameEntry.Event.Unsubscribe(OpenUIFormFailureEventArgs.EventId, OpenUIFormFailure);
             GameEntry.Event.Unsubscribe(DamageEventArgs.EventId, HandleDamageInfo);
             GameEntry.Event.Unsubscribe(HideEnemyEventArgs.EventId, HideEnemyInLevel);
             GameEntry.Event.Unsubscribe(BeDamagedEventArgs.EventId, BeDamaged);
+            GameEntry.Event.Unsubscribe(LevelStateChangeEventArgs.EventId, OnLevelStateChange);
+            GameEntry.Event.Unsubscribe(PlayerHpChangedEventArgs.EventId, OnPlayerHpChanged);
 
             base.OnLeave(procedureOwner, isShutdown);
         }
@@ -73,7 +91,7 @@ namespace StarForce
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
-            m_LevelController.OnUpdate(elapseSeconds, realElapseSeconds);
+            LevelController.OnUpdate(elapseSeconds, realElapseSeconds);
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -93,6 +111,11 @@ namespace StarForce
             if (ne.UserData != this)
             {
                 return;
+            }
+
+            if (ne.UIForm.SerialId == m_InGameFormSerialId)
+            {
+                LevelController.SetView(ne.UIForm.Logic as InGameForm);
             }
         }
 
@@ -115,7 +138,7 @@ namespace StarForce
                 return;
             }
 
-            m_LevelController.HideEnemy(ne.EntityId);
+            LevelController.HideEnemy(ne.SerialId, ne.IsDead);
         }
 
         private void HandleDamageInfo(object sender, BaseEventArgs e)
@@ -126,7 +149,7 @@ namespace StarForce
                 return;
             }
 
-            m_LevelController.HandleDamageInfo(ne.DamageInfo);
+            LevelController.HandleDamageInfo(ne.DamageInfo);
         }
 
         private void BeDamaged(object sender, BaseEventArgs e)
@@ -138,6 +161,35 @@ namespace StarForce
             }
 
             GameEntry.DamageNumber.ShowDamageNumber(ne.Position, ne.Damage.ToString());
+        }
+
+        private void OnLevelStateChange(object sender, BaseEventArgs e)
+        {
+            var ne = e as LevelStateChangeEventArgs;
+            if (ne == null)
+            {
+                return;
+            }
+
+            if (ne.LastState == LevelState.Pause)
+            {
+
+            }
+            else if (ne.CurrentState == LevelState.Pause)
+            {
+                GameEntry.UI.OpenUIForm(UIFormId.PauseMenuForm, this);
+            }
+        }
+
+        private void OnPlayerHpChanged(object sender, BaseEventArgs e)
+        {
+            var ne = e as PlayerHpChangedEventArgs;
+            if (ne == null)
+            {
+                return;
+            }
+
+            LevelController.OnPlayerHpChanged(ne.LastHp, ne.CurrentHp);
         }
     }
 }

@@ -6,8 +6,11 @@ using GlobelRandom = GameFramework.Utility.Random;
 
 public class LevelController
 {
+    public HeroLogic Player { get; private set; }
+    public int KilledEnemy { get; private set; }
+
+    private InGameForm m_View;
     private EntityLoader m_EntityLoader;
-    private HeroLogic m_Player;
     private Transform m_PlayerTransform;
     private CinemachineVirtualCamera m_VirtualCamera;
     private Dictionary<int, Targetable> m_DicEntityEnemy;
@@ -15,6 +18,7 @@ public class LevelController
 
     private float m_SpawnEnemyInterval = 1f;
     private float m_SpawnEnemyTimer;
+
 
     public LevelController(CinemachineVirtualCamera virtualCamera, Vector2 screenSizeInWorld)
     {
@@ -29,10 +33,9 @@ public class LevelController
 
         m_EntityLoader.ShowEntityDefault(typeof(HeroLogic), HeroData.Create(10000, GameEntry.Entity.GenerateSerialId()), (entity) =>
         {
-            m_Player = entity.Logic as HeroLogic;
-            m_PlayerTransform = m_Player.transform;
+            Player = entity.Logic as HeroLogic;
+            m_PlayerTransform = Player.transform;
             m_VirtualCamera.Follow = m_PlayerTransform;
-            // TODO: Temparay
             GameEntry.DataNode.SetData<VarTransform>("Player", m_PlayerTransform);
         });
     }
@@ -54,6 +57,7 @@ public class LevelController
     public void OnLeave()
     {
         m_EntityLoader.HideAllEntity();
+        GameEntry.DataNode.RemoveNode("Player");
     }
 
     public void SpawnEnemy()
@@ -65,7 +69,7 @@ public class LevelController
         });
     }
 
-    public void HideEnemy(int serialId)
+    public void HideEnemy(int serialId, bool isDead)
     {
         if (!m_DicEntityEnemy.ContainsKey(serialId))
         {
@@ -74,6 +78,17 @@ public class LevelController
 
         m_EntityLoader.HideEntity(serialId);
         m_DicEntityEnemy.Remove(serialId);
+
+        if (isDead)
+        {
+            KilledEnemy++;
+            m_View.SetKillCount(KilledEnemy);
+        }
+    }
+
+    public void OnPlayerHpChanged(int lastHp, int currentHp)
+    {
+        m_View.SetHpBar((float)currentHp / lastHp);
     }
 
     public void HandleDamageInfo(DamageInfo damageInfo)
@@ -123,5 +138,10 @@ public class LevelController
         }
 
         return pos;
+    }
+
+    public void SetView(InGameForm form)
+    {
+        m_View = form;
     }
 }

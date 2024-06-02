@@ -70,6 +70,7 @@
     <Compile Include="Assets\GameMain\Scripts\UI\UGuiGroupHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\BindingScript\DialogForm.BindComponents.cs" />
     <Compile Include="Assets\GameMain\Scripts\HPBar\HPBarComponent.cs" />
+    <Compile Include="Assets\GameMain\Scripts\BindingScript\InGameForm.BindComponents.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRUIForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\PacketBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\DialogParams.cs" />
@@ -80,8 +81,8 @@
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\BulletData.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\EntityLogicWithData.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureMain.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\Damage\DamageEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\OutlineRaycastTarget.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Event\LevelStateChangeEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureSplash.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UIExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureUpdateResources.cs" />
@@ -94,7 +95,6 @@
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRArmor.cs" />
     <Compile Include="Assets\GameMain\Scripts\Component\RotationDiagramItem.cs" />
     <Compile Include="Assets\GameMain\Scripts\Extension\ComponentAutoBindTool\IAutoBindRuleHelper.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\Damage\BeDamagedEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\AssetUtility.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UGuiForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureVerifyResources.cs" />
@@ -103,9 +103,11 @@
     <Compile Include="Assets\GameMain\Scripts\Extension\ComponentAutoBindTool\DefaultAutoBindRuleHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRMusic.cs" />
     <Compile Include="Assets\GameMain\Scripts\Base\GameEntry.Custom.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\LevelState.cs" />
     <Compile Include="Assets\GameMain\Scripts\BindingScript\TileMapForm.BindComponents.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\LitJsonHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UIFormId.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Event\BeDamagedEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRBullet.cs" />
     <Compile Include="Assets\GameMain\Scripts\BindingScript\MainMenuForm.BindComponents.cs" />
@@ -117,7 +119,8 @@
     <Compile Include="Assets\GameMain\Scripts\Base\GameEntry.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRAsteroid.cs" />
     <Compile Include="Assets\GameMain\Scripts\Component\RaderGraphic.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Entity\HideEnemyEventArgs.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Event\PlayerHpChangedEventArgs.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Event\HideEnemyEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Extension\PivotPreset.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureCheckResources.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\TileMapController.cs" />
@@ -134,6 +137,7 @@
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRAircraft.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\SCPacketHeader.cs" />
     <Compile Include="Assets\GameMain\Scripts\Component\RotationDiagram.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Event\DamageEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\BindingScript\PauseMenuForm.BindComponents.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\SCHeartBeat.cs" />
     <Compile Include="Assets\GameMain\Scripts\HPBar\HPBarItem.cs" />
@@ -152,6 +156,7 @@
     <Compile Include="Assets\GameMain\Scripts\Extension\UIExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\EntityData.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DataTableExtension.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\InGameForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\PauseMenuForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\BulletLogic.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DREntity.cs" />
@@ -176,7 +181,6 @@
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureChangeScene.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\CampType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\AIUtility.cs" />
-    <Compile Include="Assets\GameMain\Scripts\UI\InGameForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\GameMain\Configs\DefaultDictionary.xml" />
