@@ -61,6 +61,8 @@ namespace StarForce
             GameEntry.Event.Subscribe(BeDamagedEventArgs.EventId, BeDamaged);
             GameEntry.Event.Subscribe(LevelStateChangeEventArgs.EventId, OnLevelStateChange);
             GameEntry.Event.Subscribe(PlayerHpChangedEventArgs.EventId, OnPlayerHpChanged);
+            GameEntry.Event.Subscribe(ShowEntityInLevelEventArgs.EventId, OnShowEntityInLevel);
+            GameEntry.Event.Subscribe(HideEntityInLevelEventArgs.EventId, OnHideEntityInLevel);
 
             m_VirtualCamera = GameObject.FindObjectOfType<CinemachineVirtualCamera>();
             m_ScreenSizeInWorld = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, -Camera.main.transform.position.z));
@@ -83,6 +85,8 @@ namespace StarForce
             GameEntry.Event.Unsubscribe(BeDamagedEventArgs.EventId, BeDamaged);
             GameEntry.Event.Unsubscribe(LevelStateChangeEventArgs.EventId, OnLevelStateChange);
             GameEntry.Event.Unsubscribe(PlayerHpChangedEventArgs.EventId, OnPlayerHpChanged);
+            GameEntry.Event.Unsubscribe(ShowEntityInLevelEventArgs.EventId, OnShowEntityInLevel);
+            GameEntry.Event.Unsubscribe(HideEntityInLevelEventArgs.EventId, OnHideEntityInLevel);
 
             base.OnLeave(procedureOwner, isShutdown);
         }
@@ -190,6 +194,28 @@ namespace StarForce
             }
 
             LevelController.OnPlayerHpChanged(ne.LastHp, ne.CurrentHp);
+        }
+
+        private void OnShowEntityInLevel(object sender, BaseEventArgs e)
+        {
+            var ne = e as ShowEntityInLevelEventArgs;
+            if (ne == null)
+            {
+                return;
+            }
+
+            LevelController.ShowEntity(ne.LogicType, ne.EntityData, ne.ShowSuccess);
+        }
+
+        private void OnHideEntityInLevel(object sender, BaseEventArgs e)
+        {
+            var ne = e as HideEntityInLevelEventArgs;
+            if (ne == null)
+            {
+                return;
+            }
+
+            LevelController.HideEntity(ne.SerialId);
         }
     }
 }

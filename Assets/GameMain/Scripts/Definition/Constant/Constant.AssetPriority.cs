@@ -22,8 +22,6 @@ public static partial class Constant
         public const int UIFormAsset = 50;
         public const int UISoundAsset = 30;
 
-        public const int DefaultAsset = 80;
-        public const int BulletAsset = 80;
-        public const int EffectAsset = 80;
+        public const int EntityAsset = 80;
     }
 }

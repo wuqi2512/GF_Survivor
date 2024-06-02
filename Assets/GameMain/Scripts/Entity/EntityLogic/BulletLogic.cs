@@ -7,6 +7,7 @@ public class BulletLogic : EntityLogicWithData
     [SerializeField] private BulletData m_BulletData;
     private AttributeCounter m_AttributeCounter;
     private Rigidbody2D m_RigidBody;
+    private bool m_IsDestroyed;
 
     public CampType Camp => m_BulletData.Camp;
     private BulletAttribute m_BulletAttribute => m_BulletData.BulletAttri;
@@ -38,6 +39,7 @@ public class BulletLogic : EntityLogicWithData
         }
 
         m_RigidBody.velocity = CachedTransform.right * m_BulletAttribute.MoveSpeed;
+        m_IsDestroyed = false;
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -47,7 +49,8 @@ public class BulletLogic : EntityLogicWithData
         m_AttributeCounter.ActiveTime += Time.deltaTime;
         if (m_AttributeCounter.ActiveTime > m_BulletAttribute.ActiveTime)
         {
-            GameEntry.Entity.HideEntity(this);
+            GameEntry.Event.Fire(this, HideEntityInLevelEventArgs.Create(Id));
+            m_IsDestroyed = true;
             return;
         }
     }
@@ -56,10 +59,16 @@ public class BulletLogic : EntityLogicWithData
     {
         base.OnHide(isShutdown, userData);
 
+        m_BulletData = null;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (m_IsDestroyed)
+        {
+            return;
+        }
+
         Targetable targetable = other.gameObject.GetComponentInParent<Targetable>();
         // 撞到墙壁
         if (targetable == null)
@@ -75,7 +84,8 @@ public class BulletLogic : EntityLogicWithData
             }
             else
             {
-                GameEntry.Entity.HideEntity(this);
+                GameEntry.Event.Fire(this, HideEntityInLevelEventArgs.Create(Id));
+                m_IsDestroyed = true;
             }
             return;
         }
@@ -92,15 +102,19 @@ public class BulletLogic : EntityLogicWithData
         if (m_AttributeCounter.Splite < m_BulletAttribute.Splite)
         {
             m_AttributeCounter.Splite++;
-            GameEntry.Entity.ShowBullet(BulletData.Create(m_BulletData.DRBullet.Id, GameEntry.Entity.GenerateSerialId(),
-                m_BulletData.Camp, CachedTransform.position, Quaternion.Euler(0f, 0f, Random.Range(0, 360))));
+
+            BulletData bulletData = BulletData.Create(m_BulletData.DRBullet.Id, GameEntry.Entity.GenerateSerialId(),
+                m_BulletData.Camp, CachedTransform.position, Quaternion.Euler(0f, 0f, Random.Range(0, 360)));
+            GameEntry.Event.Fire(this, ShowEntityInLevelEventArgs.Create(typeof(BulletLogic), bulletData));
         }
         if (m_AttributeCounter.Penetrate < m_BulletAttribute.Penetrate)
         {
             m_AttributeCounter.Penetrate++;
             return;
         }
-        GameEntry.Entity.HideEntity(this);
+
+        GameEntry.Event.Fire(this, HideEntityInLevelEventArgs.Create(Id));
+        m_IsDestroyed = true;
     }
 
     /// <summary>

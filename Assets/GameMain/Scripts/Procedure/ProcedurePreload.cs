@@ -6,6 +6,7 @@
 //------------------------------------------------------------
 
 using GameFramework;
+using GameFramework.DataTable;
 using GameFramework.Event;
 using GameFramework.Resource;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace StarForce
     {
         public static readonly string[] DataTableNames = new string[]
         {
+            "EntityGroup",
             "Entity",
             "Music",
             "Scene",
@@ -172,6 +174,8 @@ namespace StarForce
 
             m_LoadedFlag[ne.DataTableAssetName] = true;
             Log.Info("Load data table '{0}' OK.", ne.DataTableAssetName);
+
+            AddEntityGroup();
         }
 
         private void OnLoadDataTableFailure(object sender, GameEventArgs e)
@@ -206,6 +210,17 @@ namespace StarForce
             }
 
             Log.Error("Can not load dictionary '{0}' from '{1}' with error message '{2}'.", ne.DictionaryAssetName, ne.DictionaryAssetName, ne.ErrorMessage);
+        }
+
+        private void AddEntityGroup()
+        {
+            IDataTable<DREntityGroup> dtEntityGroup = GameEntry.DataTable.GetDataTable<DREntityGroup>();
+            DREntityGroup[] allDREntityGroup = dtEntityGroup.GetAllDataRows();
+            for (int i = 0; i < allDREntityGroup.Length; i++)
+            {
+                DREntityGroup drEntityGroup = allDREntityGroup[i];
+                GameEntry.Entity.AddEntityGroup(drEntityGroup.GroupName, drEntityGroup.InstanceAutoReleaseInterval, drEntityGroup.InstanceCapacity, drEntityGroup.InstanceExpireTime, drEntityGroup.InstancePriority);
+            }
         }
     }
 }

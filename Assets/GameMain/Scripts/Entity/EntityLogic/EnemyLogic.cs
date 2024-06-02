@@ -72,6 +72,7 @@ public class EnemyLogic : Targetable
         Vector2 hitPoint = collision.contacts[0].point;
         Vector2 hitDir = (Vector2)(collision.transform.position - CachedTransform.position);
         float degree = Mathf.Atan2(hitDir.y, hitDir.x) * Mathf.Rad2Deg;
-        GameEntry.Entity.ShowEffect(EffectData.Create(10003, GameEntry.Entity.GenerateSerialId(), hitPoint, Quaternion.Euler(0f, 0f, degree)));
+        EffectData effectData = EffectData.Create(10003, GameEntry.Entity.GenerateSerialId(), hitPoint, Quaternion.Euler(0f, 0f, degree));
+        GameEntry.Event.Fire(this, ShowEntityInLevelEventArgs.Create(typeof(EffectLogic), effectData));
     }
 }

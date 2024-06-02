@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-06-01 15:45:47.647
+// 生成时间：2024-06-02 20:46:29.741
 //------------------------------------------------------------
 
 using GameFramework;
@@ -45,6 +45,15 @@ namespace StarForce
             private set;
         }
 
+        /// <summary>
+        /// 获取实体组编号。
+        /// </summary>
+        public int EntityGroupId
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -58,6 +67,7 @@ namespace StarForce
             m_Id = int.Parse(columnStrings[index++]);
             index++;
             AssetName = columnStrings[index++];
+            EntityGroupId = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -71,6 +81,7 @@ namespace StarForce
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     AssetName = binaryReader.ReadString();
+                    EntityGroupId = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

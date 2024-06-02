@@ -1,12 +1,12 @@
-﻿#	实体表		
-#	Id		AssetName
-#	int		string
-#	实体编号	策划备注	资源名称
-	10000	玩家	Hero
-	10001	敌人	Zombie
-	50000	子弹	Bullet
-	50001	苦无	Kunai
-	70000	爆炸特效	Explosion
-	70001	死亡爆炸特效	DeadExplosion
-	70002	受击特效	Hit
-	70003	挥砍特效	Slash
+﻿#	实体表			
+#	Id		AssetName	EntityGroupId
+#	int		string	int
+#	实体编号	策划备注	资源名称	实体组编号
+	10000	玩家	Hero	10000
+	10001	敌人	Zombie	10003
+	50000	子弹	Bullet	10001
+	50001	苦无	Kunai	10001
+	70000	爆炸特效	Explosion	10002
+	70001	死亡爆炸特效	DeadExplosion	10002
+	70002	受击特效	Hit	10002
+	70003	挥砍特效	Slash	10002

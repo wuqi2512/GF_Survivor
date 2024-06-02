@@ -66,6 +66,7 @@
     <Compile Include="Assets\GameMain\Scripts\Game\TileMapLogic.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\MainMenuForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\SettingForm.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Event\HideEntityInLevelEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UpdateResourceForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UGuiGroupHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\BindingScript\DialogForm.BindComponents.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="Assets\GameMain\Scripts\DataTable\DataTableExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\InGameForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\PauseMenuForm.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Event\ShowEntityInLevelEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\BulletLogic.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DREntity.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\PacketHandlerBase.cs" />
@@ -181,6 +183,7 @@
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureChangeScene.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\CampType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\AIUtility.cs" />
+    <Compile Include="Assets\GameMain\Scripts\DataTable\DREntityGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\GameMain\Configs\DefaultDictionary.xml" />
@@ -208,6 +211,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\GameMain\DataTables\EntityGroup.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\GameMain\Configs\BuildSettings.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />

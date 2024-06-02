@@ -39,7 +39,7 @@ public static class EntityExtension
         entityComponent.AttachEntity(entity.Entity, ownerId, parentTransformPath, userData);
     }
 
-    public static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)
+    public static void ShowEntity(this EntityComponent entityComponent, Type logicType, EntityData data)
     {
         if (data == null)
         {
@@ -55,22 +55,10 @@ public static class EntityExtension
             return;
         }
 
-        entityComponent.ShowEntity(data.SerialId, logicType, AssetUtility.GetEntityAsset(drEntity.AssetName), entityGroup, priority, data);
-    }
+        IDataTable<DREntityGroup> dtEntityGroup = GameEntry.DataTable.GetDataTable<DREntityGroup>();
+        DREntityGroup drEntityGroup = dtEntityGroup.GetDataRow(drEntity.EntityGroupId);
 
-    public static void ShowBullet(this EntityComponent entityComponent, EntityData data)
-    {
-        entityComponent.ShowEntity(typeof(BulletLogic), "Bullet", Constant.AssetPriority.BulletAsset, data);
-    }
-
-    public static void ShowEffect(this EntityComponent entityComponent, EntityData data)
-    {
-        entityComponent.ShowEntity(typeof(EffectLogic), "Effect", Constant.AssetPriority.EffectAsset, data);
-    }
-
-    public static void ShowDefault(this EntityComponent entityComponent, Type logicType, EntityData data)
-    {
-        entityComponent.ShowEntity(logicType, "Default", Constant.AssetPriority.DefaultAsset, data);
+        entityComponent.ShowEntity(data.SerialId, logicType, AssetUtility.GetEntityAsset(drEntity.AssetName), drEntityGroup.GroupName, Constant.AssetPriority.EntityAsset, data);
     }
 
     public static int GenerateSerialId(this EntityComponent entityComponent)

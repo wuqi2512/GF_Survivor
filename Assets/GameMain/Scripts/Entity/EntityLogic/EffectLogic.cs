@@ -29,7 +29,7 @@ public class EffectLogic : EntityLogicWithData
         m_Timer += elapseSeconds;
         if (m_Timer >= m_EffectData.DREffect.ActiveSeconds)
         {
-            GameEntry.Entity.HideEntity(this);
+            GameEntry.Event.Fire(this, HideEntityInLevelEventArgs.Create(Id));
             return;
         }
 

@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
@@ -31,7 +32,7 @@ public class LevelController
     {
         m_EntityLoader = EntityLoader.Create(this);
 
-        m_EntityLoader.ShowEntityDefault(typeof(HeroLogic), HeroData.Create(10000, GameEntry.Entity.GenerateSerialId()), (entity) =>
+        m_EntityLoader.ShowEntity(typeof(HeroLogic), HeroData.Create(10000, GameEntry.Entity.GenerateSerialId()), (entity) =>
         {
             Player = entity.Logic as HeroLogic;
             m_PlayerTransform = Player.transform;
@@ -63,7 +64,7 @@ public class LevelController
     public void SpawnEnemy()
     {
         EnemyData enemyData = EnemyData.Create(10001, GameEntry.Entity.GenerateSerialId(), m_PlayerTransform.position + RandomOffset(5f, 5f));
-        m_EntityLoader.ShowEntityDefault(typeof(EnemyLogic), enemyData, (entity) =>
+        ShowEntity(typeof(EnemyLogic), enemyData, (entity) =>
         {
             m_DicEntityEnemy.Add(entity.Id, (Targetable)entity.Logic);
         });
@@ -74,6 +75,7 @@ public class LevelController
         if (!m_DicEntityEnemy.ContainsKey(serialId))
         {
             Log.Error("Can't find enemy '{0}'", serialId);
+            return;
         }
 
         m_EntityLoader.HideEntity(serialId);
@@ -100,27 +102,37 @@ public class LevelController
         }
 
         int damage = damageInfo.Damage;
-        bool isDead  = false;
+        bool isDead = false;
         bool isCritical = GlobelRandom.GetRandomFloat(0f, 1f) < damageInfo.CriticalRate;
         if (isCritical)
         {
             damage = (int)(damage * damageInfo.CriticalMulti);
         }
-        if (damage > defender.Hp)
+        if (damage >= defender.Hp)
         {
             damage = defender.Hp;
             isDead = true;
         }
 
         defender.TakeDamage(damage);
+
+        int effectId = 10002;
         if (isDead)
         {
-            GameEntry.Entity.ShowEffect(EffectData.Create(10001, GameEntry.Entity.GenerateSerialId(), defender.CachedTransform));
+            effectId = 10001;
         }
-        else
-        {
-            GameEntry.Entity.ShowEffect(EffectData.Create(10002, GameEntry.Entity.GenerateSerialId(), defender.CachedTransform));
-        }
+        EffectData effectData = EffectData.Create(effectId, GameEntry.Entity.GenerateSerialId(), defender.CachedTransform);
+        ShowEntity(typeof(EffectLogic), effectData, null);
+    }
+
+    public void ShowEntity(Type logicType, EntityData entityData, Action<Entity> onSuccess)
+    {
+        m_EntityLoader.ShowEntity(logicType, entityData, onSuccess);
+    }
+
+    public void HideEntity(int serialId)
+    {
+        m_EntityLoader.HideEntity(serialId);
     }
 
     private Vector3 RandomOffset(float maxX, float maxY)

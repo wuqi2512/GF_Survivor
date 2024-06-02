@@ -27,10 +27,10 @@ public class EntityLoader : IReference
     }
 
 
-    public void ShowEntityDefault(Type entityLogicType, EntityData entityData, Action<Entity> onShowSuccess = null)
+    public void ShowEntity(Type entityLogicType, EntityData entityData, Action<Entity> onShowSuccess = null)
     {
         dicCallback.Add(entityData.SerialId, onShowSuccess);
-        GameEntry.Entity.ShowEntity(entityLogicType, "Default", Constant.AssetPriority.DefaultAsset, entityData);
+        GameEntry.Entity.ShowEntity(entityLogicType, entityData);
     }
 
     //public int ShowEntity(int entityId, Type entityLogicType, Action<Entity> onShowSuccess, object userData = null)
@@ -66,7 +66,8 @@ public class EntityLoader : IReference
         Entity entity = null;
         if (!dicSerial2Entity.TryGetValue(serialId, out entity))
         {
-            Log.Error("Can find entity('serial id:{0}') ", serialId);
+            Log.Error("Can't find entity('serial id:{0}') ", serialId);
+            return;
         }
 
         dicSerial2Entity.Remove(serialId);
