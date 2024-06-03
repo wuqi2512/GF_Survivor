@@ -10,6 +10,7 @@ using GameFramework.DataTable;
 using GameFramework.Event;
 using GameFramework.Resource;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
@@ -101,6 +102,7 @@ namespace StarForce
 
             // Preload fonts
             LoadFont("MainFont");
+            LoadTMPFont("SourceHanSansCN-Normal SDF");
         }
 
         private void LoadConfig(string configName)
@@ -138,6 +140,23 @@ namespace StarForce
                 (assetName, status, errorMessage, userData) =>
                 {
                     Log.Error("Can not load font '{0}' from '{1}' with error message '{2}'.", fontName, assetName, errorMessage);
+                }));
+        }
+
+        private void LoadTMPFont(string fontName)
+        {
+            m_LoadedFlag.Add(Utility.Text.Format("TMPFont.{0}", fontName), false);
+            GameEntry.Resource.LoadAsset(AssetUtility.GetTMPFontAsset(fontName), Constant.AssetPriority.FontAsset, new LoadAssetCallbacks(
+                (assetName, asset, duration, userData) =>
+                {
+                    m_LoadedFlag[Utility.Text.Format("TMPFont.{0}", fontName)] = true;
+                    UGuiForm.SetMainTMPFont((TMP_FontAsset)asset);
+                    Log.Info("Load TMPFont '{0}' OK.", fontName);
+                },
+
+                (assetName, status, errorMessage, userData) =>
+                {
+                    Log.Error("Can not load TMPFont '{0}' from '{1}' with error message '{2}'.", fontName, assetName, errorMessage);
                 }));
         }
 

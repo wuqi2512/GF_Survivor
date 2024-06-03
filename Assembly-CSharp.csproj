@@ -63,7 +63,6 @@
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRScene.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureUpdateVersion.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DREffect.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\TileMapLogic.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\MainMenuForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\SettingForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\Event\HideEntityInLevelEventArgs.cs" />
@@ -77,14 +76,12 @@
     <Compile Include="Assets\GameMain\Scripts\Network\PacketBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\DialogParams.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\CommonButton.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\TileItem.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\DamageNumber\DamageNumberItemObject.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\LevelController.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\BulletData.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\EntityLogicWithData.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureMain.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\OutlineRaycastTarget.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\Event\LevelStateChangeEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureSplash.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UIExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureUpdateResources.cs" />
@@ -105,7 +102,6 @@
     <Compile Include="Assets\GameMain\Scripts\Extension\ComponentAutoBindTool\DefaultAutoBindRuleHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRMusic.cs" />
     <Compile Include="Assets\GameMain\Scripts\Base\GameEntry.Custom.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\LevelState.cs" />
     <Compile Include="Assets\GameMain\Scripts\BindingScript\TileMapForm.BindComponents.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\LitJsonHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UIFormId.cs" />
@@ -117,15 +113,12 @@
     <Compile Include="Assets\GameMain\Scripts\Localization\XmlLocalizationHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Constant\Constant.Layer.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureLaunch.cs" />
-    <Compile Include="Assets\GameMain\Scripts\UI\TileMapForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Base\GameEntry.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRAsteroid.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UIComponent\RaderGraphic.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\Event\PlayerHpChangedEventArgs.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\Event\HideEnemyEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Extension\PivotPreset.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureCheckResources.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\TileMapController.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureCheckVersion.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureMenu.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Constant\Constant.Setting.cs" />
@@ -133,7 +126,7 @@
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\CSHeartBeat.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\Targetable.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\AboutForm.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\Damage\Damage.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\DamageInfo.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\HeroData.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\WebUtility.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRAircraft.cs" />
@@ -167,12 +160,10 @@
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLoader.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRSound.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\EffectData.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\Direction.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\IPause.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\PacketType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\EnemyLogic.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\BinaryReaderExtension.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\TileMapData.cs" />
     <Compile Include="Assets\GameMain\Scripts\HPBar\HPBarItemObject.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UIComponent\CircleImage.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\CSPacketBase.cs" />
@@ -185,6 +176,8 @@
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureChangeScene.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\CampType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\AIUtility.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\Enum\LevelOperation.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Event\LevelOperationEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\GameMain\Configs\DefaultDictionary.xml" />

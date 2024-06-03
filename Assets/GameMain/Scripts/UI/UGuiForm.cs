@@ -7,6 +7,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
@@ -19,6 +20,7 @@ namespace StarForce
         private const float FadeTime = 0.3f;
 
         private static Font s_MainFont = null;
+        private static TMP_FontAsset s_MainTMPFont = null;
         private Canvas m_CachedCanvas = null;
         private CanvasGroup m_CanvasGroup = null;
         private List<Canvas> m_CachedCanvasContainer = new List<Canvas>();
@@ -72,6 +74,17 @@ namespace StarForce
             s_MainFont = mainFont;
         }
 
+        public static void SetMainTMPFont(TMP_FontAsset mainTMPFont)
+        {
+            if (mainTMPFont == null)
+            {
+                Log.Error("Main font is invalid.");
+                return;
+            }
+
+            s_MainTMPFont = mainTMPFont;
+        }
+
 #if UNITY_2017_3_OR_NEWER
         protected override void OnInit(object userData)
 #else
@@ -98,9 +111,21 @@ namespace StarForce
             for (int i = 0; i < texts.Length; i++)
             {
                 texts[i].font = s_MainFont;
-                if (!string.IsNullOrEmpty(texts[i].text))
+                string text = texts[i].text;
+                if (!string.IsNullOrEmpty(text) && GameEntry.Localization.HasRawString(text))
                 {
-                    texts[i].text = GameEntry.Localization.GetString(texts[i].text);
+                    texts[i].text = GameEntry.Localization.GetString(text);
+                }
+            }
+
+            TMP_Text[] tmpTexts = GetComponentsInChildren<TMP_Text>(true);
+            for (int i = 0; i < tmpTexts.Length; i++)
+            {
+                tmpTexts[i].font = s_MainTMPFont;
+                string text = tmpTexts[i].text;
+                if (!string.IsNullOrEmpty(text) && GameEntry.Localization.HasRawString(text))
+                {
+                    tmpTexts[i].text = GameEntry.Localization.GetString(text);
                 }
             }
         }

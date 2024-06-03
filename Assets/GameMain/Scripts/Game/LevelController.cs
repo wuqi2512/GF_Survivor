@@ -10,6 +10,7 @@ public class LevelController
 {
     public HeroLogic Player { get; private set; }
     public int KilledEnemy { get; private set; }
+    public bool GameOver { get; private set; }
 
     private InGameForm m_View;
     private EntityLoader m_EntityLoader;
@@ -72,6 +73,7 @@ public class LevelController
         KilledEnemy = 0;
         m_SpawnEnemyTimer = 0f;
         GameEntry.DataNode.RemoveNode("Player");
+        GameOver = false;
     }
 
     public void OnPause()
@@ -132,6 +134,11 @@ public class LevelController
     public void OnPlayerHpChanged(int lastHp, int currentHp)
     {
         m_View.SetHpBar((float)currentHp / lastHp);
+
+        if (currentHp == 0)
+        {
+            GameOver = true;
+        }
     }
 
     public void HandleDamageInfo(DamageInfo damageInfo)

@@ -5,11 +5,11 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using Cinemachine;
 using GameFramework;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
-using Cinemachine;
 
 namespace StarForce
 {
@@ -29,27 +29,6 @@ namespace StarForce
             }
         }
 
-        public void GotoMenu()
-        {
-            m_GotoMenu = true;
-        }
-
-        public void Restart()
-        {
-            LevelController.OnLeave();
-            LevelController.OnEnter();
-        }
-
-        public void Pause()
-        {
-            LevelController.OnPause();
-        }
-
-        public void Resume()
-        {
-            LevelController.OnResume();
-        }
-
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
@@ -58,12 +37,11 @@ namespace StarForce
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OpenUIFormSuccess);
             GameEntry.Event.Subscribe(OpenUIFormFailureEventArgs.EventId, OpenUIFormFailure);
             GameEntry.Event.Subscribe(DamageEventArgs.EventId, HandleDamageInfo);
-            GameEntry.Event.Subscribe(HideEnemyEventArgs.EventId, HideEnemyInLevel);
             GameEntry.Event.Subscribe(BeDamagedEventArgs.EventId, BeDamaged);
-            GameEntry.Event.Subscribe(LevelStateChangeEventArgs.EventId, OnLevelStateChange);
             GameEntry.Event.Subscribe(PlayerHpChangedEventArgs.EventId, OnPlayerHpChanged);
             GameEntry.Event.Subscribe(ShowEntityInLevelEventArgs.EventId, OnShowEntityInLevel);
             GameEntry.Event.Subscribe(HideEntityInLevelEventArgs.EventId, OnHideEntityInLevel);
+            GameEntry.Event.Subscribe(LevelOperationEventArgs.EventId, OnLevelOperation);
 
             m_VirtualCamera = GameObject.FindObjectOfType<CinemachineVirtualCamera>();
             m_ScreenSizeInWorld = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, -Camera.main.transform.position.z));
@@ -83,12 +61,11 @@ namespace StarForce
             GameEntry.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OpenUIFormSuccess);
             GameEntry.Event.Unsubscribe(OpenUIFormFailureEventArgs.EventId, OpenUIFormFailure);
             GameEntry.Event.Unsubscribe(DamageEventArgs.EventId, HandleDamageInfo);
-            GameEntry.Event.Unsubscribe(HideEnemyEventArgs.EventId, HideEnemyInLevel);
             GameEntry.Event.Unsubscribe(BeDamagedEventArgs.EventId, BeDamaged);
-            GameEntry.Event.Unsubscribe(LevelStateChangeEventArgs.EventId, OnLevelStateChange);
             GameEntry.Event.Unsubscribe(PlayerHpChangedEventArgs.EventId, OnPlayerHpChanged);
             GameEntry.Event.Unsubscribe(ShowEntityInLevelEventArgs.EventId, OnShowEntityInLevel);
             GameEntry.Event.Unsubscribe(HideEntityInLevelEventArgs.EventId, OnHideEntityInLevel);
+            GameEntry.Event.Unsubscribe(LevelOperationEventArgs.EventId, OnLevelOperation);
 
             base.OnLeave(procedureOwner, isShutdown);
         }
@@ -110,6 +87,41 @@ namespace StarForce
                 ChangeState<ProcedureChangeScene>(procedureOwner);
             }
         }
+
+        #region Level Operation
+        private void GotoMenu()
+        {
+            m_GotoMenu = true;
+        }
+
+        private void Restart()
+        {
+            LevelController.OnLeave();
+            LevelController.OnEnter();
+        }
+
+        private void Pause()
+        {
+            LevelController.OnPause();
+        }
+
+        private void Resume()
+        {
+            LevelController.OnResume();
+        }
+
+        public void GameOver()
+        {
+            DialogParams dialogParams = new DialogParams();
+            dialogParams.Mode = 1;
+            dialogParams.Title = "GameOver";
+            dialogParams.Message = Utility.Text.Format("Kill: {0}", LevelController.KilledEnemy.ToString());
+            dialogParams.ConfirmText = "MainMenu";
+            dialogParams.OnClickConfirm += (obj) => { GotoMenu(); };
+            GameEntry.UI.OpenDialog(dialogParams);
+        }
+
+        #endregion
 
         private void OpenUIFormSuccess(object sender, BaseEventArgs e)
         {
@@ -136,17 +148,6 @@ namespace StarForce
             Log.Error(ne.ErrorMessage);
         }
 
-        private void HideEnemyInLevel(object sender, BaseEventArgs e)
-        {
-            HideEnemyEventArgs ne = (HideEnemyEventArgs)e;
-            if (ne == null)
-            {
-                return;
-            }
-
-            LevelController.HideEnemy(ne.SerialId, ne.IsDead);
-        }
-
         private void HandleDamageInfo(object sender, BaseEventArgs e)
         {
             DamageEventArgs ne = e as DamageEventArgs;
@@ -167,24 +168,6 @@ namespace StarForce
             }
 
             GameEntry.DamageNumber.ShowDamageNumber(ne.Position, ne.Damage.ToString());
-        }
-
-        private void OnLevelStateChange(object sender, BaseEventArgs e)
-        {
-            var ne = e as LevelStateChangeEventArgs;
-            if (ne == null)
-            {
-                return;
-            }
-
-            if (ne.LastState == LevelState.Pause)
-            {
-
-            }
-            else if (ne.CurrentState == LevelState.Pause)
-            {
-                GameEntry.UI.OpenUIForm(UIFormId.PauseMenuForm, this);
-            }
         }
 
         private void OnPlayerHpChanged(object sender, BaseEventArgs e)
@@ -217,7 +200,32 @@ namespace StarForce
                 return;
             }
 
-            LevelController.HideEntity(ne.SerialId);
+            if (ne.IsEnemy)
+            {
+                LevelController.HideEnemy(ne.SerialId, ne.IsEnemyDead);
+            }
+            else
+            {
+                LevelController.HideEntity(ne.SerialId);
+            }
+        }
+
+        private void OnLevelOperation(object sender, BaseEventArgs e)
+        {
+            var ne = e as LevelOperationEventArgs;
+            if (ne == null)
+            {
+                return;
+            }
+
+            switch (ne.LevelOperation)
+            {
+                case LevelOperation.Pasue: Pause(); break;
+                case LevelOperation.Resume: Resume(); break;
+                case LevelOperation.Restart: Restart(); break;
+                case LevelOperation.GameOver: GameOver(); break;
+                case LevelOperation.MainMenu: GotoMenu(); break;
+            }
         }
     }
 }

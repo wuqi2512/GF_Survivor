@@ -27,7 +27,7 @@ public partial class PauseMenuForm : UGuiForm
             return;
         }
 
-        m_ProcedureMain.Pause();
+        GameEntry.Event.Fire(this, LevelOperationEventArgs.Create(LevelOperation.Pasue));
     }
 
     protected override void OnClose(bool isShutdown, object userData)
@@ -39,19 +39,19 @@ public partial class PauseMenuForm : UGuiForm
 
     private void OnBtnResumeClick()
     {
-        m_ProcedureMain.Resume();
+        GameEntry.Event.Fire(this, LevelOperationEventArgs.Create(LevelOperation.Resume));
         Close();
     }
 
     private void OnBtnRestartClick()
     {
-        m_ProcedureMain.Restart();
+        GameEntry.Event.Fire(this, LevelOperationEventArgs.Create(LevelOperation.Restart));
         Close();
     }
 
     private void OnBtnMainMenuClick()
     {
-        m_ProcedureMain.GotoMenu();
+        GameEntry.Event.Fire(this, LevelOperationEventArgs.Create(LevelOperation.MainMenu));
         Close();
     }
 }
