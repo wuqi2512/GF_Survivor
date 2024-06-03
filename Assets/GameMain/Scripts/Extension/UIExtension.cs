@@ -5,6 +5,8 @@ public static class UIExtension
 {
     public static void AdaptToSafeArea(this RectTransform rectTrans)
     {
+        rectTrans.sizeDelta = Vector2.zero;
+        rectTrans.anchoredPosition = Vector2.zero;
         Rect safeArea = Screen.safeArea;
         Vector2 anchorMin = safeArea.position;
         anchorMin.x /= Screen.width;

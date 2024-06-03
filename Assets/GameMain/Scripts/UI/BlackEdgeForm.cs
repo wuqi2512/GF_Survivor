@@ -11,24 +11,21 @@ public class BlackEdgeForm : UGuiForm
         Width,
     }
 
-    public RectTransform RootCanvas;
-
+    [SerializeField] private RectTransform RootCanvas;
+    [SerializeField] private RectTransform[] m_BlackEdges;
     private RectTransform m_RectTrans;
-    private RectTransform[] m_BlackEdges;
 
     protected override void OnInit(object userData)
     {
         base.OnInit(userData);
 
-        throw new System.Exception("BlackEdgeForm is invalid.");
-        // RootCanvas = base.can
-        // RootCanvas = GameEntry.UI..GetComponent<RectTransform>();
+        // TODO
+        RootCanvas = CachedTransform.parent.parent.GetComponent<RectTransform>();
         m_RectTrans = GetComponent<RectTransform>();
         m_BlackEdges = new RectTransform[2];
         m_BlackEdges[0] = CreateBlackEdge(m_RectTrans);
         m_BlackEdges[1] = CreateBlackEdge(m_RectTrans);
 
-        // m_RectTrans.AdaptToSafeArea();
         BlackEdageAdapt();
     }
 

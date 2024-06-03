@@ -36,5 +36,6 @@ namespace StarForce
 
         PauseMenuForm = 104,
         InGameForm = 105,
+        BlackEdgeForm = 106,
     }
 }

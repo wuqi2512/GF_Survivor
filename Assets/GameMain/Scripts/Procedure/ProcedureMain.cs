@@ -68,6 +68,7 @@ namespace StarForce
             m_VirtualCamera = GameObject.FindObjectOfType<CinemachineVirtualCamera>();
             m_ScreenSizeInWorld = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, -Camera.main.transform.position.z));
 
+            GameEntry.UI.OpenUIForm(UIFormId.BlackEdgeForm);
             m_InGameFormSerialId = (int)GameEntry.UI.OpenUIForm(UIFormId.InGameForm, this);
             LevelController = new LevelController(m_VirtualCamera, m_ScreenSizeInWorld);
             LevelController.OnEnter();
