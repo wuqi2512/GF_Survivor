@@ -6,7 +6,6 @@
 //------------------------------------------------------------
 
 using GameFramework;
-using StarForce;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
@@ -21,18 +20,6 @@ public abstract class EntityLogicWithData : EntityLogic
         {
             return Entity.Id;
         }
-    }
-
-    public Animator CachedAnimator
-    {
-        get;
-        private set;
-    }
-
-    protected override void OnInit(object userData)
-    {
-        base.OnInit(userData);
-        CachedAnimator = GetComponent<Animator>();
     }
 
     protected override void OnShow(object userData)

@@ -2,12 +2,13 @@
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-public class BulletLogic : EntityLogicWithData
+public class BulletLogic : EntityLogicWithData, IPause
 {
     [SerializeField] private BulletData m_BulletData;
     private AttributeCounter m_AttributeCounter;
     private Rigidbody2D m_RigidBody;
     private bool m_IsDestroyed;
+    private bool m_Pause;
 
     public CampType Camp => m_BulletData.Camp;
     private BulletAttribute m_BulletAttribute => m_BulletData.BulletAttri;
@@ -38,13 +39,18 @@ public class BulletLogic : EntityLogicWithData
             case CampType.Player: gameObject.SetLayerRecursively(Constant.Layer.PlayerBullet); break;
         }
 
-        m_RigidBody.velocity = CachedTransform.right * m_BulletAttribute.MoveSpeed;
+        // m_RigidBody.velocity = CachedTransform.right * m_BulletAttribute.MoveSpeed;
         m_IsDestroyed = false;
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
     {
         base.OnUpdate(elapseSeconds, realElapseSeconds);
+
+        if (m_Pause)
+        {
+            return;
+        }
 
         m_AttributeCounter.ActiveTime += Time.deltaTime;
         if (m_AttributeCounter.ActiveTime > m_BulletAttribute.ActiveTime)
@@ -55,11 +61,22 @@ public class BulletLogic : EntityLogicWithData
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (m_Pause)
+        {
+            return;
+        }
+
+        CachedTransform.Translate(CachedTransform.right * m_BulletAttribute.MoveSpeed * Time.fixedDeltaTime, Space.World);
+    }
+
     protected override void OnHide(bool isShutdown, object userData)
     {
         base.OnHide(isShutdown, userData);
 
         m_BulletData = null;
+        m_Pause = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -115,6 +132,16 @@ public class BulletLogic : EntityLogicWithData
 
         GameEntry.Event.Fire(this, HideEntityInLevelEventArgs.Create(Id));
         m_IsDestroyed = true;
+    }
+
+    public void Pause()
+    {
+        m_Pause = true;
+    }
+
+    public void Resume()
+    {
+        m_Pause = false;
     }
 
     /// <summary>

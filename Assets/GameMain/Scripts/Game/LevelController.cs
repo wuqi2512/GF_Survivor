@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using GameFramework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class LevelController
     private CinemachineVirtualCamera m_VirtualCamera;
     private Dictionary<int, Targetable> m_DicEntityEnemy;
     private Vector2 m_HalfScreenSizeInWorld;
+    private bool m_Pause;
 
     private float m_SpawnEnemyInterval = 1f;
     private float m_SpawnEnemyTimer;
@@ -32,7 +34,8 @@ public class LevelController
     {
         m_EntityLoader = EntityLoader.Create(this);
 
-        m_EntityLoader.ShowEntity(typeof(HeroLogic), HeroData.Create(10000, GameEntry.Entity.GenerateSerialId()), (entity) =>
+
+        ShowEntity(typeof(HeroLogic), HeroData.Create(10000, GameEntry.Entity.GenerateSerialId()), (entity) =>
         {
             Player = entity.Logic as HeroLogic;
             m_PlayerTransform = Player.transform;
@@ -43,6 +46,11 @@ public class LevelController
 
     public void OnUpdate(float elapseSeconds, float realElapseSeconds)
     {
+        if (m_Pause)
+        {
+            return;
+        }
+
         // spawn enemy
         m_SpawnEnemyTimer += elapseSeconds;
         if (m_SpawnEnemyTimer >= m_SpawnEnemyInterval)
@@ -58,7 +66,40 @@ public class LevelController
     public void OnLeave()
     {
         m_EntityLoader.HideAllEntity();
+        ReferencePool.Release(m_EntityLoader);
+        m_DicEntityEnemy.Clear();
+        m_Pause = false;
+        KilledEnemy = 0;
+        m_SpawnEnemyTimer = 0f;
         GameEntry.DataNode.RemoveNode("Player");
+    }
+
+    public void OnPause()
+    {
+        m_Pause = true;
+
+        foreach (Entity entity in m_EntityLoader.GetAllEntities())
+        {
+            IPause obj = entity.Logic as IPause;
+            if (obj != null)
+            {
+                obj.Pause();
+            }
+        }
+    }
+
+    public void OnResume()
+    {
+        m_Pause = false;
+
+        foreach (Entity entity in m_EntityLoader.GetAllEntities())
+        {
+            IPause obj = entity.Logic as IPause;
+            if (obj != null)
+            {
+                obj.Resume();
+            }
+        }
     }
 
     public void SpawnEnemy()
@@ -122,12 +163,24 @@ public class LevelController
             effectId = 10001;
         }
         EffectData effectData = EffectData.Create(effectId, GameEntry.Entity.GenerateSerialId(), defender.CachedTransform);
-        ShowEntity(typeof(EffectLogic), effectData, null);
+        ShowEntity(typeof(EffectAnimator), effectData, null);
     }
 
     public void ShowEntity(Type logicType, EntityData entityData, Action<Entity> onSuccess)
     {
-        m_EntityLoader.ShowEntity(logicType, entityData, onSuccess);
+        m_EntityLoader.ShowEntity(logicType, entityData, (entity) =>
+        {
+            if (m_Pause)
+            {
+                IPause obj = entity.Logic as IPause;
+                if (obj != null)
+                {
+                    obj.Pause();
+                }
+            }
+
+            onSuccess?.Invoke(entity);
+        });
     }
 
     public void HideEntity(int serialId)

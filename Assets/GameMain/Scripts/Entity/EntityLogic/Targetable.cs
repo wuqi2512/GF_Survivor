@@ -1,7 +1,7 @@
 ﻿using StarForce;
 using UnityEngine;
 
-public abstract class Targetable : EntityLogicWithData
+public abstract class Targetable : EntityLogicWithData, IPause
 {
     protected int m_Hp;
 
@@ -10,32 +10,53 @@ public abstract class Targetable : EntityLogicWithData
     public int Hp => m_Hp;
     public abstract CampType Camp { get; }
 
-    public Rigidbody2D CachedRigidbody { get; protected set; }
+    private Vector2 m_Velocity;
+    protected Animator m_Animator;
+    protected bool m_Pause;
 
     protected override void OnInit(object userData)
     {
         base.OnInit(userData);
 
-        CachedRigidbody = GetComponent<Rigidbody2D>();
-    }
-
-    public virtual void OnDead()
-    {
-        CachedRigidbody.velocity = Vector3.zero;
+        m_Animator = GetComponentInChildren<Animator>();
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
     {
         base.OnUpdate(elapseSeconds, realElapseSeconds);
-
-        Rotate();
     }
 
-    protected virtual void Rotate()
+    protected override void OnHide(bool isShutdown, object userData)
     {
-        Vector3 scale = CachedTransform.localScale;
-        scale.x = Mathf.Sign(CachedRigidbody.velocity.x) * Mathf.Abs(scale.x);
-        CachedTransform.localScale = scale;
+        base.OnHide(isShutdown, userData);
+
+        m_Velocity = Vector2.zero;
+        m_Pause = false;
+    }
+
+    private void FixedUpdate()
+    {
+        if (!m_Pause)
+        {
+            CachedTransform.Translate(m_Velocity * Time.fixedDeltaTime);
+        }
+    }
+
+    public virtual void OnDead()
+    {
+
+    }
+
+    public void SetVelocity(Vector2 moveVelocity, Vector2 forceVelocity)
+    {
+        if (!Mathf.Approximately(moveVelocity.x, 0f))
+        {
+            Vector3 scale = CachedTransform.localScale;
+            scale.x = Mathf.Abs(scale.x) * Mathf.Sign(moveVelocity.x);
+            CachedTransform.localScale = scale;
+        }
+
+        m_Velocity = moveVelocity + forceVelocity;
     }
 
     public virtual void TakeDamage(int damage)
@@ -50,5 +71,17 @@ public abstract class Targetable : EntityLogicWithData
             m_Hp = 0;
             OnDead();
         }
+    }
+
+    public void Pause()
+    {
+        m_Pause = true;
+        m_Animator.speed = 0f;
+    }
+
+    public void Resume()
+    {
+        m_Pause = false;
+        m_Animator.speed = 1f;
     }
 }

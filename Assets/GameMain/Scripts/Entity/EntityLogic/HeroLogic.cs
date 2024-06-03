@@ -9,7 +9,6 @@ public class HeroLogic : Targetable
     private float m_ShootInterval = 0.5f;
 
     private float m_ShootTimer;
-    private Vector2 m_LastMoveDirection;
     private HeroData m_HeroData;
 
     public override int MaxHp => m_HeroData.MaxHp;
@@ -32,12 +31,13 @@ public class HeroLogic : Targetable
     {
         base.OnUpdate(elapseSeconds, realElapseSeconds);
 
-        Vector2 moveInput = GetInput();
-        if (moveInput != Vector2.zero)
+        if (m_Pause)
         {
-            CachedRigidbody.velocity = moveInput * MoveSpeed;
-            m_LastMoveDirection = moveInput;
+            return;
         }
+
+        Vector2 moveInput = GetInput();
+        SetVelocity(moveInput * MoveSpeed, Vector2.zero);
 
         m_ShootTimer += elapseSeconds;
         if (m_ShootTimer > m_ShootInterval && Input.GetMouseButton(0))
@@ -59,7 +59,6 @@ public class HeroLogic : Targetable
         base.OnHide(isShutdown, userData);
 
         m_ShootTimer = 0f;
-        m_LastMoveDirection = Vector2.right;
     }
 
     public override void TakeDamage(int damage)

@@ -36,17 +36,18 @@ namespace StarForce
 
         public void Restart()
         {
-            
+            LevelController.OnLeave();
+            LevelController.OnEnter();
         }
 
         public void Pause()
         {
-
+            LevelController.OnPause();
         }
 
         public void Resume()
         {
-
+            LevelController.OnResume();
         }
 
         protected override void OnEnter(ProcedureOwner procedureOwner)

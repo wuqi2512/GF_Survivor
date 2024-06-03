@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{C3D3C2B4-AE46-A6C5-7115-EF379587DA9D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -72,6 +73,7 @@
     <Compile Include="Assets\GameMain\Scripts\BindingScript\DialogForm.BindComponents.cs" />
     <Compile Include="Assets\GameMain\Scripts\HPBar\HPBarComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\BindingScript\InGameForm.BindComponents.cs" />
+    <Compile Include="Assets\GameMain\Scripts\DataTable\DREntityGroup.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRUIForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\PacketBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\DialogParams.cs" />
@@ -152,7 +154,7 @@
     <Compile Include="Assets\GameMain\Scripts\Base\GameEntry.Builtin.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\HeroLogic.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRWeapon.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\EffectLogic.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\EffectAnimator.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedurePreload.cs" />
     <Compile Include="Assets\GameMain\Scripts\Extension\UIExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\EntityData.cs" />
@@ -167,6 +169,7 @@
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRSound.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\EffectData.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\Direction.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\IPause.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\PacketType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\EnemyLogic.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\BinaryReaderExtension.cs" />
@@ -183,7 +186,6 @@
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureChangeScene.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\CampType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\AIUtility.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\DREntityGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\GameMain\Configs\DefaultDictionary.xml" />

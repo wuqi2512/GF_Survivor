@@ -36,7 +36,7 @@ public class EnemyLogic : Targetable
         m_MeleeTimer += elapseSeconds;
 
         Vector3 direction = (m_Target.position - CachedTransform.position).normalized;
-        CachedRigidbody.velocity = direction * MoveSpeed;
+        SetVelocity(direction * MoveSpeed, Vector2.zero);
     }
 
     public override void OnDead()
@@ -46,14 +46,14 @@ public class EnemyLogic : Targetable
         GameEntry.Event.Fire(this, HideEnemyEventArgs.Create(Id, true));
     }
 
-    private void OnCollisionStay2D(UnityEngine.Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collider)
     {
         if (m_MeleeTimer < MeleeInterval)
         {
             return;
         }
 
-        Targetable targetable = collision.gameObject.GetComponent<Targetable>();
+        Targetable targetable = collider.GetComponentInParent<Targetable>();
         if (targetable == null)
         {
             return;
@@ -69,10 +69,9 @@ public class EnemyLogic : Targetable
         DamageInfo damageInfo = DamageInfo.Create(Id, targetable.Id, 0f, MeleeDamage);
         GameEntry.Event.Fire(this, DamageEventArgs.Create(damageInfo));
 
-        Vector2 hitPoint = collision.contacts[0].point;
-        Vector2 hitDir = (Vector2)(collision.transform.position - CachedTransform.position);
+        Vector2 hitDir = (Vector2)(collider.transform.position - CachedTransform.position);
         float degree = Mathf.Atan2(hitDir.y, hitDir.x) * Mathf.Rad2Deg;
-        EffectData effectData = EffectData.Create(10003, GameEntry.Entity.GenerateSerialId(), hitPoint, Quaternion.Euler(0f, 0f, degree));
-        GameEntry.Event.Fire(this, ShowEntityInLevelEventArgs.Create(typeof(EffectLogic), effectData));
+        EffectData effectData = EffectData.Create(10003, GameEntry.Entity.GenerateSerialId(), CachedTransform.position, Quaternion.Euler(0f, 0f, degree));
+        GameEntry.Event.Fire(this, ShowEntityInLevelEventArgs.Create(typeof(EffectAnimator), effectData));
     }
 }
