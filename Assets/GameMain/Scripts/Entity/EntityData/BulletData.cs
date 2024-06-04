@@ -28,7 +28,7 @@ public class BulletData : EntityData
         bulletData.m_Position = position;
         bulletData.m_Rotation = rotation;
 
-        bulletData.m_TotalBulletAttri = new BulletAttribute(10, 5f, 5f, 1, 0, 0, 0);
+        bulletData.m_TotalBulletAttri = new BulletAttribute(10, 5f, 5f, 1, 10, 10, 10);
 
         return bulletData;
     }

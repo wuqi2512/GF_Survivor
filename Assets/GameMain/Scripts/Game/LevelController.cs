@@ -137,7 +137,7 @@ public class LevelController
 
         if (currentHp == 0)
         {
-            GameOver = true;
+            GameEntry.Event.Fire(this, LevelOperationEventArgs.Create(LevelOperation.GameOver));
         }
     }
 

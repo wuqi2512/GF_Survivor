@@ -1,4 +1,5 @@
 ﻿using StarForce;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
@@ -6,9 +7,20 @@ public class BulletLogic : EntityLogicWithData, IPause
 {
     [SerializeField] private BulletData m_BulletData;
     private AttributeCounter m_AttributeCounter;
-    private Rigidbody2D m_RigidBody;
-    private bool m_IsDestroyed;
-    private bool m_Pause;
+    protected bool m_IsDestroyed;
+    protected bool m_Pause;
+    /// <summary>
+    /// 创建后多久可以命中实体
+    /// </summary>
+    protected float m_CanHitAfterCreated;
+    /// <summary>
+    /// 记录命中实体。Key: serialId, Value: activeTimer
+    /// </summary>
+    protected Dictionary<int, float> m_HitRecord;
+    /// <summary>
+    /// 命中同一实体的间隔
+    /// </summary>
+    protected float m_SameHitInterval = 0.5f;
 
     public CampType Camp => m_BulletData.Camp;
     private BulletAttribute m_BulletAttribute => m_BulletData.BulletAttri;
@@ -18,7 +30,7 @@ public class BulletLogic : EntityLogicWithData, IPause
         base.OnInit(userData);
 
         m_AttributeCounter = new AttributeCounter();
-        m_RigidBody = GetComponent<Rigidbody2D>();
+        m_HitRecord = new Dictionary<int, float>();
     }
 
     protected override void OnShow(object userData)
@@ -31,23 +43,19 @@ public class BulletLogic : EntityLogicWithData, IPause
             Log.Error("BulletData is invalid.");
         }
 
-        m_AttributeCounter.Clear();
         float scale = m_BulletData.BulletAttri.Scale;
-        CachedTransform.localScale = new Vector3(scale, scale, 0f);
+        CachedTransform.localScale = new Vector3(scale, scale, 1f);
         switch (m_BulletData.Camp)
         {
             case CampType.Player: gameObject.SetLayerRecursively(Constant.Layer.PlayerBullet); break;
         }
-
-        // m_RigidBody.velocity = CachedTransform.right * m_BulletAttribute.MoveSpeed;
-        m_IsDestroyed = false;
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
     {
         base.OnUpdate(elapseSeconds, realElapseSeconds);
 
-        if (m_Pause)
+        if (m_Pause && m_IsDestroyed)
         {
             return;
         }
@@ -63,7 +71,7 @@ public class BulletLogic : EntityLogicWithData, IPause
 
     private void FixedUpdate()
     {
-        if (m_Pause)
+        if (m_Pause && m_IsDestroyed)
         {
             return;
         }
@@ -76,12 +84,21 @@ public class BulletLogic : EntityLogicWithData, IPause
         base.OnHide(isShutdown, userData);
 
         m_BulletData = null;
+        m_AttributeCounter.Clear();
+        m_IsDestroyed = false;
         m_Pause = false;
+        m_CanHitAfterCreated = 0f;
+        m_HitRecord.Clear();
+    }
+
+    public void SetCanHitAfterCreated(float canHitAfterCreated)
+    {
+        m_CanHitAfterCreated = canHitAfterCreated;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (m_IsDestroyed)
+        if (m_Pause && m_IsDestroyed)
         {
             return;
         }
@@ -107,14 +124,28 @@ public class BulletLogic : EntityLogicWithData, IPause
             return;
         }
 
+        if (m_CanHitAfterCreated > m_AttributeCounter.ActiveTime)
+        {
+            return;
+        }
+
         RelationType relation = AIUtility.GetRelation(targetable.Camp, this.Camp);
         if (relation != RelationType.Hostile)
         {
             return;
         }
 
+        if (m_HitRecord.ContainsKey(targetable.Id))
+        {
+            if (m_HitRecord[targetable.Id] + m_SameHitInterval > m_AttributeCounter.ActiveTime)
+            {
+                return;
+            }
+        }
+
         DamageInfo damageInfo = DamageInfo.Create(Id, targetable.Id, 0f, m_BulletAttribute.Damage);
         GameEntry.Event.Fire(this, DamageEventArgs.Create(damageInfo));
+        m_HitRecord[targetable.Id] = m_AttributeCounter.ActiveTime;
 
         if (m_AttributeCounter.Splite < m_BulletAttribute.Splite)
         {
@@ -122,7 +153,16 @@ public class BulletLogic : EntityLogicWithData, IPause
 
             BulletData bulletData = BulletData.Create(m_BulletData.DRBullet.Id, GameEntry.Entity.GenerateSerialId(),
                 m_BulletData.Camp, CachedTransform.position, Quaternion.Euler(0f, 0f, Random.Range(0, 360)));
-            GameEntry.Event.Fire(this, ShowEntityInLevelEventArgs.Create(typeof(BulletLogic), bulletData));
+            GameEntry.Event.Fire(this, ShowEntityInLevelEventArgs.Create(typeof(BulletLogic), bulletData, (entity) =>
+            {
+                BulletLogic bulletLogic = entity.Logic as BulletLogic;
+                if (bulletLogic == null)
+                {
+                    Log.Error("BulletLogic is invalid.");
+                }
+
+                bulletLogic.SetCanHitAfterCreated(0.5f);
+            }));
         }
         if (m_AttributeCounter.Penetrate < m_BulletAttribute.Penetrate)
         {
