@@ -1,6 +1,6 @@
-﻿#	子弹表		
-#	Id		EntityId
-#	int		int
-#	子弹编号	策划备注	实体编号
-	10000	子弹	50000
-	10001	苦无	50001
+﻿#	子弹表						
+#	Id		EntityId	Damage	MoveSpeed	ActiveTime	BehaviourKey
+#	int		int	int	float	float	string
+#	子弹编号	策划备注	实体编号				
+	10000	子弹	50000	8	15	5	"Bullet"
+	10001	苦无	50001	4	8	9	"Kunai"

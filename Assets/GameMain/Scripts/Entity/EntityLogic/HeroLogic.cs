@@ -4,7 +4,7 @@ using UnityGameFramework.Runtime;
 
 public class HeroLogic : Targetable
 {
-    private int BulletId = 10001;
+    public BulletType BulletType = BulletType.Bullet;
     private float MoveSpeed = 3f;
     private float m_ShootInterval = 0.5f;
 
@@ -47,7 +47,7 @@ public class HeroLogic : Targetable
             Vector3 dir = mousePos - pos;
 
             float degree = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            BulletData bulletData = BulletData.Create(BulletId, GameEntry.Entity.GenerateSerialId(),
+            BulletData bulletData = BulletData.Create((int)BulletType, GameEntry.Entity.GenerateSerialId(),
                 CampType.Player, CachedTransform.position, Quaternion.Euler(0f, 0f, degree));
             GameEntry.Event.Fire(this, ShowEntityInLevelEventArgs.Create(typeof(BulletLogic), bulletData));
             m_ShootTimer = 0f;

@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2024-06-02 20:46:29.761
+// 生成时间：2024-06-08 20:46:25.419
 //------------------------------------------------------------
 
 using GameFramework;
@@ -45,6 +45,42 @@ namespace StarForce
             private set;
         }
 
+        /// <summary>
+        /// 获取。
+        /// </summary>
+        public int Damage
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取。
+        /// </summary>
+        public float MoveSpeed
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取。
+        /// </summary>
+        public float ActiveTime
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取。
+        /// </summary>
+        public string BehaviourKey
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -58,6 +94,10 @@ namespace StarForce
             m_Id = int.Parse(columnStrings[index++]);
             index++;
             EntityId = int.Parse(columnStrings[index++]);
+            Damage = int.Parse(columnStrings[index++]);
+            MoveSpeed = float.Parse(columnStrings[index++]);
+            ActiveTime = float.Parse(columnStrings[index++]);
+            BehaviourKey = columnStrings[index++];
 
             GeneratePropertyArray();
             return true;
@@ -71,6 +111,10 @@ namespace StarForce
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     EntityId = binaryReader.Read7BitEncodedInt32();
+                    Damage = binaryReader.Read7BitEncodedInt32();
+                    MoveSpeed = binaryReader.ReadSingle();
+                    ActiveTime = binaryReader.ReadSingle();
+                    BehaviourKey = binaryReader.ReadString();
                 }
             }
 

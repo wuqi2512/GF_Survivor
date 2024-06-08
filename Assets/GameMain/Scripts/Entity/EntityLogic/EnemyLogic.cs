@@ -46,14 +46,14 @@ public class EnemyLogic : Targetable
         GameEntry.Event.Fire(this, HideEntityInLevelEventArgs.Create(Id, true, true));
     }
 
-    private void OnTriggerStay2D(Collider2D collider)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (m_MeleeTimer < MeleeInterval)
         {
             return;
         }
 
-        Targetable targetable = collider.GetComponentInParent<Targetable>();
+        Targetable targetable = collision.rigidbody.GetComponentInParent<Targetable>();
         if (targetable == null)
         {
             return;
@@ -69,7 +69,7 @@ public class EnemyLogic : Targetable
         DamageInfo damageInfo = DamageInfo.Create(Id, targetable.Id, 0f, MeleeDamage);
         GameEntry.Event.Fire(this, DamageEventArgs.Create(damageInfo));
 
-        Vector2 hitDir = (Vector2)(collider.transform.position - CachedTransform.position);
+        Vector2 hitDir = collision.rigidbody.position - (Vector2)CachedTransform.position;
         float degree = Mathf.Atan2(hitDir.y, hitDir.x) * Mathf.Rad2Deg;
         EffectData effectData = EffectData.Create(10003, GameEntry.Entity.GenerateSerialId(), CachedTransform.position, Quaternion.Euler(0f, 0f, degree));
         GameEntry.Event.Fire(this, ShowEntityInLevelEventArgs.Create(typeof(EffectAnimator), effectData));

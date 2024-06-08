@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{C3D3C2B4-AE46-A6C5-7115-EF379587DA9D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -56,6 +57,7 @@
     <Analyzer Include="D:\LeiJin\Program\VisualStudio\2022\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\BulletData.Behaviours.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\DialogForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\BlackEdgeForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Sound\SoundExtension.cs" />
@@ -145,6 +147,7 @@
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRThruster.cs" />
     <Compile Include="Assets\GameMain\Scripts\BuiltinData\BuiltinDataComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\SCPacketBase.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\ProjectileData.cs" />
     <Compile Include="Assets\GameMain\Scripts\Base\GameEntry.Builtin.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\HeroLogic.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRWeapon.cs" />
@@ -168,16 +171,19 @@
     <Compile Include="Assets\GameMain\Scripts\DataTable\BinaryReaderExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\HPBar\HPBarItemObject.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UIComponent\CircleImage.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\BlackBoard.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\CSPacketBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Constant\Constant.AssetPriority.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\ModuleForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Extension\UnityExtension.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\BulletAttribute.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\ProjectileLogic.cs" />
     <Compile Include="Assets\GameMain\Scripts\Extension\ComponentAutoBindTool\ComponentAutoBindTool.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\CSPacketHeader.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureChangeScene.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\CampType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\AIUtility.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\BulletData.BulletBehaviour.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\BulletType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\GameMain\Configs\DefaultDictionary.xml" />
@@ -872,8 +878,14 @@
     <Reference Include="Unity.VisualScripting.Flow.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.Tilemap.Extras">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.CacheServer">
       <HintPath>Library\ScriptAssemblies\UnityEditor.CacheServer.dll</HintPath>
@@ -931,6 +943,9 @@
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Extras.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Services.Core">
       <HintPath>Library\ScriptAssemblies\Unity.Services.Core.dll</HintPath>

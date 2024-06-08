@@ -269,8 +269,8 @@
     <Compile Include="Assets\GameFramework\Scripts\Runtime\Variable\VarUInt64.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Runtime\Procedure\ProcedureComponent.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Runtime\DataTable\LoadDataTableSuccessEventArgs.cs" />
-    <Compile Include="Assets\GameFramework\Scripts\Runtime\Download\UnityWebRequestDownloadAgentHelper.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Runtime\Network\NetworkConnectedEventArgs.cs" />
+    <Compile Include="Assets\GameFramework\Scripts\Runtime\Download\UnityWebRequestDownloadAgentHelper.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Runtime\Utility\BinaryExtension.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Runtime\Utility\DefaultJsonHelper.cs" />
   </ItemGroup>

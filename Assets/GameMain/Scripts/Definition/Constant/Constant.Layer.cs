@@ -14,23 +14,25 @@ public static partial class Constant
     /// </summary>
     public static class Layer
     {
-        public static readonly int DefaultLayerId;
-        public static readonly int UILayerId;
+        public static readonly int DefaultId;
+        public static readonly int UIId;
+        public static readonly int PlayerId;
+        public static readonly int EnemyId;
+        public static readonly int PlayerBulletId;
+        public static readonly int WallId;
 
-        public static readonly int Player;
-        public static readonly int Enemy;
-        public static readonly int PlayerBullet;
-        public static readonly int Wall;
+        public static readonly int WallMask;
 
         static Layer()
         {
-            DefaultLayerId = LayerMask.NameToLayer("Default");
-            UILayerId = LayerMask.NameToLayer("UI");
+            DefaultId = LayerMask.NameToLayer("Default");
+            UIId = LayerMask.NameToLayer("UI");
+            PlayerId = LayerMask.NameToLayer("Player");
+            EnemyId = LayerMask.NameToLayer("Enemy");
+            PlayerBulletId = LayerMask.NameToLayer("PlayerBullet");
+            WallId = LayerMask.NameToLayer("Wall");
 
-            Player = LayerMask.NameToLayer("Player");
-            Enemy = LayerMask.NameToLayer("Enemy");
-            PlayerBullet = LayerMask.NameToLayer("PlayerBullet");
-            Wall = LayerMask.NameToLayer("Wall");
+            WallMask = 1 << WallId;
         }
     }
 }

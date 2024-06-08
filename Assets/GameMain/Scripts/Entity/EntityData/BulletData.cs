@@ -2,19 +2,47 @@
 using GameFramework.DataTable;
 using StarForce;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityGameFramework.Runtime;
 
 [Serializable]
-public class BulletData : EntityData
+public partial class BulletData : EntityData
 {
-    [SerializeField] protected DRBullet m_DRBullet;
-    [SerializeField] protected CampType m_CampType;
-    [SerializeField] protected BulletAttribute m_TotalBulletAttri;
+    public delegate void BulletOnCreate(BulletLogic bulletLogic);
+    public delegate Vector3 BulletMoveTween(BulletLogic bulletLogic, float elapseSeconds);
+    public delegate void BulletOnHit(BulletLogic bulletLogic, Collider2D other);
+    public delegate void BulletOnDestroy(BulletLogic bulletLogic);
+
+    protected DRBullet m_DRBullet;
+    protected CampType m_CampType;
+    /// <summary>
+    /// 创建后多久可以命中实体
+    /// </summary>
+    protected float m_CanHitAfterCreated;
+    /// <summary>
+    /// 命中同一实体的间隔
+    /// </summary>
+    protected const float m_SameTargetInterval = 0.3f;
+    /// <summary>
+    /// 记录命中实体。Key: serialId, Value: activeTimer
+    /// </summary>
+    protected Dictionary<int, float> m_HitRecord;
+    protected BlackBoard m_BlackBoard;
+    protected float m_ActiveSconds;
+    protected float m_Scale;
+    protected BulletBehaviour m_BulletBehaviour;
+
+    public BulletData()
+    {
+        m_HitRecord = new Dictionary<int, float>();
+        m_Scale = 1f;
+    }
 
     public override int EntityId => m_DRBullet.EntityId;
-    public DRBullet DRBullet => m_DRBullet;
     public CampType Camp => m_CampType;
-    public BulletAttribute BulletAttri => m_TotalBulletAttri;
+    public float Scale => m_Scale;
+    public BulletBehaviour Behaviour => m_BulletBehaviour;
 
     public static BulletData Create(int bulletId, int serialId, CampType campType, Vector3 position, Quaternion rotation)
     {
@@ -28,7 +56,11 @@ public class BulletData : EntityData
         bulletData.m_Position = position;
         bulletData.m_Rotation = rotation;
 
-        bulletData.m_TotalBulletAttri = new BulletAttribute(10, 5f, 5f, 1, 10, 10, 10);
+        bulletData.m_BlackBoard = BlackBoard.Create();
+        if (!s_BulletBehaviours.TryGetValue(bulletData.m_DRBullet.BehaviourKey, out bulletData.m_BulletBehaviour))
+        {
+            Log.Error("Can't find BulletBehaviour '{0}.'", bulletData.m_DRBullet.BehaviourKey);
+        }
 
         return bulletData;
     }
@@ -39,5 +71,46 @@ public class BulletData : EntityData
 
         m_DRBullet = null;
         m_CampType = CampType.Unknown;
+        m_CanHitAfterCreated = 0f;
+        m_HitRecord.Clear();
+        ReferencePool.Release(m_BlackBoard);
+        m_BlackBoard = null;
+        m_ActiveSconds = 0f;
+        m_Scale = 1f;
+    }
+
+    public bool UpdateActiveTime(float elapseSeconds)
+    {
+        m_ActiveSconds += elapseSeconds;
+        return m_ActiveSconds >= m_DRBullet.ActiveTime;
+    }
+
+    public bool CanHitEntity(Targetable target)
+    {
+        if (m_CanHitAfterCreated > m_ActiveSconds)
+        {
+            return false;
+        }
+
+        RelationType relation = AIUtility.GetRelation(target.Camp, Camp);
+        if (relation != RelationType.Hostile)
+        {
+            return false;
+        }
+
+        if (m_HitRecord.ContainsKey(target.Id))
+        {
+            if (m_HitRecord[target.Id] + m_SameTargetInterval > m_ActiveSconds)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void AddHitRecord(int serialId)
+    {
+        m_HitRecord[serialId] = m_ActiveSconds;
     }
 }
