@@ -1,29 +1,27 @@
 ﻿using StarForce;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Targetable : EntityLogicWithData, IPause
 {
-    protected int m_Hp;
-
-    public abstract int MaxHp { get; }
-    public bool IsDead => m_Hp <= 0;
-    public int Hp => m_Hp;
+    public abstract float MaxHp { get; }
+    public bool IsDead => Hp <= 0f;
+    public abstract float Hp { get; protected set; }
     public abstract CampType Camp { get; }
 
-    private Vector2 m_Velocity;
+    private Vector3 m_Velocity;
+    private Vector3 m_MoveVelocity;
+    private List<MovePreorder> m_ForceMove;
     protected Animator m_Animator;
     protected bool m_Pause;
+    protected bool m_IsDestroy;
 
     protected override void OnInit(object userData)
     {
         base.OnInit(userData);
 
         m_Animator = GetComponentInChildren<Animator>();
-    }
-
-    protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-    {
-        base.OnUpdate(elapseSeconds, realElapseSeconds);
+        m_ForceMove = new List<MovePreorder>();
     }
 
     protected override void OnHide(bool isShutdown, object userData)
@@ -31,23 +29,39 @@ public abstract class Targetable : EntityLogicWithData, IPause
         base.OnHide(isShutdown, userData);
 
         m_Velocity = Vector2.zero;
+        m_MoveVelocity = Vector2.zero;
+        m_ForceMove.Clear();
         m_Pause = false;
+        m_IsDestroy = false;
     }
 
-    private void FixedUpdate()
+    protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
     {
-        if (!m_Pause)
+        if (m_Pause || m_IsDestroy)
         {
-            CachedTransform.Translate(m_Velocity * Time.fixedDeltaTime);
+            return;
         }
+        
+        m_Velocity = m_MoveVelocity;
+        for (int i = m_ForceMove.Count - 1; i >= 0; i--)
+        {
+            MovePreorder movePreorder = m_ForceMove[i];
+            m_Velocity += movePreorder.GetVelocity(elapseSeconds);
+            if (movePreorder.IsFinish)
+            {
+                m_ForceMove.RemoveAt(i);
+            }
+        }
+        CachedTransform.Translate(m_Velocity * Time.fixedDeltaTime);
     }
 
     public virtual void OnDead()
     {
-
+        EffectData effectData = EffectData.Create((int)EffectType.DeadExplosionAnim, GameEntry.Entity.GenerateSerialId(), this.CachedTransform);
+        GameEntry.Event.Fire(this, ShowEntityInLevelEventArgs.Create(typeof(EffectAnimator), effectData, null));
     }
 
-    public void SetVelocity(Vector2 moveVelocity, Vector2 forceVelocity)
+    public void SetMoveVelocity(Vector3 moveVelocity)
     {
         if (!Mathf.Approximately(moveVelocity.x, 0f))
         {
@@ -56,20 +70,26 @@ public abstract class Targetable : EntityLogicWithData, IPause
             CachedTransform.localScale = scale;
         }
 
-        m_Velocity = moveVelocity + forceVelocity;
+        m_MoveVelocity = moveVelocity;
     }
 
-    public virtual void TakeDamage(int damage)
+    public void AddForceMove(MovePreorder forceMove)
     {
-        m_Hp -= damage;
+        m_ForceMove.Add(forceMove);
+    }
+
+    public virtual void TakeDamage(float damage)
+    {
+        Hp -= damage;
 
         BeDamagedEventArgs args = BeDamagedEventArgs.Create(damage, this.Id, IsDead, base.Entity, CachedTransform.position);
         GameEntry.Event.Fire(this, args);
 
         if (IsDead)
         {
-            m_Hp = 0;
+            Hp = 0f;
             OnDead();
+            m_IsDestroy = true;
         }
     }
 

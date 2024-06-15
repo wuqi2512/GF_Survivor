@@ -48,9 +48,9 @@ public partial class BulletLogic : EntityLogicWithData, IPause
 
     protected override void OnHide(bool isShutdown, object userData)
     {
-        base.OnHide(isShutdown, userData);
-
         BulletData.Behaviour.OnDestroy(this);
+        
+        base.OnHide(isShutdown, userData);
 
         BulletData = null;
         m_IsDestroyed = false;

@@ -5,13 +5,21 @@ using UnityGameFramework.Runtime;
 public class HeroLogic : Targetable
 {
     public BulletType BulletType = BulletType.Bullet;
-    private float MoveSpeed = 3f;
-    private float m_ShootInterval = 0.5f;
-
     private float m_ShootTimer;
     private HeroData m_HeroData;
 
-    public override int MaxHp => m_HeroData.MaxHp;
+    public override float Hp
+    {
+        get
+        {
+            return m_HeroData.ChaAttribute[NumericType.Hp].Value;
+        }
+        protected set
+        {
+            m_HeroData.ChaAttribute[NumericType.Hp].Base = value;
+        }
+    }
+    public override float MaxHp => m_HeroData.ChaAttribute[NumericType.MaxHp].Value;
     public override CampType Camp => CampType.Player;
 
     protected override void OnShow(object userData)
@@ -23,8 +31,6 @@ public class HeroLogic : Targetable
         {
             Log.Error("HeroData is invalid.");
         }
-
-        m_Hp = m_HeroData.MaxHp;
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -37,10 +43,10 @@ public class HeroLogic : Targetable
         }
 
         Vector2 moveInput = GetInput();
-        SetVelocity(moveInput * MoveSpeed, Vector2.zero);
+        SetMoveVelocity(moveInput * m_HeroData.ChaAttribute[NumericType.MoveSpeed].Value);
 
         m_ShootTimer += elapseSeconds;
-        if (m_ShootTimer > m_ShootInterval && Input.GetMouseButton(0))
+        if (m_ShootTimer > 1 / m_HeroData.ChaAttribute[NumericType.AttackSpeed].Value && Input.GetMouseButton(0))
         {
             Vector3 mousePos = Input.mousePosition;
             Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
@@ -61,12 +67,6 @@ public class HeroLogic : Targetable
         m_ShootTimer = 0f;
     }
 
-    public override void TakeDamage(int damage)
-    {
-        GameEntry.Event.Fire(this, PlayerHpChangedEventArgs.Create(m_Hp, m_Hp - damage));
-
-        base.TakeDamage(damage);
-    }
     private static Vector2 GetInput()
     {
         float x = Input.GetAxis("Horizontal");

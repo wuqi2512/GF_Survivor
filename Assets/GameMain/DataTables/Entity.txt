@@ -6,6 +6,8 @@
 	10001	敌人	Zombie	10003
 	50000	子弹	Bullet	10001
 	50001	苦无	Kunai	10001
+	50002	弹球	BouncingBall	10001
+	50003	炸弹	Bomb	10001
 	70000	爆炸特效	Explosion	10002
 	70001	死亡爆炸特效	DeadExplosion	10002
 	70002	受击特效	Hit	10002

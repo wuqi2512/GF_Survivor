@@ -27,7 +27,7 @@ public class EffectAnimator : EntityLogicWithData, IPause
         }
 
         CachedTransform.localScale = m_EffectData.Scale;
-        m_Animator.Play(m_EffectData.DREffect.AnimName);
+        m_Animator.Play(m_EffectData.DREffect.AnimName, -1, 0f);
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)

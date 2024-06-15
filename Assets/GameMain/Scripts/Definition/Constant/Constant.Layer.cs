@@ -21,6 +21,7 @@ public static partial class Constant
         public static readonly int PlayerBulletId;
         public static readonly int WallId;
 
+        public static readonly int EnemyMask;
         public static readonly int WallMask;
 
         static Layer()
@@ -32,6 +33,7 @@ public static partial class Constant
             PlayerBulletId = LayerMask.NameToLayer("PlayerBullet");
             WallId = LayerMask.NameToLayer("Wall");
 
+            EnemyMask = 1 << EnemyId;
             WallMask = 1 << WallId;
         }
     }

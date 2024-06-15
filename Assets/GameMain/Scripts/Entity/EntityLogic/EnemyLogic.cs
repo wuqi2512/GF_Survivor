@@ -9,10 +9,16 @@ public class EnemyLogic : Targetable
     private float MoveSpeed = 2f;
     private EnemyData m_EnemyData;
 
+    private float m_Hp;
     private float m_MeleeTimer;
     private Transform m_Target;
 
-    public override int MaxHp => m_EnemyData.MexHp;
+    public override float Hp
+    {
+        get => m_Hp;
+        protected set => m_Hp = value;
+    }
+    public override float MaxHp => m_EnemyData.MexHp;
     public override CampType Camp => CampType.Enemy;
 
     protected override void OnShow(object userData)
@@ -31,12 +37,17 @@ public class EnemyLogic : Targetable
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
     {
-        base.OnUpdate(elapseSeconds, realElapseSeconds);
+        if (m_Pause || m_IsDestroy)
+        {
+            return;
+        }
 
         m_MeleeTimer += elapseSeconds;
 
         Vector3 direction = (m_Target.position - CachedTransform.position).normalized;
-        SetVelocity(direction * MoveSpeed, Vector2.zero);
+        SetMoveVelocity(direction * MoveSpeed);
+
+        base.OnUpdate(elapseSeconds, realElapseSeconds);
     }
 
     public override void OnDead()
@@ -48,6 +59,11 @@ public class EnemyLogic : Targetable
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        if (m_Pause || m_IsDestroy)
+        {
+            return;
+        }
+
         if (m_MeleeTimer < MeleeInterval)
         {
             return;
@@ -66,12 +82,12 @@ public class EnemyLogic : Targetable
         }
 
         m_MeleeTimer = 0f;
-        DamageInfo damageInfo = DamageInfo.Create(Id, targetable.Id, 0f, MeleeDamage);
+        DamageInfo damageInfo = DamageInfo.Create(Id, targetable.Id, MeleeDamage);
         GameEntry.Event.Fire(this, DamageEventArgs.Create(damageInfo));
 
         Vector2 hitDir = collision.rigidbody.position - (Vector2)CachedTransform.position;
         float degree = Mathf.Atan2(hitDir.y, hitDir.x) * Mathf.Rad2Deg;
-        EffectData effectData = EffectData.Create(10003, GameEntry.Entity.GenerateSerialId(), CachedTransform.position, Quaternion.Euler(0f, 0f, degree));
+        EffectData effectData = EffectData.Create((int)EffectType.SlashAnim, GameEntry.Entity.GenerateSerialId(), CachedTransform.position, Quaternion.Euler(0f, 0f, degree));
         GameEntry.Event.Fire(this, ShowEntityInLevelEventArgs.Create(typeof(EffectAnimator), effectData));
     }
 }

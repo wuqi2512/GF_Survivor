@@ -1,4 +1,4 @@
-﻿using GameFramework;
+﻿using StarForce;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
@@ -6,7 +6,9 @@ using UnityGameFramework.Runtime;
 public partial class BulletData
 {
     private static Dictionary<string, BulletBehaviour> s_BulletBehaviours;
-
+    static RaycastHit2D[] s_Hits = new RaycastHit2D[24];
+    static Collider2D[] s_Collider2Ds = new Collider2D[24];
+    static Targetable[] s_Targetables = new Targetable[24];
     static BulletData()
     {
         s_BulletBehaviours = new Dictionary<string, BulletBehaviour>();
@@ -14,52 +16,8 @@ public partial class BulletData
         s_BulletBehaviours.Add("BouncingBall", new BulletBehaviour(BouncingBall_OnCreate, NormalTween, BouncingBall_OnHit, null));
         s_BulletBehaviours.Add("Kunai", new BulletBehaviour(Kunai_OnCrate, NormalTween, Kunai_OnHit, null));
         s_BulletBehaviours.Add("Bullet", new BulletBehaviour(Bullet_OnCreate, AccelerationTween, Bullet_OnHit, null));
+        s_BulletBehaviours.Add("Bomb", new BulletBehaviour(Bomb_OnCreate, NormalTween, Bomb_OnHit, Bomb_OnDestroy));
     }
-
-    static RaycastHit2D[] s_Hits = new RaycastHit2D[24];
-
-    private static Vector3 AccelerationTween(BulletLogic bulletLogic, float elapseSeconds)
-    {
-        BulletData bulletData = bulletLogic.BulletData;
-        float curSpeed = bulletData.m_DRBullet.MoveSpeed + bulletData.m_BlackBoard.GetData<VarSingle>("Acceleration") * bulletData.m_ActiveSconds;
-        return new Vector3(curSpeed * elapseSeconds, 0f, 0f);
-    }
-
-    private static Vector3 NormalTween(BulletLogic bulletLogic, float elapseSeconds)
-    {
-        BulletData bulletData = bulletLogic.BulletData;
-        return new Vector3(bulletData.m_DRBullet.MoveSpeed * elapseSeconds, 0f, 0f);
-    }
-
-    private static void BouncingOnHitWall(Transform transform)
-    {
-        Vector2 originDir = transform.right;
-        Physics2D.RaycastNonAlloc(transform.position, originDir, s_Hits, 10f, 1 << Constant.Layer.WallMask);
-        RaycastHit2D hit = s_Hits[0];
-        Vector2 dir = originDir - (originDir * hit.normal) * hit.normal * 2;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle);
-    }
-
-    private static void CastDamage(int id, int targetId, float hitDegree, int damage)
-    {
-        DamageInfo damageInfo = DamageInfo.Create(id, targetId, hitDegree, damage);
-        GameEntry.Event.Fire(null, DamageEventArgs.Create(damageInfo));
-    }
-
-    private static void SpliteBulletsWithRandomRotation(BulletLogic bulletLogic, int count = 1)
-    {
-        BulletData bulletData = bulletLogic.BulletData;
-
-        for (int i = 0; i < count; i++)
-        {
-            BulletData newBulletData = BulletData.Create(bulletLogic.BulletData.m_DRBullet.Id, GameEntry.Entity.GenerateSerialId(),
-                bulletData.Camp, bulletLogic.CachedTransform.position, Quaternion.Euler(0f, 0f, Utility.Random.GetRandomFloat(0, 360)));
-            newBulletData.m_CanHitAfterCreated = 0.2f;
-            GameEntry.Event.Fire(null, ShowEntityInLevelEventArgs.Create(typeof(BulletLogic), newBulletData));
-        }
-    }
-
 
     #region BoucingBall
     private static void BouncingBall_OnCreate(BulletLogic bulletLogic)
@@ -72,11 +30,11 @@ public partial class BulletData
 
     private static void BouncingBall_OnHit(BulletLogic bulletLogic, Collider2D other)
     {
-        Targetable targetable = other.gameObject.GetComponentInParent<Targetable>();
+        Targetable targetable = other.gameObject.GetComponent<Targetable>();
         BulletData bulletData = bulletLogic.BulletData;
         if (targetable != null && bulletData.CanHitEntity(targetable))
         {
-            CastDamage(bulletLogic.Id, targetable.Id, 0f, bulletData.m_DRBullet.Damage);
+            CastDamage(bulletLogic.Id, targetable.Id, bulletData.m_DRBullet.Damage);
             bulletLogic.DestroySelf();
 
             return;
@@ -116,10 +74,10 @@ public partial class BulletData
     private static void Kunai_OnHit(BulletLogic bulletLogic, Collider2D other)
     {
         BulletData bulletData = bulletLogic.BulletData;
-        Targetable targetable = other.gameObject.GetComponentInParent<Targetable>();
+        Targetable targetable = other.gameObject.GetComponent<Targetable>();
         if (targetable != null && bulletData.CanHitEntity(targetable))
         {
-            CastDamage(bulletLogic.Id, targetable.Id, 0f, bulletData.m_DRBullet.Damage);
+            CastDamage(bulletLogic.Id, targetable.Id, bulletData.m_DRBullet.Damage);
             bulletLogic.DestroySelf();
 
             int spliteCount = bulletData.m_BlackBoard.GetData<VarInt32>("SpliteCount");
@@ -154,10 +112,10 @@ public partial class BulletData
     private static void Bullet_OnHit(BulletLogic bulletLogic, Collider2D other)
     {
         BulletData bulletData = bulletLogic.BulletData;
-        Targetable targetable = other.gameObject.GetComponentInParent<Targetable>();
+        Targetable targetable = other.gameObject.GetComponent<Targetable>();
         if (targetable != null && bulletData.CanHitEntity(targetable))
         {
-            CastDamage(bulletLogic.Id, targetable.Id, 0f, bulletData.m_DRBullet.Damage);
+            CastDamage(bulletLogic.Id, targetable.Id, bulletData.m_DRBullet.Damage);
             bulletData.AddHitRecord(targetable.Id);
 
             int penetrates = bulletData.m_BlackBoard.GetData<VarInt32>("Penetrates");
@@ -179,6 +137,53 @@ public partial class BulletData
         {
             bulletLogic.DestroySelf();
         }
+    }
+
+    #endregion
+
+    #region Bomb
+
+    private static void Bomb_OnCreate(BulletLogic bulletLogic)
+    {
+        BlackBoard blackBoard = bulletLogic.BulletData.m_BlackBoard;
+        blackBoard.SetData("ExplosionDamage", (VarInt32)10);
+        blackBoard.SetData("ExplosionRadius", (VarSingle)0.7f);
+        blackBoard.SetData("ExplosionForceMoveMagnitude", (VarSingle)5f);
+        blackBoard.SetData("ExplosionForceMoveDuration", (VarSingle)0.3f);
+        blackBoard.SetData("ExplosionEffectId", (VarInt32)(int)EffectType.ExplosionAnim);
+    }
+
+    private static void Bomb_OnHit(BulletLogic bulletLogic, Collider2D other)
+    {
+        BulletData bulletData = bulletLogic.BulletData;
+        Targetable targetable = other.gameObject.GetComponent<Targetable>();
+        if (targetable != null && bulletData.CanHitEntity(targetable))
+        {
+            CastDamage(bulletLogic.Id, targetable.Id, bulletData.m_DRBullet.Damage);
+        }
+
+        bulletLogic.DestroySelf();
+    }
+
+    private static void Bomb_OnDestroy(BulletLogic bulletLogic)
+    {
+        BlackBoard blackBoard = bulletLogic.BulletData.m_BlackBoard;
+        int explosionDamage = blackBoard.GetData<VarInt32>("ExplosionDamage");
+        float explosionRadius = blackBoard.GetData<VarSingle>("ExplosionRadius");
+        int explosionEffectId = blackBoard.GetData<VarInt32>("ExplosionEffectId");
+        float explosionForceMoveMagnitude = blackBoard.GetData<VarSingle>("ExplosionForceMoveMagnitude");
+        float explosionForceMoveDuration = blackBoard.GetData<VarSingle>("ExplosionForceMoveDuration");
+        int layerMask;
+        switch (bulletLogic.BulletData.Camp)
+        {
+            case CampType.Player: layerMask = Constant.Layer.EnemyMask; break;
+            default: Log.Warning("Explosion form {0} is not complecated.", bulletLogic.BulletData.Camp); return;
+        }
+        int count = Physics2D.OverlapCircleNonAlloc(bulletLogic.CachedTransform.position, explosionRadius, s_Collider2Ds, layerMask);
+        int targetableCount = GetTargetables(s_Collider2Ds, count, s_Targetables);
+        CastDamages(bulletLogic.Id, explosionDamage, s_Targetables, targetableCount);
+        AddForceMove(s_Targetables, targetableCount, bulletLogic.CachedTransform.position, explosionForceMoveMagnitude, explosionForceMoveDuration);
+        ShowEffect(explosionEffectId, bulletLogic.CachedTransform.position, null);
     }
 
     #endregion

@@ -131,11 +131,12 @@ public class LevelController
         }
     }
 
-    public void OnPlayerHpChanged(int lastHp, int currentHp)
+    public void OnPlayerHpChanged()
     {
-        m_View.SetHpBar((float)currentHp / lastHp);
+        float ratio = Player.Hp / Player.MaxHp;
+        m_View.SetHpBar(ratio);
 
-        if (currentHp == 0)
+        if (ratio == 0f)
         {
             GameEntry.Event.Fire(this, LevelOperationEventArgs.Create(LevelOperation.GameOver));
         }
@@ -143,34 +144,36 @@ public class LevelController
 
     public void HandleDamageInfo(DamageInfo damageInfo)
     {
-        Targetable defender = m_EntityLoader.GetEntity(damageInfo.Defender).Logic as Targetable;
+        if (damageInfo == null)
+        {
+            Log.Error("DamageInfo is invalid.");
+            return;
+        }
+
+        Entity entity = m_EntityLoader.GetEntity(damageInfo.Defender);
+        if (entity == null)
+        {
+            return;
+        }
+
+        Targetable defender = entity.Logic as Targetable;
         if (defender == null || defender.IsDead)
         {
             return;
         }
 
-        int damage = damageInfo.Damage;
-        bool isDead = false;
+        float damage = damageInfo.Damage;
         bool isCritical = GlobelRandom.GetRandomFloat(0f, 1f) < damageInfo.CriticalRate;
         if (isCritical)
         {
-            damage = (int)(damage * damageInfo.CriticalMulti);
+            damage = damage * damageInfo.CriticalMulti;
         }
         if (damage >= defender.Hp)
         {
             damage = defender.Hp;
-            isDead = true;
         }
 
         defender.TakeDamage(damage);
-
-        int effectId = 10002;
-        if (isDead)
-        {
-            effectId = 10001;
-        }
-        EffectData effectData = EffectData.Create(effectId, GameEntry.Entity.GenerateSerialId(), defender.CachedTransform);
-        ShowEntity(typeof(EffectAnimator), effectData, null);
     }
 
     public void ShowEntity(Type logicType, EntityData entityData, Action<Entity> onSuccess)

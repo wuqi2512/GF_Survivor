@@ -9,13 +9,13 @@ public class BeDamagedEventArgs : GameEventArgs
 
     public override int Id => EventId;
 
-    public int Damage { get; private set; }
+    public float Damage { get; private set; }
     public int SerialId { get; private set; }
     public bool Dead { get; private set; }
     public Entity Entity { get; private set; }
     public Vector3 Position { get; private set; }
 
-    public static BeDamagedEventArgs Create(int damage, int serialId, bool dead, Entity entity, Vector3 position)
+    public static BeDamagedEventArgs Create(float damage, int serialId, bool dead, Entity entity, Vector3 position)
     {
         BeDamagedEventArgs args = ReferencePool.Acquire<BeDamagedEventArgs>();
         args.Damage = damage;

@@ -38,7 +38,6 @@ namespace StarForce
             GameEntry.Event.Subscribe(OpenUIFormFailureEventArgs.EventId, OpenUIFormFailure);
             GameEntry.Event.Subscribe(DamageEventArgs.EventId, HandleDamageInfo);
             GameEntry.Event.Subscribe(BeDamagedEventArgs.EventId, BeDamaged);
-            GameEntry.Event.Subscribe(PlayerHpChangedEventArgs.EventId, OnPlayerHpChanged);
             GameEntry.Event.Subscribe(ShowEntityInLevelEventArgs.EventId, OnShowEntityInLevel);
             GameEntry.Event.Subscribe(HideEntityInLevelEventArgs.EventId, OnHideEntityInLevel);
             GameEntry.Event.Subscribe(LevelOperationEventArgs.EventId, OnLevelOperation);
@@ -62,7 +61,6 @@ namespace StarForce
             GameEntry.Event.Unsubscribe(OpenUIFormFailureEventArgs.EventId, OpenUIFormFailure);
             GameEntry.Event.Unsubscribe(DamageEventArgs.EventId, HandleDamageInfo);
             GameEntry.Event.Unsubscribe(BeDamagedEventArgs.EventId, BeDamaged);
-            GameEntry.Event.Unsubscribe(PlayerHpChangedEventArgs.EventId, OnPlayerHpChanged);
             GameEntry.Event.Unsubscribe(ShowEntityInLevelEventArgs.EventId, OnShowEntityInLevel);
             GameEntry.Event.Unsubscribe(HideEntityInLevelEventArgs.EventId, OnHideEntityInLevel);
             GameEntry.Event.Unsubscribe(LevelOperationEventArgs.EventId, OnLevelOperation);
@@ -168,17 +166,10 @@ namespace StarForce
             }
 
             GameEntry.DamageNumber.ShowDamageNumber(ne.Position, ne.Damage.ToString());
-        }
-
-        private void OnPlayerHpChanged(object sender, BaseEventArgs e)
-        {
-            var ne = e as PlayerHpChangedEventArgs;
-            if (ne == null)
+            if (ne.SerialId == LevelController.Player.Id)
             {
-                return;
+                LevelController.OnPlayerHpChanged();
             }
-
-            LevelController.OnPlayerHpChanged(ne.LastHp, ne.CurrentHp);
         }
 
         private void OnShowEntityInLevel(object sender, BaseEventArgs e)
