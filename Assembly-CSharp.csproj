@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{C3D3C2B4-AE46-A6C5-7115-EF379587DA9D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -27,7 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,7 +35,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <NoConfig>true</NoConfig>
@@ -57,15 +56,11 @@
     <Analyzer Include="D:\LeiJin\Program\VisualStudio\2022\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\GameMain\Scripts\Game\Character\ChaAttribute.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\Character\NumericType.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\DialogForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\BlackEdgeForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Sound\SoundExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\EnemyData.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\DRScene.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureUpdateVersion.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\DREffect.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\MainMenuForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\SettingForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\Event\HideEntityInLevelEventArgs.cs" />
@@ -74,8 +69,7 @@
     <Compile Include="Assets\GameMain\Scripts\BindingScript\DialogForm.BindComponents.cs" />
     <Compile Include="Assets\GameMain\Scripts\HPBar\HPBarComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\BindingScript\InGameForm.BindComponents.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\DREntityGroup.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\DRUIForm.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\Hero.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\PacketBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\DialogParams.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\CommonButton.cs" />
@@ -96,91 +90,101 @@
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\DataStruct\BuildInfo.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\MovePreorder.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\DRArmor.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UIComponent\RotationDiagramItem.cs" />
     <Compile Include="Assets\GameMain\Scripts\Extension\ComponentAutoBindTool\IAutoBindRuleHelper.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbEntity.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\AssetUtility.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UGuiForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureVerifyResources.cs" />
     <Compile Include="Assets\GameMain\Scripts\Debugger\ChangeLanguageDebuggerWindow.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\Item.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\DamageNumber\DamageNumberItem.cs" />
     <Compile Include="Assets\GameMain\Scripts\Extension\ComponentAutoBindTool\DefaultAutoBindRuleHelper.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\DRMusic.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\Effect.cs" />
     <Compile Include="Assets\GameMain\Scripts\Base\GameEntry.Custom.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\EntityGroup.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbEffect.cs" />
     <Compile Include="Assets\GameMain\Scripts\BindingScript\TileMapForm.BindComponents.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\LitJsonHelper.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\Tables.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UIFormId.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\Event\BeDamagedEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureBase.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\DRBullet.cs" />
     <Compile Include="Assets\GameMain\Scripts\BindingScript\MainMenuForm.BindComponents.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\DamageNumber\DamageNumberComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\Character\Numeric.cs" />
     <Compile Include="Assets\GameMain\Scripts\Localization\XmlLocalizationHelper.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\item.EQuality.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Constant\Constant.Layer.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbBullet.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureLaunch.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\Bullet.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbHero.cs" />
     <Compile Include="Assets\GameMain\Scripts\Base\GameEntry.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\DRAsteroid.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbEntityGroup.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbUIForm.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\UIForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UIComponent\RaderGraphic.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\Scene.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\Event\LevelOperationEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Extension\PivotPreset.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureCheckResources.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Character\NumericType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\LevelOperation.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureCheckVersion.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\Entity.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureMenu.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Constant\Constant.Setting.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\NetworkChannelHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\CSHeartBeat.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\Targetable.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\AboutForm.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Base\LubanComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\DamageInfo.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\HeroData.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\WebUtility.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\Types.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\DRAircraft.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\SCPacketHeader.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UIComponent\RotationDiagram.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Character\Equipment.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\Event\DamageEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\BindingScript\PauseMenuForm.BindComponents.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\SCHeartBeat.cs" />
     <Compile Include="Assets\GameMain\Scripts\HPBar\HPBarItem.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\DRUISound.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\DataStruct\VersionInfo.cs" />
     <Compile Include="Assets\GameMain\Scripts\BindingScript\SettingForm.BindComponents.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\RelationType.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\DRThruster.cs" />
     <Compile Include="Assets\GameMain\Scripts\BuiltinData\BuiltinDataComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\SCPacketBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\ProjectileData.cs" />
     <Compile Include="Assets\GameMain\Scripts\Base\GameEntry.Builtin.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\HeroLogic.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\DRWeapon.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\EffectAnimator.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedurePreload.cs" />
     <Compile Include="Assets\GameMain\Scripts\Extension\UIExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\EntityData.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\DataTableExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\InGameForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\BulletData.CommonMethods.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\PauseMenuForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\Event\ShowEntityInLevelEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\BulletLogic.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\DREntity.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\PacketHandlerBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLoader.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\DRSound.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\EffectData.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Character\ChaAttribute.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\IPause.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\PacketType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\EnemyLogic.cs" />
-    <Compile Include="Assets\GameMain\Scripts\DataTable\BinaryReaderExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\HPBar\HPBarItemObject.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UIComponent\CircleImage.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\BlackBoard.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbScene.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\CSPacketBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Constant\Constant.AssetPriority.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\ModuleForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Extension\UnityExtension.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\item.ItemExchange.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbItem.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\BulletData.Behaviours.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\ProjectileLogic.cs" />
     <Compile Include="Assets\GameMain\Scripts\Extension\ComponentAutoBindTool\ComponentAutoBindTool.cs" />
@@ -194,34 +198,26 @@
     <None Include="Assets\GameMain\Localization\ChineseTraditional\Dictionaries\Default.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
-    <None Include="Assets\GameMain\DataTables\Music.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
-    <None Include="Assets\GameMain\DataTables\UISound.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\GameMain\Localization\English\Dictionaries\Default.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\GameMain\Configs\DefaultConfig.txt" />
     <None Include="Assets\GameMain\Configs\ResourceBuilder.xml" />
     <None Include="Assets\GameMain\Configs\ResourceCollection.xml" />
-    <None Include="Assets\GameMain\DataTables\UIForm.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\GameMain\Configs\DataTableCodeTemplate.txt" />
-    <None Include="Assets\GameMain\DataTables\Effect.txt" />
-    <None Include="Assets\GameMain\DataTables\Sound.txt" />
-    <None Include="Assets\GameMain\DataTables\Scene.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
-    <None Include="Assets\GameMain\DataTables\EntityGroup.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\GameMain\Configs\BuildSettings.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\GameMain\Localization\ChineseSimplified\Dictionaries\Default.xml" />
-    <None Include="Assets\GameMain\DataTables\Bullet.txt" />
     <None Include="Assets\GameMain\Libraries\LitJson.dll" />
     <None Include="Assets\GameFramework\Libraries\ICSharpCode.SharpZipLib.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
@@ -234,7 +230,6 @@
     <None Include="Assets\GameMain\Configs\BuildInfo.txt" />
     <None Include="Assets\GameMain\Libraries\protobuf-net.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
-    <None Include="Assets\GameMain\DataTables\Entity.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -921,11 +916,11 @@
     <Reference Include="Unity.VisualScripting.State.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.InternalAPIEngineBridge.006">
-      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.006.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Luban.Runtime">
+      <HintPath>Library\ScriptAssemblies\Luban.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection">
       <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll</HintPath>
@@ -966,9 +961,6 @@
     <Reference Include="Unity.Services.Core.Analytics">
       <HintPath>Library\ScriptAssemblies\Unity.Services.Core.Analytics.dll</HintPath>
     </Reference>
-    <Reference Include="com.shaunhe.datatableeditor">
-      <HintPath>Library\ScriptAssemblies\com.shaunhe.datatableeditor.dll</HintPath>
-    </Reference>
     <Reference Include="com.unity.cinemachine.editor">
       <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
@@ -992,6 +984,9 @@
     </Reference>
     <Reference Include="Unity.TestTools.CodeCoverage.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Luban.Editor">
+      <HintPath>Library\ScriptAssemblies\Luban.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>

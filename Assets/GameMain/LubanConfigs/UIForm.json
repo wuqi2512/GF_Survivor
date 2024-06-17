@@ -1,0 +1,51 @@
+[
+  {
+    "Id": 1,
+    "AssetName": "DialogForm",
+    "UIGroupName": "Default",
+    "AllowMultiInstance": true,
+    "PauseCoveredUIForm": true
+  },
+  {
+    "Id": 100,
+    "AssetName": "MainMenuForm",
+    "UIGroupName": "Default",
+    "AllowMultiInstance": false,
+    "PauseCoveredUIForm": true
+  },
+  {
+    "Id": 101,
+    "AssetName": "SettingForm",
+    "UIGroupName": "Default",
+    "AllowMultiInstance": false,
+    "PauseCoveredUIForm": true
+  },
+  {
+    "Id": 103,
+    "AssetName": "TileMapForm",
+    "UIGroupName": "Default",
+    "AllowMultiInstance": false,
+    "PauseCoveredUIForm": true
+  },
+  {
+    "Id": 104,
+    "AssetName": "PauseMenuForm",
+    "UIGroupName": "Default",
+    "AllowMultiInstance": false,
+    "PauseCoveredUIForm": false
+  },
+  {
+    "Id": 105,
+    "AssetName": "InGameForm",
+    "UIGroupName": "Default",
+    "AllowMultiInstance": false,
+    "PauseCoveredUIForm": true
+  },
+  {
+    "Id": 106,
+    "AssetName": "BlackEdgeForm",
+    "UIGroupName": "Background",
+    "AllowMultiInstance": false,
+    "PauseCoveredUIForm": false
+  }
+]

@@ -210,8 +210,8 @@
     <Compile Include="Assets\GameFramework\GameFramework\Resource\ResourceUpdateStartEventArgs.cs" />
     <Compile Include="Assets\GameFramework\GameFramework\Resource\LoadResourceStatus.cs" />
     <Compile Include="Assets\GameFramework\GameFramework\Download\DownloadManager.cs" />
-    <Compile Include="Assets\GameFramework\GameFramework\Entity\IEntity.cs" />
     <Compile Include="Assets\GameFramework\GameFramework\Base\TaskPool\StartTaskStatus.cs" />
+    <Compile Include="Assets\GameFramework\GameFramework\Entity\IEntity.cs" />
     <Compile Include="Assets\GameFramework\GameFramework\Resource\UpdatableVersionListSerializer.cs" />
     <Compile Include="Assets\GameFramework\GameFramework\Network\NetworkManager.SendState.cs" />
     <Compile Include="Assets\GameFramework\GameFramework\Base\GameFrameworkLinkedList.cs" />

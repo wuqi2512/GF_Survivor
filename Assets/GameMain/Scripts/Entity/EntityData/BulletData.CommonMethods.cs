@@ -8,14 +8,14 @@ public partial class BulletData
     private static Vector3 AccelerationTween(BulletLogic bulletLogic, float elapseSeconds)
     {
         BulletData bulletData = bulletLogic.BulletData;
-        float curSpeed = bulletData.m_DRBullet.MoveSpeed + bulletData.m_BlackBoard.GetData<VarSingle>("Acceleration") * bulletData.m_ActiveSconds;
+        float curSpeed = bulletData.m_Bullet.MoveSpeed + bulletData.m_BlackBoard.GetData<VarSingle>("Acceleration") * bulletData.m_ActiveSconds;
         return new Vector3(curSpeed * elapseSeconds, 0f, 0f);
     }
 
     private static Vector3 NormalTween(BulletLogic bulletLogic, float elapseSeconds)
     {
         BulletData bulletData = bulletLogic.BulletData;
-        return new Vector3(bulletData.m_DRBullet.MoveSpeed * elapseSeconds, 0f, 0f);
+        return new Vector3(bulletData.m_Bullet.MoveSpeed * elapseSeconds, 0f, 0f);
     }
 
     private static void BouncingOnHitWall(Transform transform)
@@ -40,7 +40,7 @@ public partial class BulletData
         GameEntry.Event.Fire(null, ShowEntityInLevelEventArgs.Create(typeof(EffectAnimator), effectData, onSuccess));
     }
 
-    private static void CastDamage(int attackerId, int targetId, int damage)
+    private static void CastDamage(int attackerId, int targetId, float damage)
     {
         DamageInfo damageInfo = DamageInfo.Create(attackerId, targetId, damage);
         GameEntry.Event.Fire(null, DamageEventArgs.Create(damageInfo));
@@ -86,7 +86,7 @@ public partial class BulletData
 
         for (int i = 0; i < count; i++)
         {
-            BulletData newBulletData = BulletData.Create(bulletLogic.BulletData.m_DRBullet.Id, GameEntry.Entity.GenerateSerialId(),
+            BulletData newBulletData = BulletData.Create(bulletLogic.BulletData.m_Bullet.Id, GameEntry.Entity.GenerateSerialId(),
                 bulletData.Camp, bulletLogic.CachedTransform.position, Quaternion.Euler(0f, 0f, Utility.Random.GetRandomFloat(0, 360)));
             newBulletData.m_CanHitAfterCreated = 0.2f;
             GameEntry.Event.Fire(null, ShowEntityInLevelEventArgs.Create(typeof(BulletLogic), newBulletData));

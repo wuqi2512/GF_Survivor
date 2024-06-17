@@ -31,10 +31,17 @@ public partial class GameEntry : MonoBehaviour
         private set;
     }
 
+    public static LubanComponent Luban
+    {
+        get;
+        private set;
+    }
+
     private static void InitCustomComponents()
     {
         BuiltinData = UnityGameFramework.Runtime.GameEntry.GetComponent<BuiltinDataComponent>();
         HPBar = UnityGameFramework.Runtime.GameEntry.GetComponent<HPBarComponent>();
         DamageNumber = UnityGameFramework.Runtime.GameEntry.GetComponent<DamageNumberComponent>();
+        Luban = UnityGameFramework.Runtime.GameEntry.GetComponent<LubanComponent>();
     }
 }

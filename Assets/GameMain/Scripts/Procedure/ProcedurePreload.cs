@@ -9,6 +9,7 @@ using GameFramework;
 using GameFramework.DataTable;
 using GameFramework.Event;
 using GameFramework.Resource;
+using SimpleJSON;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -19,20 +20,21 @@ namespace StarForce
 {
     public class ProcedurePreload : ProcedureBase
     {
-        public static readonly string[] DataTableNames = new string[]
+        public static readonly string[] LubanTableNames = new string[]
         {
-            "EntityGroup",
+            "Item",
             "Entity",
-            "Music",
+            "EntityGroup",
             "Scene",
-            "Sound",
+            "Hero",
             "UIForm",
-            "UISound",
             "Bullet",
             "Effect",
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
+        private Dictionary<string, JSONNode> m_JsonNodes = new Dictionary<string, JSONNode>();
+        private bool m_LoadLubanTablesFlag;
 
         public override bool UseNativeDialog
         {
@@ -82,6 +84,12 @@ namespace StarForce
                 }
             }
 
+            if (!m_LoadLubanTablesFlag)
+            {
+                LoadLubanTables();
+            }
+
+            AddEntityGroup();
             procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
             ChangeState<ProcedureChangeScene>(procedureOwner);
         }
@@ -91,11 +99,7 @@ namespace StarForce
             // Preload configs
             LoadConfig("DefaultConfig");
 
-            // Preload data tables
-            foreach (string dataTableName in DataTableNames)
-            {
-                LoadDataTable(dataTableName);
-            }
+            LoadJsonNodes();
 
             // Preload dictionaries
             LoadDictionary("Default");
@@ -110,13 +114,6 @@ namespace StarForce
             string configAssetName = AssetUtility.GetConfigAsset(configName, false);
             m_LoadedFlag.Add(configAssetName, false);
             GameEntry.Config.ReadData(configAssetName, this);
-        }
-
-        private void LoadDataTable(string dataTableName)
-        {
-            string dataTableAssetName = AssetUtility.GetDataTableAsset(dataTableName, false);
-            m_LoadedFlag.Add(dataTableAssetName, false);
-            GameEntry.DataTable.LoadDataTable(dataTableName, dataTableAssetName, this);
         }
 
         private void LoadDictionary(string dictionaryName)
@@ -160,6 +157,26 @@ namespace StarForce
                 }));
         }
 
+        private void LoadJsonNodes()
+        {
+            LoadAssetCallbacks loadCallback = new LoadAssetCallbacks(LoadLubanJsonSuccessCallback, LoadLubanJsonFailureCallback);
+
+            foreach (string key in LubanTableNames)
+            {
+                m_LoadedFlag[key] = false;
+                GameEntry.Resource.LoadAsset(StarForce.AssetUtility.GetLubanConfigAsset(key), loadCallback);
+            }
+        }
+
+        private void LoadLubanTables()
+        {
+            GameEntry.Luban.LoadLubanConfig((name) => m_JsonNodes[name], () =>
+            {
+                m_LoadLubanTablesFlag = true;
+                Log.Info("Load LubanTables success.");
+            });
+        }
+
         private void OnLoadConfigSuccess(object sender, GameEventArgs e)
         {
             LoadConfigSuccessEventArgs ne = (LoadConfigSuccessEventArgs)e;
@@ -193,8 +210,6 @@ namespace StarForce
 
             m_LoadedFlag[ne.DataTableAssetName] = true;
             Log.Info("Load data table '{0}' OK.", ne.DataTableAssetName);
-
-            AddEntityGroup();
         }
 
         private void OnLoadDataTableFailure(object sender, GameEventArgs e)
@@ -233,13 +248,26 @@ namespace StarForce
 
         private void AddEntityGroup()
         {
-            IDataTable<DREntityGroup> dtEntityGroup = GameEntry.DataTable.GetDataTable<DREntityGroup>();
-            DREntityGroup[] allDREntityGroup = dtEntityGroup.GetAllDataRows();
-            for (int i = 0; i < allDREntityGroup.Length; i++)
+            var entityGroupList = GameEntry.Luban.Tables.TbEntityGroup.DataList;
+            for (int i = 0; i < entityGroupList.Count; i++)
             {
-                DREntityGroup drEntityGroup = allDREntityGroup[i];
+                cfg.EntityGroup drEntityGroup = entityGroupList[i];
                 GameEntry.Entity.AddEntityGroup(drEntityGroup.GroupName, drEntityGroup.InstanceAutoReleaseInterval, drEntityGroup.InstanceCapacity, drEntityGroup.InstanceExpireTime, drEntityGroup.InstancePriority);
             }
+        }
+
+        private void LoadLubanJsonSuccessCallback(string assetName, object asset, float duration, object userData)
+        {
+            TextAsset text = asset as TextAsset;
+            JSONNode jsonNode = SimpleJSON.JSONString.Parse(text.text);
+            m_JsonNodes.Add(text.name, jsonNode);
+            m_LoadedFlag[text.name] = true;
+            Log.Info("Load Luban '{0}' OK.", assetName);
+        }
+
+        private void LoadLubanJsonFailureCallback(string assetName, LoadResourceStatus status, string errorMessage, object userData)
+        {
+            Log.Error("Can not load Luban '{0}' with error message '{1}'.", assetName, errorMessage);
         }
     }
 }

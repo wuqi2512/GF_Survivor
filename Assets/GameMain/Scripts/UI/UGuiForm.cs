@@ -58,10 +58,10 @@ namespace StarForce
             }
         }
 
-        public void PlayUISound(int uiSoundId)
-        {
-            GameEntry.Sound.PlayUISound(uiSoundId);
-        }
+        //public void PlayUISound(int uiSoundId)
+        //{
+        //    GameEntry.Sound.PlayUISound(uiSoundId);
+        //}
 
         public static void SetMainFont(Font mainFont)
         {

@@ -59,8 +59,7 @@ namespace StarForce
 
             int sceneId = procedureOwner.GetData<VarInt32>("NextSceneId");
             m_ChangeToMenu = sceneId == MenuSceneId;
-            IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
-            DRScene drScene = dtScene.GetDataRow(sceneId);
+            cfg.Scene drScene = GameEntry.Luban.Tables.TbScene.GetOrDefault(sceneId);
             if (drScene == null)
             {
                 Log.Warning("Can not load scene '{0}' from data table.", sceneId.ToString());
@@ -112,7 +111,7 @@ namespace StarForce
 
             if (m_BackgroundMusicId > 0)
             {
-                GameEntry.Sound.PlayMusic(m_BackgroundMusicId);
+                // GameEntry.Sound.PlayMusic(m_BackgroundMusicId);
             }
 
             m_IsChangeSceneComplete = true;

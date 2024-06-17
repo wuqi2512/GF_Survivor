@@ -65,5 +65,10 @@ namespace StarForce
         {
             return Utility.Text.Format("Assets/GameMain/UI/UISounds/{0}.wav", assetName);
         }
+
+        public static string GetLubanConfigAsset(string assetName)
+        {
+            return Utility.Text.Format("Assets/GameMain/LubanConfigs/{0}.json", assetName);
+        }
     }
 }

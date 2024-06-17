@@ -51,8 +51,7 @@ namespace StarForce
 
         public static bool HasUIForm(this UIComponent uiComponent, int uiFormId, string uiGroupName = null)
         {
-            IDataTable<DRUIForm> dtUIForm = GameEntry.DataTable.GetDataTable<DRUIForm>();
-            DRUIForm drUIForm = dtUIForm.GetDataRow(uiFormId);
+            cfg.UIForm drUIForm = GameEntry.Luban.Tables.TbUIForm.GetOrDefault(uiFormId);
             if (drUIForm == null)
             {
                 return false;
@@ -80,8 +79,7 @@ namespace StarForce
 
         public static UGuiForm GetUIForm(this UIComponent uiComponent, int uiFormId, string uiGroupName = null)
         {
-            IDataTable<DRUIForm> dtUIForm = GameEntry.DataTable.GetDataTable<DRUIForm>();
-            DRUIForm drUIForm = dtUIForm.GetDataRow(uiFormId);
+            cfg.UIForm drUIForm = GameEntry.Luban.Tables.TbUIForm.GetOrDefault(uiFormId);
             if (drUIForm == null)
             {
                 return null;
@@ -127,8 +125,7 @@ namespace StarForce
 
         public static int? OpenUIForm(this UIComponent uiComponent, int uiFormId, object userData = null)
         {
-            IDataTable<DRUIForm> dtUIForm = GameEntry.DataTable.GetDataTable<DRUIForm>();
-            DRUIForm drUIForm = dtUIForm.GetDataRow(uiFormId);
+            cfg.UIForm drUIForm = GameEntry.Luban.Tables.TbUIForm.GetOrDefault(uiFormId);
             if (drUIForm == null)
             {
                 Log.Warning("Can not load UI form '{0}' from data table.", uiFormId.ToString());

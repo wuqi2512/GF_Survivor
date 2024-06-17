@@ -50,7 +50,7 @@ namespace StarForce
             m_Transform.SetLocalPositionY(m_InitPosition);
 
             // 换个音乐
-            GameEntry.Sound.PlayMusic(3);
+            // GameEntry.Sound.PlayMusic(3);
         }
 
 #if UNITY_2017_3_OR_NEWER
@@ -62,7 +62,7 @@ namespace StarForce
             base.OnClose(isShutdown, userData);
 
             // 还原音乐
-            GameEntry.Sound.PlayMusic(1);
+            // GameEntry.Sound.PlayMusic(1);
         }
 
 #if UNITY_2017_3_OR_NEWER

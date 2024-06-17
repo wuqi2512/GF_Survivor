@@ -1,5 +1,5 @@
-﻿using GameFramework;
-using GameFramework.DataTable;
+﻿using cfg;
+using GameFramework;
 using StarForce;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ public partial class BulletData : EntityData
     public delegate void BulletOnHit(BulletLogic bulletLogic, Collider2D other);
     public delegate void BulletOnDestroy(BulletLogic bulletLogic);
 
-    protected DRBullet m_DRBullet;
+    protected Bullet m_Bullet;
     protected CampType m_CampType;
     /// <summary>
     /// 创建后多久可以命中实体
@@ -39,7 +39,7 @@ public partial class BulletData : EntityData
         m_Scale = 1f;
     }
 
-    public override int EntityId => m_DRBullet.EntityId;
+    public override int EntityId => m_Bullet.EntityId;
     public CampType Camp => m_CampType;
     public float Scale => m_Scale;
     public BulletBehaviour Behaviour => m_BulletBehaviour;
@@ -47,19 +47,16 @@ public partial class BulletData : EntityData
     public static BulletData Create(int bulletId, int serialId, CampType campType, Vector3 position, Quaternion rotation)
     {
         BulletData bulletData = ReferencePool.Acquire<BulletData>();
-
-        IDataTable<DRBullet> dtBullet = GameEntry.DataTable.GetDataTable<DRBullet>();
-        bulletData.m_DRBullet = dtBullet.GetDataRow(bulletId);
+        bulletData.m_Bullet = GameEntry.Luban.Tables.TbBullet.GetOrDefault(bulletId);
         bulletData.m_CampType = campType;
-
         bulletData.m_SerialId = serialId;
         bulletData.m_Position = position;
         bulletData.m_Rotation = rotation;
 
         bulletData.m_BlackBoard = BlackBoard.Create();
-        if (!s_BulletBehaviours.TryGetValue(bulletData.m_DRBullet.BehaviourKey, out bulletData.m_BulletBehaviour))
+        if (!s_BulletBehaviours.TryGetValue(bulletData.m_Bullet.BehaviourKey, out bulletData.m_BulletBehaviour))
         {
-            Log.Error("Can't find BulletBehaviour '{0}.'", bulletData.m_DRBullet.BehaviourKey);
+            Log.Error("Can't find BulletBehaviour '{0}.'", bulletData.m_Bullet.BehaviourKey);
         }
 
         return bulletData;
@@ -69,7 +66,7 @@ public partial class BulletData : EntityData
     {
         base.Clear();
 
-        m_DRBullet = null;
+        m_Bullet = null;
         m_CampType = CampType.Unknown;
         m_CanHitAfterCreated = 0f;
         m_HitRecord.Clear();
@@ -82,7 +79,7 @@ public partial class BulletData : EntityData
     public bool UpdateActiveTime(float elapseSeconds)
     {
         m_ActiveSconds += elapseSeconds;
-        return m_ActiveSconds >= m_DRBullet.ActiveTime;
+        return m_ActiveSconds >= m_Bullet.ActiveTime;
     }
 
     public bool CanHitEntity(Targetable target)

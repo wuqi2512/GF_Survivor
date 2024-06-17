@@ -34,7 +34,7 @@ public partial class BulletData
         BulletData bulletData = bulletLogic.BulletData;
         if (targetable != null && bulletData.CanHitEntity(targetable))
         {
-            CastDamage(bulletLogic.Id, targetable.Id, bulletData.m_DRBullet.Damage);
+            CastDamage(bulletLogic.Id, targetable.Id, bulletData.m_Bullet.Damage);
             bulletLogic.DestroySelf();
 
             return;
@@ -77,7 +77,7 @@ public partial class BulletData
         Targetable targetable = other.gameObject.GetComponent<Targetable>();
         if (targetable != null && bulletData.CanHitEntity(targetable))
         {
-            CastDamage(bulletLogic.Id, targetable.Id, bulletData.m_DRBullet.Damage);
+            CastDamage(bulletLogic.Id, targetable.Id, bulletData.m_Bullet.Damage);
             bulletLogic.DestroySelf();
 
             int spliteCount = bulletData.m_BlackBoard.GetData<VarInt32>("SpliteCount");
@@ -115,7 +115,7 @@ public partial class BulletData
         Targetable targetable = other.gameObject.GetComponent<Targetable>();
         if (targetable != null && bulletData.CanHitEntity(targetable))
         {
-            CastDamage(bulletLogic.Id, targetable.Id, bulletData.m_DRBullet.Damage);
+            CastDamage(bulletLogic.Id, targetable.Id, bulletData.m_Bullet.Damage);
             bulletData.AddHitRecord(targetable.Id);
 
             int penetrates = bulletData.m_BlackBoard.GetData<VarInt32>("Penetrates");
@@ -159,7 +159,7 @@ public partial class BulletData
         Targetable targetable = other.gameObject.GetComponent<Targetable>();
         if (targetable != null && bulletData.CanHitEntity(targetable))
         {
-            CastDamage(bulletLogic.Id, targetable.Id, bulletData.m_DRBullet.Damage);
+            CastDamage(bulletLogic.Id, targetable.Id, bulletData.m_Bullet.Damage);
         }
 
         bulletLogic.DestroySelf();

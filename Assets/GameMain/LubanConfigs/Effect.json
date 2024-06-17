@@ -1,0 +1,26 @@
+[
+  {
+    "Id": 10000,
+    "EntityId": 70000,
+    "ActiveSeconds": 1.017,
+    "AnimName": "ExplosionAnim"
+  },
+  {
+    "Id": 10001,
+    "EntityId": 70001,
+    "ActiveSeconds": 0.517,
+    "AnimName": "DeadExplosionAnim"
+  },
+  {
+    "Id": 10002,
+    "EntityId": 70002,
+    "ActiveSeconds": 0.35,
+    "AnimName": "HitAnim"
+  },
+  {
+    "Id": 10003,
+    "EntityId": 70003,
+    "ActiveSeconds": 0.35,
+    "AnimName": "SlashAnim"
+  }
+]

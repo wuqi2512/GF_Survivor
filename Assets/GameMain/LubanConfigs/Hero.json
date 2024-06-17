@@ -1,0 +1,9 @@
+[
+  {
+    "Id": 10000,
+    "EntityId": 10000,
+    "MaxHp": 100,
+    "MoveSpeed": 5,
+    "AttackSpeed": 2
+  }
+]

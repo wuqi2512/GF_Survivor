@@ -1,0 +1,34 @@
+[
+  {
+    "Id": 10000,
+    "EntityId": 50000,
+    "Damage": 8,
+    "MoveSpeed": 15,
+    "ActiveTime": 5,
+    "BehaviourKey": "Bullet"
+  },
+  {
+    "Id": 10001,
+    "EntityId": 50001,
+    "Damage": 4,
+    "MoveSpeed": 8,
+    "ActiveTime": 9,
+    "BehaviourKey": "Kunai"
+  },
+  {
+    "Id": 10002,
+    "EntityId": 50002,
+    "Damage": 5,
+    "MoveSpeed": 8,
+    "ActiveTime": 10,
+    "BehaviourKey": "BouncingBall"
+  },
+  {
+    "Id": 10003,
+    "EntityId": 50003,
+    "Damage": 3,
+    "MoveSpeed": 5,
+    "ActiveTime": 5,
+    "BehaviourKey": "Bomb"
+  }
+]

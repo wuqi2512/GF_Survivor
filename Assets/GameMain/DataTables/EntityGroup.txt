@@ -1,8 +1,0 @@
-﻿#	实体组配置表						
-#	Id		GroupName	InstanceAutoReleaseInterval	InstanceCapacity	InstanceExpireTime	InstancePriority
-#	int		string	float	int	float	int
-#	配置编号	策划备注	组名字	自动释放可释放对象的间隔秒数	实例对象池的容量	对象池对象过期秒数	实体组实例对象池的优先级
-	10000		Default	60	100	60	0
-	10001		Bullet	60	100	60	0
-	10002		Effect	60	100	60	0
-	10003		Enemy	60	100	60	0

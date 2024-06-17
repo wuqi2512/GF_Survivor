@@ -1,0 +1,52 @@
+[
+  {
+    "Id": 10000,
+    "AssetName": "Hero",
+    "EntityGroupId": 10000
+  },
+  {
+    "Id": 10001,
+    "AssetName": "Zombie",
+    "EntityGroupId": 10003
+  },
+  {
+    "Id": 50000,
+    "AssetName": "Bullet",
+    "EntityGroupId": 10001
+  },
+  {
+    "Id": 50001,
+    "AssetName": "Kunai",
+    "EntityGroupId": 10001
+  },
+  {
+    "Id": 50002,
+    "AssetName": "BouncingBall",
+    "EntityGroupId": 10001
+  },
+  {
+    "Id": 50003,
+    "AssetName": "Bomb",
+    "EntityGroupId": 10001
+  },
+  {
+    "Id": 70000,
+    "AssetName": "Explosion",
+    "EntityGroupId": 10002
+  },
+  {
+    "Id": 70001,
+    "AssetName": "DeadExplosion",
+    "EntityGroupId": 10002
+  },
+  {
+    "Id": 70002,
+    "AssetName": "Hit",
+    "EntityGroupId": 10002
+  },
+  {
+    "Id": 70003,
+    "AssetName": "Slash",
+    "EntityGroupId": 10002
+  }
+]

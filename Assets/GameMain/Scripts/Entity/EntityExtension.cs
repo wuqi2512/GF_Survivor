@@ -47,16 +47,14 @@ public static class EntityExtension
             return;
         }
 
-        IDataTable<DREntity> dtEntity = GameEntry.DataTable.GetDataTable<DREntity>();
-        DREntity drEntity = dtEntity.GetDataRow(data.EntityId);
+        cfg.Entity drEntity = GameEntry.Luban.Tables.TbEntity.GetOrDefault(data.EntityId);
         if (drEntity == null)
         {
             Log.Warning("Can not load entity id '{0}' from data table.", data.EntityId.ToString());
             return;
         }
 
-        IDataTable<DREntityGroup> dtEntityGroup = GameEntry.DataTable.GetDataTable<DREntityGroup>();
-        DREntityGroup drEntityGroup = dtEntityGroup.GetDataRow(drEntity.EntityGroupId);
+        cfg.EntityGroup drEntityGroup = GameEntry.Luban.Tables.TbEntityGroup.GetOrDefault(drEntity.EntityGroupId);
 
         entityComponent.ShowEntity(data.SerialId, logicType, AssetUtility.GetEntityAsset(drEntity.AssetName), drEntityGroup.GroupName, Constant.AssetPriority.EntityAsset, data);
     }

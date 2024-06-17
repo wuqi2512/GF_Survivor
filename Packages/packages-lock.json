@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "com.shaunfong.datatableeditor": {
-      "version": "https://github.com/shaun-fong/DataTableEditor.git",
+    "com.code-philosophy.luban": {
+      "version": "https://github.com/focus-creative-games/luban_unity.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "a8127a7f812dff4331f931e35fffd563f1e0c7b7"
+      "hash": "de0348c453844f91d52e736be681f0713ae47201"
     },
     "com.unity.2d.tilemap": {
       "version": "1.0.0",
