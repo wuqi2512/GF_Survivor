@@ -1,61 +1,80 @@
-﻿using GameFramework;
+﻿using cfg;
+using GameFramework;
+using System.Collections.Generic;
+using UnityGameFramework.Runtime;
 
-public class Numeric : IReference
+public partial class Numeric : IReference
 {
-    private float m_Base;
-    private float m_Add;
-    private float m_Pct;
-    private float m_Value;
+    public float Value { get; private set; }
+    public float Base { get; private set; }
+    public float Add { get; private set; }
+    public float Pct { get; private set; }
+    private Dictionary<int, ModifierCollection> m_ModifierDic;
 
-    public void UpdateFinal()
+    public Numeric()
     {
-        m_Value = (m_Base + m_Add) * (100f + m_Pct) / 100f;
+        m_ModifierDic = new Dictionary<int, ModifierCollection>();
     }
 
-    public float Base
+    public float SetBase(float value)
     {
-        get { return m_Base; }
-        set
+        Base = value;
+        Update();
+        return Base;
+    }
+
+    public void AddModifier(Modifier modifier)
+    {
+        ModifierType modifierType = modifier.ModifierType;
+        ModifierCollection modifierCollection = null;
+        if (!m_ModifierDic.TryGetValue((int)modifierType, out modifierCollection))
         {
-            m_Base = value;
-            UpdateFinal();
+            modifierCollection = ReferencePool.Acquire<ModifierCollection>();
+            m_ModifierDic[(int)modifierType] = modifierCollection;
         }
-    }
-
-    public float Add
-    {
-        get { return m_Add; }
-        set
+        float value = modifierCollection.AddModifier(modifier);
+        switch (modifierType)
         {
-            m_Add = value;
-            UpdateFinal();
+            case ModifierType.Add: Add = value; break;
+            case ModifierType.Pct: Pct = value; break;
+            default: Log.Error("Unknow ModifierType '{0}'.", modifierType); break;
         }
+        Update();
     }
 
-    public float Pct
+    public void RemoveModifier(Modifier modifier)
     {
-        get { return m_Pct; }
-        set
+        ModifierType modifierType = modifier.ModifierType;
+        float value = m_ModifierDic[((int)modifierType)].RemoveModifier(modifier);
+        switch (modifierType)
         {
-            m_Pct = value;
-            UpdateFinal();
+            case ModifierType.Add: Add = value; break;
+            case ModifierType.Pct: Pct = value; break;
+            default: Log.Error("Unknow ModifierType '{0}'.", modifierType); break;
         }
+        Update();
     }
 
-    public float Value => m_Value;
+    public void Update()
+    {
+        Value = (Base + Add) * (100f + Pct) / 100f;
+    }
 
     public static Numeric Create()
     {
-        Numeric numeric = ReferencePool.Acquire<Numeric>();
-
-        return numeric;
+        return ReferencePool.Acquire<Numeric>();
     }
 
     public void Clear()
     {
-        m_Base = 0;
-        m_Add = 0;
-        m_Pct = 0;
-        m_Value = 0;
+        Value = 0f;
+        Base = 0f;
+        Add = 0f;
+        Pct = 0f;
+        foreach (var pair in m_ModifierDic)
+        {
+            ReferencePool.Release(pair.Value);
+        }
+        m_ModifierDic.Clear();
     }
 }

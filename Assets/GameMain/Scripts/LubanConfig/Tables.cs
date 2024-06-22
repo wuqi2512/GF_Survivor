@@ -22,6 +22,7 @@ public partial class Tables
     public TbEffect TbEffect {get; }
     public TbUIForm TbUIForm {get; }
     public TbScene TbScene {get; }
+    public TbEquipment TbEquipment {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
@@ -33,6 +34,7 @@ public partial class Tables
         TbEffect = new TbEffect(loader("Effect"));
         TbUIForm = new TbUIForm(loader("UIForm"));
         TbScene = new TbScene(loader("Scene"));
+        TbEquipment = new TbEquipment(loader("Equipment"));
         ResolveRef();
     }
     
@@ -46,6 +48,7 @@ public partial class Tables
         TbEffect.ResolveRef(this);
         TbUIForm.ResolveRef(this);
         TbScene.ResolveRef(this);
+        TbEquipment.ResolveRef(this);
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using StarForce;
+﻿using cfg;
+using StarForce;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
@@ -16,7 +17,7 @@ public class HeroLogic : Targetable
         }
         protected set
         {
-            m_HeroData.ChaAttribute[NumericType.Hp].Base = value;
+            m_HeroData.ChaAttribute[NumericType.Hp].SetBase(value);
         }
     }
     public override float MaxHp => m_HeroData.ChaAttribute[NumericType.MaxHp].Value;
@@ -73,4 +74,11 @@ public class HeroLogic : Targetable
         float y = Input.GetAxis("Vertical");
         return new Vector2(x, y);
     }
+
+    public ChaAttribute GetChaAttribute()
+    {
+        return m_HeroData.ChaAttribute;
+    }
+
+    public HeroData HeroData => m_HeroData;
 }

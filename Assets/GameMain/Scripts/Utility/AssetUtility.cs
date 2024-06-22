@@ -70,5 +70,10 @@ namespace StarForce
         {
             return Utility.Text.Format("Assets/GameMain/LubanConfigs/{0}.json", assetName);
         }
+
+        public static string GetEquipmentSpriteAsset(string assetName)
+        {
+            return Utility.Text.Format("Assets/GameMain/Res/Equipments/{0}.png", assetName);
+        }
     }
 }

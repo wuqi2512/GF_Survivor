@@ -47,5 +47,19 @@
     "UIGroupName": "Background",
     "AllowMultiInstance": false,
     "PauseCoveredUIForm": false
+  },
+  {
+    "Id": 107,
+    "AssetName": "EquipmentForm",
+    "UIGroupName": "Default",
+    "AllowMultiInstance": false,
+    "PauseCoveredUIForm": true
+  },
+  {
+    "Id": 108,
+    "AssetName": "EquipPopupForm",
+    "UIGroupName": "Default",
+    "AllowMultiInstance": false,
+    "PauseCoveredUIForm": false
   }
 ]

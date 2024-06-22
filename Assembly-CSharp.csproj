@@ -56,142 +56,160 @@
     <Analyzer Include="D:\LeiJin\Program\VisualStudio\2022\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\GameMain\Scripts\UI\DialogForm.cs" />
-    <Compile Include="Assets\GameMain\Scripts\UI\BlackEdgeForm.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Sound\SoundExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\EnemyData.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureUpdateVersion.cs" />
-    <Compile Include="Assets\GameMain\Scripts\UI\MainMenuForm.cs" />
-    <Compile Include="Assets\GameMain\Scripts\UI\SettingForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\Event\HideEntityInLevelEventArgs.cs" />
-    <Compile Include="Assets\GameMain\Scripts\UI\UpdateResourceForm.cs" />
-    <Compile Include="Assets\GameMain\Scripts\UI\UGuiGroupHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\BindingScript\DialogForm.BindComponents.cs" />
     <Compile Include="Assets\GameMain\Scripts\HPBar\HPBarComponent.cs" />
-    <Compile Include="Assets\GameMain\Scripts\BindingScript\InGameForm.BindComponents.cs" />
     <Compile Include="Assets\GameMain\Scripts\LubanConfig\Hero.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\PacketBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\DialogParams.cs" />
-    <Compile Include="Assets\GameMain\Scripts\UI\CommonButton.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\DamageNumber\DamageNumberItemObject.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\AttributeList.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Form\UGuiForm.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Form\AboutForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\LevelController.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\BulletData.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\EntityLogicWithData.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureMain.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\OutlineRaycastTarget.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\BulletData.BulletBehaviour.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureSplash.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UIExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureUpdateResources.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Network\PacketHeaderBase.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Extension\AnchorPreset.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Network\PacketHandler\SCHeartBeatHandler.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureInitResources.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\DataStruct\BuildInfo.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\MovePreorder.cs" />
-    <Compile Include="Assets\GameMain\Scripts\UI\UIComponent\RotationDiagramItem.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Extension\ComponentAutoBindTool\IAutoBindRuleHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbEntity.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Utility\AssetUtility.cs" />
-    <Compile Include="Assets\GameMain\Scripts\UI\UGuiForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureVerifyResources.cs" />
     <Compile Include="Assets\GameMain\Scripts\Debugger\ChangeLanguageDebuggerWindow.cs" />
-    <Compile Include="Assets\GameMain\Scripts\LubanConfig\Item.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\DamageNumber\DamageNumberItem.cs" />
     <Compile Include="Assets\GameMain\Scripts\Extension\ComponentAutoBindTool\DefaultAutoBindRuleHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\LubanConfig\Effect.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Form\InGameForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Base\GameEntry.Custom.cs" />
-    <Compile Include="Assets\GameMain\Scripts\LubanConfig\EntityGroup.cs" />
     <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbEffect.cs" />
     <Compile Include="Assets\GameMain\Scripts\BindingScript\TileMapForm.BindComponents.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Utility\LitJsonHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\LubanConfig\Tables.cs" />
-    <Compile Include="Assets\GameMain\Scripts\UI\UIFormId.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\Event\BeDamagedEventArgs.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureBase.cs" />
-    <Compile Include="Assets\GameMain\Scripts\BindingScript\MainMenuForm.BindComponents.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\DamageNumber\DamageNumberComponent.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\Character\Numeric.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Localization\XmlLocalizationHelper.cs" />
-    <Compile Include="Assets\GameMain\Scripts\LubanConfig\item.EQuality.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Constant\Constant.Layer.cs" />
-    <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbBullet.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureLaunch.cs" />
     <Compile Include="Assets\GameMain\Scripts\LubanConfig\Bullet.cs" />
     <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbHero.cs" />
     <Compile Include="Assets\GameMain\Scripts\Base\GameEntry.cs" />
-    <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbEntityGroup.cs" />
     <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbUIForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\LubanConfig\UIForm.cs" />
-    <Compile Include="Assets\GameMain\Scripts\UI\UIComponent\RaderGraphic.cs" />
     <Compile Include="Assets\GameMain\Scripts\LubanConfig\Scene.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\Event\LevelOperationEventArgs.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Extension\PivotPreset.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureCheckResources.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\Character\NumericType.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbEquipment.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\LevelOperation.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureCheckVersion.cs" />
-    <Compile Include="Assets\GameMain\Scripts\LubanConfig\Entity.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureMenu.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Definition\Constant\Constant.Setting.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\NetworkChannelHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\CSHeartBeat.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\Targetable.cs" />
-    <Compile Include="Assets\GameMain\Scripts\UI\AboutForm.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Base\LubanComponent.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\DamageInfo.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\HeroData.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Form\PauseMenuForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\WebUtility.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\Types.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\SCPacketHeader.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UIComponent\RotationDiagram.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\Character\Equipment.cs" />
+    <Compile Include="Assets\GameMain\Scripts\BindingScript\EquipmentForm.BindComponents.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Character\EquipmentData.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Network\Packet\SCHeartBeat.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\DataStruct\VersionInfo.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Character\Numeric.ModifierCollection.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Character\Modifier.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\ProjectileData.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Extension\UIExtension.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\EntityData.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\BulletData.CommonMethods.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Event\ShowEntityInLevelEventArgs.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Form\EquipPopupForm.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Character\ChaAttribute.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Network\PacketType.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\EnemyLogic.cs" />
+    <Compile Include="Assets\GameMain\Scripts\HPBar\HPBarItemObject.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\Constant\Constant.AssetPriority.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\item.ItemExchange.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\BulletData.Behaviours.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\ProjectileLogic.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Form\EquipmentForm.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Network\CSPacketHeader.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureChangeScene.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Form\BlackEdgeForm.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\Enum\CampType.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Form\DialogForm.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Sound\SoundExtension.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Form\MainMenuForm.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Form\UpdateResourceForm.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\UGuiGroupHelper.cs" />
+    <Compile Include="Assets\GameMain\Scripts\BindingScript\InGameForm.BindComponents.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Item\EquipItem.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Item\CommonButton.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\DamageNumber\DamageNumberItemObject.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Form\SettingForm.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\ModifierData.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureMain.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Extension\AnchorPreset.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Network\PacketHeaderBase.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Network\PacketHandler\SCHeartBeatHandler.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Extension\ResourcesExtension.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureInitResources.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\MovePreorder.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\UIComponent\RotationDiagramItem.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Extension\ComponentAutoBindTool\IAutoBindRuleHelper.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Utility\AssetUtility.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\Item.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\DamageNumber\DamageNumberItem.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\EntityGroup.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Utility\LitJsonHelper.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\UIFormId.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\NumericType.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureBase.cs" />
+    <Compile Include="Assets\GameMain\Scripts\BindingScript\MainMenuForm.BindComponents.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Character\Numeric.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Localization\XmlLocalizationHelper.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\item.EQuality.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbBullet.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\Equipment.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbEntityGroup.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\UIComponent\RaderGraphic.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Extension\PivotPreset.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Event\LevelOperationEventArgs.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureCheckResources.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureCheckVersion.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\Entity.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\Constant\Constant.Setting.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\Targetable.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Base\LubanComponent.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\DamageInfo.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\EquipmentType.cs" />
+    <Compile Include="Assets\GameMain\Scripts\BindingScript\EquipPopupForm.BindComponents.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\Event\DamageEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\BindingScript\PauseMenuForm.BindComponents.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Network\Packet\SCHeartBeat.cs" />
     <Compile Include="Assets\GameMain\Scripts\HPBar\HPBarItem.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Definition\DataStruct\VersionInfo.cs" />
     <Compile Include="Assets\GameMain\Scripts\BindingScript\SettingForm.BindComponents.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\RelationType.cs" />
     <Compile Include="Assets\GameMain\Scripts\BuiltinData\BuiltinDataComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\SCPacketBase.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\ProjectileData.cs" />
     <Compile Include="Assets\GameMain\Scripts\Base\GameEntry.Builtin.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\HeroLogic.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\EffectAnimator.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedurePreload.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Extension\UIExtension.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\EntityData.cs" />
-    <Compile Include="Assets\GameMain\Scripts\UI\InGameForm.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\BulletData.CommonMethods.cs" />
-    <Compile Include="Assets\GameMain\Scripts\UI\PauseMenuForm.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\Event\ShowEntityInLevelEventArgs.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Item\SlotItem.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\BulletLogic.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Form\ModuleForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\PacketHandlerBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityLoader.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\EffectData.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Game\Character\ChaAttribute.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\IPause.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Network\PacketType.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\EnemyLogic.cs" />
-    <Compile Include="Assets\GameMain\Scripts\HPBar\HPBarItemObject.cs" />
+    <Compile Include="Assets\GameMain\Scripts\LubanConfig\ModifierType.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UIComponent\CircleImage.cs" />
     <Compile Include="Assets\GameMain\Scripts\Game\BlackBoard.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Base\ControllerComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbScene.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\CSPacketBase.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Definition\Constant\Constant.AssetPriority.cs" />
-    <Compile Include="Assets\GameMain\Scripts\UI\ModuleForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\Extension\UnityExtension.cs" />
-    <Compile Include="Assets\GameMain\Scripts\LubanConfig\item.ItemExchange.cs" />
     <Compile Include="Assets\GameMain\Scripts\LubanConfig\TbItem.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\BulletData.Behaviours.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\ProjectileLogic.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Item\AttributeItem.cs" />
     <Compile Include="Assets\GameMain\Scripts\Extension\ComponentAutoBindTool\ComponentAutoBindTool.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Network\CSPacketHeader.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureChangeScene.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Definition\Enum\CampType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\AIUtility.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Game\Player.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\GameMain\Configs\DefaultDictionary.xml" />
@@ -486,6 +504,21 @@
     </Reference>
     <Reference Include="protobuf-net">
       <HintPath>Assets\GameMain\Libraries\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Unsafe">
+      <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil.Mdb">
+      <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil.Pdb">
+      <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil">
+      <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Cecil.Rocks">
+      <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
@@ -874,20 +907,20 @@
     <Reference Include="System.Xml.Serialization">
       <HintPath>D:\LeiJin\Program\Unity\2021.3.16f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.Flow.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Tilemap.Extras">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.dll</HintPath>
+    <Reference Include="Unity.InternalAPIEngineBridge.001">
+      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.001.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
+    <Reference Include="Unity.2D.PixelPerfect">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.PixelPerfect.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.CacheServer">
       <HintPath>Library\ScriptAssemblies\UnityEditor.CacheServer.dll</HintPath>
+    </Reference>
+    <Reference Include="PsdPlugin">
+      <HintPath>Library\ScriptAssemblies\PsdPlugin.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
@@ -898,11 +931,71 @@
     <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Model">
       <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Model.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualStudio.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Addressables">
       <HintPath>Library\ScriptAssemblies\Unity.Addressables.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.State.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.IK.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Path.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Path.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection">
+      <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Rider.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.EditorCoroutines.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.IK.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Addressables.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Addressables.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Common.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Flow.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Extras">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Animation.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Luban.Runtime">
+      <HintPath>Library\ScriptAssemblies\Luban.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualStudio.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
@@ -913,35 +1006,26 @@
     <Reference Include="Unity.TextMeshPro">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.State.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
+    <Reference Include="Unity.Burst.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Luban.Runtime">
-      <HintPath>Library\ScriptAssemblies\Luban.Runtime.dll</HintPath>
+    <Reference Include="Unity.2D.Psdimporter.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Psdimporter.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection">
-      <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll</HintPath>
+    <Reference Include="Unity.InternalAPIEditorBridge.001">
+      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ResourceManager">
       <HintPath>Library\ScriptAssemblies\Unity.ResourceManager.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.PlasticSCM.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Rider.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualScripting.Flow">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    <Reference Include="Unity.PlasticSCM.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Extras.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.Editor.dll</HintPath>
@@ -952,17 +1036,14 @@
     <Reference Include="Unity.VisualScripting.Core">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.EditorCoroutines.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Cinemachine">
-      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Services.Core.Analytics">
       <HintPath>Library\ScriptAssemblies\Unity.Services.Core.Analytics.dll</HintPath>
     </Reference>
-    <Reference Include="com.unity.cinemachine.editor">
-      <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
+    <Reference Include="Unity.Burst">
+      <HintPath>Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Shared.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
@@ -970,14 +1051,23 @@
     <Reference Include="Unity.Services.Core.Environments">
       <HintPath>Library\ScriptAssemblies\Unity.Services.Core.Environments.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.Animation.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.PixelPerfect.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.PixelPerfect.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Common.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ScriptableBuildPipeline">
       <HintPath>Library\ScriptAssemblies\Unity.ScriptableBuildPipeline.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Addressables.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Addressables.Editor.dll</HintPath>
+    <Reference Include="Unity.2D.SpriteShape.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.SpriteShape.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ScriptableBuildPipeline.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
@@ -985,11 +1075,14 @@
     <Reference Include="Unity.TestTools.CodeCoverage.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Luban.Editor">
-      <HintPath>Library\ScriptAssemblies\Luban.Editor.dll</HintPath>
+    <Reference Include="Unity.2D.SpriteShape.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.SpriteShape.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
+    </Reference>
+    <Reference Include="Luban.Editor">
+      <HintPath>Library\ScriptAssemblies\Luban.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

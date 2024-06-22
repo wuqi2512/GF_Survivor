@@ -8,7 +8,8 @@ using GlobelRandom = GameFramework.Utility.Random;
 
 public class LevelController
 {
-    public HeroLogic Player { get; private set; }
+    public Player Player { get; private set; }
+    public HeroLogic HeroLogic { get; private set; }
     public int KilledEnemy { get; private set; }
     public bool GameOver { get; private set; }
 
@@ -38,10 +39,16 @@ public class LevelController
 
         ShowEntity(typeof(HeroLogic), HeroData.Create(10000, GameEntry.Entity.GenerateSerialId()), (entity) =>
         {
-            Player = entity.Logic as HeroLogic;
-            m_PlayerTransform = Player.transform;
+            HeroLogic = entity.Logic as HeroLogic;
+            m_View.SetHeroLogic(HeroLogic);
+            m_PlayerTransform = HeroLogic.transform;
             m_VirtualCamera.Follow = m_PlayerTransform;
             GameEntry.DataNode.SetData<VarTransform>("Player", m_PlayerTransform);
+            Player = new Player(HeroLogic.HeroData);
+            GameEntry.Controller.SetPlayer(Player);
+            Player.AddEquipment(10000);
+            Player.AddEquipment(10001);
+            Player.AddEquipment(10002);
         });
     }
 
@@ -133,7 +140,7 @@ public class LevelController
 
     public void OnPlayerHpChanged()
     {
-        float ratio = Player.Hp / Player.MaxHp;
+        float ratio = HeroLogic.Hp / HeroLogic.MaxHp;
         m_View.SetHpBar(ratio);
 
         if (ratio == 0f)

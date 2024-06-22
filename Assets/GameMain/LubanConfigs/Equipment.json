@@ -1,0 +1,56 @@
+[
+  {
+    "Id": 10000,
+    "EquipmentType": 1,
+    "Name": "Armor_0",
+    "AssetName": "Armor_0",
+    "Modifiers": [
+      {
+        "NumericType": 2,
+        "ModifierType": 0,
+        "Value": 50
+      },
+      {
+        "NumericType": 2,
+        "ModifierType": 1,
+        "Value": 10
+      }
+    ]
+  },
+  {
+    "Id": 10001,
+    "EquipmentType": 3,
+    "Name": "Glovers_0",
+    "AssetName": "Glovers_0",
+    "Modifiers": [
+      {
+        "NumericType": 4,
+        "ModifierType": 0,
+        "Value": 1
+      },
+      {
+        "NumericType": 4,
+        "ModifierType": 1,
+        "Value": 10
+      }
+    ]
+  },
+  {
+    "Id": 10002,
+    "EquipmentType": 2,
+    "Name": "Boots_0",
+    "AssetName": "Boots_0",
+    "Modifiers": [
+      {
+        "NumericType": 3,
+        "ModifierType": 0,
+        "Value": 1
+      },
+      {
+        "NumericType": 3,
+        "ModifierType": 1,
+        "Value": 10
+      }
+    ]
+  }
+]

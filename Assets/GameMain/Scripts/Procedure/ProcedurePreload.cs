@@ -30,6 +30,7 @@ namespace StarForce
             "UIForm",
             "Bullet",
             "Effect",
+            "Equipment",
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();

@@ -37,5 +37,7 @@ namespace StarForce
         PauseMenuForm = 104,
         InGameForm = 105,
         BlackEdgeForm = 106,
+        EquipmentForm = 107,
+        EquipmentPopupForm = 108,
     }
 }

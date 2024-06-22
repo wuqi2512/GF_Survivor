@@ -649,20 +649,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 107322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02bbd1c1f00c17842b1449ae2b66a932, type: 3}
+  m_Script: {fileID: 11500000, guid: acd00ebb4d7427c4da90ab3e28b0a348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MusicMuteToggle: {fileID: 11428602}
-  m_MusicVolumeSlider: {fileID: 11458132}
-  m_SoundMuteToggle: {fileID: 11419480}
-  m_SoundVolumeSlider: {fileID: 11484716}
-  m_UISoundMuteToggle: {fileID: 11404440}
-  m_UISoundVolumeSlider: {fileID: 11423794}
-  m_LanguageTipsCanvasGroup: {fileID: 22524202}
-  m_EnglishToggle: {fileID: 11484778}
-  m_ChineseSimplifiedToggle: {fileID: 11434424}
-  m_ChineseTraditionalToggle: {fileID: 11448172}
-  m_KoreanToggle: {fileID: 11497670}
+  m_MusicMuteToggle: {fileID: 0}
+  m_MusicVolumeSlider: {fileID: 0}
+  m_SoundMuteToggle: {fileID: 0}
+  m_SoundVolumeSlider: {fileID: 0}
+  m_UISoundMuteToggle: {fileID: 0}
+  m_UISoundVolumeSlider: {fileID: 0}
+  m_LanguageTipsCanvasGroup: {fileID: 0}
+  m_EnglishToggle: {fileID: 0}
+  m_ChineseSimplifiedToggle: {fileID: 0}
+  m_ChineseTraditionalToggle: {fileID: 0}
+  m_KoreanToggle: {fileID: 0}
 --- !u!114 &956685020193322562
 MonoBehaviour:
   m_ObjectHideFlags: 0

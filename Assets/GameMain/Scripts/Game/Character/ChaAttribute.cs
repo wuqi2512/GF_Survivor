@@ -1,6 +1,7 @@
 ﻿using GameFramework;
 using System.Collections.Generic;
 using UnityGameFramework.Runtime;
+using cfg;
 
 public class ChaAttribute : IReference
 {
@@ -20,16 +21,25 @@ public class ChaAttribute : IReference
         }
 
         Numeric numeric = Numeric.Create();
-        numeric.Base = baseValue;
+        numeric.SetBase(baseValue);
 
         m_Numerics.Add(key, numeric);
+    }
+
+    public void AddModifier(Modifier modifier)
+    {
+        m_Numerics[(int)modifier.NumericType].AddModifier(modifier);
+    }
+
+    public void RemoveModifier(Modifier modifier)
+    {
+        m_Numerics[(int)modifier.NumericType].RemoveModifier(modifier);
     }
 
     public Numeric this[NumericType key]
     {
         get => m_Numerics[(int)key];
     }
-
 
     public static ChaAttribute Create()
     {

@@ -166,7 +166,7 @@ namespace StarForce
             }
 
             GameEntry.DamageNumber.ShowDamageNumber(ne.Position, ne.Damage.ToString());
-            if (ne.SerialId == LevelController.Player.Id)
+            if (ne.SerialId == LevelController.HeroLogic.Id)
             {
                 LevelController.OnPlayerHpChanged();
             }
