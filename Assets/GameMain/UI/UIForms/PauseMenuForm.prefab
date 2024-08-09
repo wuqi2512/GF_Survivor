@@ -273,7 +273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3544066019233665612, guid: 76f89dc19cb5b6b4dbfa6dd12a128a72, type: 3}
       propertyPath: m_text
-      value: Restart
+      value: PauseMenuForm.Restart
       objectReference: {fileID: 0}
     - target: {fileID: 6519165198873547591, guid: 76f89dc19cb5b6b4dbfa6dd12a128a72, type: 3}
       propertyPath: m_Pivot.x
@@ -390,7 +390,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3544066019233665612, guid: 76f89dc19cb5b6b4dbfa6dd12a128a72, type: 3}
       propertyPath: m_text
-      value: Resume
+      value: PauseMenuForm.Resume
       objectReference: {fileID: 0}
     - target: {fileID: 6519165198873547591, guid: 76f89dc19cb5b6b4dbfa6dd12a128a72, type: 3}
       propertyPath: m_Pivot.x
@@ -507,7 +507,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3544066019233665612, guid: 76f89dc19cb5b6b4dbfa6dd12a128a72, type: 3}
       propertyPath: m_text
-      value: MainMenu
+      value: PauseMenuForm.MainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 6519165198873547591, guid: 76f89dc19cb5b6b4dbfa6dd12a128a72, type: 3}
       propertyPath: m_Pivot.x

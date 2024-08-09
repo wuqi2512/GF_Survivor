@@ -11,17 +11,9 @@ using UnityEngine;
 public partial class MainMenuForm : UGuiForm
 {
     private ProcedureMenu m_ProcedureMenu = null;
-
-    public void OnQuitButtonClick()
-    {
-        GameEntry.UI.OpenDialog(new DialogParams()
-        {
-            Mode = 2,
-            Title = GameEntry.Localization.GetString("AskQuitGame.Title"),
-            Message = GameEntry.Localization.GetString("AskQuitGame.Message"),
-            OnClickConfirm = delegate (object userData) { UnityGameFramework.Runtime.GameEntry.Shutdown(UnityGameFramework.Runtime.ShutdownType.Quit); },
-        });
-    }
+    private RedDotComponent.Node m_EquipmentNode;
+    private RedDotComponent.Node m_AchievementNode;
+    private bool m_IsFocused;
 
     protected override void OnInit(object userData)
     {
@@ -37,6 +29,11 @@ public partial class MainMenuForm : UGuiForm
         {
             GameEntry.UI.OpenUIForm(UIFormId.SettingForm);
         };
+        m_Btn_Equipment.OnClick += OnBtnEquipmentClick;
+        m_Btn_Achievement.OnClick += OnBtnAchievementClick;
+
+        m_EquipmentNode = GameEntry.RedDot.GetOrAddNode(null, RedDotConfig.EquipmentForm);
+        m_AchievementNode = GameEntry.RedDot.GetOrAddNode(null, RedDotConfig.AchievementForm);
     }
 
     protected override void OnOpen(object userData)
@@ -49,10 +46,19 @@ public partial class MainMenuForm : UGuiForm
             UnityGameFramework.Runtime.Log.Warning("ProcedureMenu is invalid when open MenuForm.");
             return;
         }
+
+        m_RDot_EquipmentForm.Set(m_EquipmentNode.Value);
+        m_RDot_Achievement.Set(m_AchievementNode.Value);
+
+        m_EquipmentNode.OnValueChanged += m_RDot_EquipmentForm.Set;
+        m_AchievementNode.OnValueChanged += m_RDot_Achievement.Set;
     }
 
     protected override void OnClose(bool isShutdown, object userData)
     {
+        m_EquipmentNode.OnValueChanged -= m_RDot_EquipmentForm.Set;
+        m_AchievementNode.OnValueChanged -= m_RDot_Achievement.Set;
+
         m_ProcedureMenu = null;
 
         base.OnClose(isShutdown, userData);
@@ -62,9 +68,53 @@ public partial class MainMenuForm : UGuiForm
     {
         base.OnUpdate(elapseSeconds, realElapseSeconds);
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (m_IsFocused && !GameEntry.UI.HasUIForm(UIFormId.DialogForm) && Input.GetKeyDown(KeyCode.Escape))
         {
-            OnQuitButtonClick();
+            OnBtnQuitClick();
         }
+    }
+
+    protected override void OnCover()
+    {
+        base.OnCover();
+
+        m_IsFocused = false;
+    }
+
+    protected override void OnReveal()
+    {
+        base.OnReveal();
+
+        m_IsFocused = true;
+
+        m_TxtP_Coin.text = GameEntry.Player.Coin.ToString();
+        m_TxtP_Diamond.text = GameEntry.Player.Diamond.ToString();
+
+        m_RDot_EquipmentForm.Set(m_EquipmentNode.Value);
+    }
+
+    private void OnBtnQuitClick()
+    {
+        GameEntry.UI.OpenDialog(new DialogParams()
+        {
+            Mode = 2,
+            Message = GameEntry.Localization.GetString("MainMenuForm.AskQuit"),
+            OnClickConfirm = delegate (object userData)
+            {
+                GameEntry.Player.Save();
+                GameEntry.Achievement.Save();
+                UnityGameFramework.Runtime.GameEntry.Shutdown(UnityGameFramework.Runtime.ShutdownType.Quit);
+            },
+        });
+    }
+
+    private void OnBtnEquipmentClick()
+    {
+        GameEntry.UI.OpenUIForm(UIFormId.EquipmentForm);
+    }
+
+    private void OnBtnAchievementClick()
+    {
+        GameEntry.UI.OpenUIForm(UIFormId.AchievementForm);
     }
 }

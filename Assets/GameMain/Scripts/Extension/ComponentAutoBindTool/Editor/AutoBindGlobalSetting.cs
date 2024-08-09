@@ -32,7 +32,7 @@ public class AutoBindGlobalSetting : ScriptableObject
       
     }
 
-    [MenuItem("CatWorkflow/CreateAutoBindGlobalSetting")]
+    [MenuItem("Tools/CreateAutoBindGlobalSetting")]
     private static void CreateAutoBindGlobalSetting()
     {
         string[] paths = AssetDatabase.FindAssets("t:AutoBindGlobalSetting");

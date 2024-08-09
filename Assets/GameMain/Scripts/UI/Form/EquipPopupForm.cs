@@ -1,75 +1,87 @@
 ﻿using cfg;
 using GameFramework;
 using StarForce;
-using System;
-using UnityEngine;
 using UnityGameFramework.Runtime;
 
 public partial class EquipPopupForm : UGuiForm
 {
     public AttributeItem[] Attributes;
+    public SlotItem SlotItem;
 
-    private EquipmentPopupParams m_Params;
+    private EquipmentData m_EquipmentData;
+    private Equipment m_Equipment;
+    private Player m_Player;
 
     protected override void OnInit(object userData)
     {
         base.OnInit(userData);
 
         this.GetBindComponents(this.gameObject);
-        m_Btn_Close.OnClick += OnClickCloseBtn;
-        m_Btn_Equip.OnClick += OnClickEquipBtn;
-        m_Btn_Unequip.OnClick += OnClickUnequipBtn;
+        m_Btn_Close.OnClick += OnBtnCloseClick;
+        m_Btn_Equip.OnClick += OnBtnEquipClick;
+        m_Btn_Unequip.OnClick += OnBtnUnequipClick;
+        m_Btn_Upgrade.OnClick += OnBtnUpgradeClick;
     }
 
     protected override void OnOpen(object userData)
     {
         base.OnOpen(userData);
 
-        m_Params = userData as EquipmentPopupParams;
-        if (m_Params == null)
+        m_EquipmentData = userData as EquipmentData;
+        if (m_EquipmentData == null)
         {
-            Log.Error("EquipmentPopupParams is invalid.");
+            Log.Error("EquipmentData is invalid.");
             return;
         }
+        m_Equipment = m_EquipmentData.Equipment;
+        m_Player = GameEntry.Player;
 
-        if (m_Params.Mode == 0)
+        if (!m_Player.IsEquipped(m_EquipmentData))
         {
             m_Btn_Equip.gameObject.SetActive(true);
             m_Btn_Unequip.gameObject.SetActive(false);
         }
-        else if (m_Params.Mode == 1)
+        else
         {
             m_Btn_Equip.gameObject.SetActive(false);
             m_Btn_Unequip.gameObject.SetActive(true);
         }
 
-        m_TxtP_ItemName.text = m_Params.Equipment.Name;
+        m_TxtP_ItemName.text = GameEntry.Localization.GetString(m_Equipment.Name);
+        m_TxtP_Level.text = Utility.Text.Format("Lv.{0}", m_EquipmentData.Level.ToString());
+        m_TxtP_Quality.text = m_Equipment.Quality.ToString();
         SetAttributeItems();
-        GameEntry.Resource.LoadAsset(AssetUtility.GetEquipmentSpriteAsset(m_Params.Equipment.AssetName), (asset) =>
-        {
-            Texture2D texture = (Texture2D)asset;
-            m_Img_ItemSprite.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-        });
+        SetCostAndButtons();
+        SlotItem.SetEquipmentData(m_EquipmentData);
+    }
+
+    protected override void OnClose(bool isShutdown, object userData)
+    {
+        base.OnClose(isShutdown, userData);
+
+        m_EquipmentData = null;
+        m_Equipment = null;
+        m_Player = null;
     }
 
     private void SetAttributeItems()
     {
-        ModifierData[] modifiers = m_Params.Equipment.Modifiers;
+        cfg.equipment.AttributeData[] modifiers = m_Equipment.BaseAttributes;
         for (int i = 0; i < Attributes.Length; i++)
         {
             AttributeItem attributeItem = Attributes[i];
             if (i < modifiers.Length)
             {
-                ModifierData modifierData = modifiers[i];
-                attributeItem.NameText.text = modifierData.NumericType.ToString();
+                var modifierData = modifiers[i];
+                attributeItem.NameText.text = modifierData.Numeric.ToString();
                 string valueText = string.Empty;
-                switch (modifierData.ModifierType)
+                switch (modifierData.Modifier)
                 {
                     case ModifierType.Add:
-                        valueText = modifierData.Value.ToString();
+                        valueText = modifierData.Values[m_EquipmentData.Level].ToString();
                         break;
                     case ModifierType.Pct:
-                        valueText = Utility.Text.Format("{0}%", modifierData.Value.ToString());
+                        valueText = Utility.Text.Format("{0}%", modifierData.Values[m_EquipmentData.Level].ToString());
                         break;
                 }
                 attributeItem.ValueText.text = valueText;
@@ -82,38 +94,43 @@ public partial class EquipPopupForm : UGuiForm
         }
     }
 
-    private void OnClickCloseBtn()
+    private void OnBtnCloseClick()
     {
         Close();
     }
 
-    private void OnClickEquipBtn()
+    private void OnBtnEquipClick()
     {
-        m_Params?.OnClickEquip();
+        m_Player.Equip(m_EquipmentData);
         Close();
     }
 
-    private void OnClickUnequipBtn()
+    private void OnBtnUnequipClick()
     {
-        m_Params?.OnClickUnequip();
+        m_Player.Unequip(m_EquipmentData.EquipmentType);
         Close();
     }
 
-    public class EquipmentPopupParams
+    private void OnBtnUpgradeClick()
     {
-        // 0: EquipBtn
-        // 1: UnequipBtn
-        public int Mode;
-        public Equipment Equipment;
-        public Action OnClickEquip;
-        public Action OnClickUnequip;
+        m_Player.UpgradeEquipment(m_EquipmentData);
+        m_TxtP_Level.text = Utility.Text.Format("Lv.{0}", m_EquipmentData.Level.ToString());
+        SetAttributeItems();
+        SetCostAndButtons();
+        SlotItem.SetEquipmentData(m_EquipmentData);
+    }
 
-        public EquipmentPopupParams(int mode, Equipment equipment, Action onClickEquip, Action onClickUnequip)
+    private void SetCostAndButtons()
+    {
+        if (m_EquipmentData.Level < Constant.Game.EquipmentMaxLevel)
         {
-            Mode = mode;
-            Equipment = equipment;
-            OnClickEquip = onClickEquip;
-            OnClickUnequip = onClickUnequip;
+            m_Btn_Upgrade.gameObject.SetActive(true);
+            m_TxtP_CostCoin.text = Utility.Text.Format("{0}/{1}", Constant.Game.EquipmentUpgradeCostCoin[m_EquipmentData.Level], m_Player.Coin);
+        }
+        else
+        {
+            m_Btn_Upgrade.gameObject.SetActive(false);
+            m_TxtP_CostCoin.text = Utility.Text.Format("0/{0}", m_Player.Coin); ;
         }
     }
 }

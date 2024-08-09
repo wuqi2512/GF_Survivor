@@ -14,9 +14,9 @@ namespace cfg
     public enum EquipmentType
     {
         /// <summary>
-        /// 头盔
+        /// 武器
         /// </summary>
-        Helmet = 0,
+        Weapon = 0,
         /// <summary>
         /// 盔甲
         /// </summary>
@@ -29,6 +29,14 @@ namespace cfg
         /// 手套
         /// </summary>
         Glovers = 3,
+        /// <summary>
+        /// 腰带
+        /// </summary>
+        Belt = 4,
+        /// <summary>
+        /// 项链
+        /// </summary>
+        Necklace = 5,
     }
 
 } 

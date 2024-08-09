@@ -72,7 +72,7 @@
     <Compile Include="Assets\GameMain\Scripts\Editor\DataTableGenerator\DataTableProcessor.DataProcessor.cs" />
     <Compile Include="Assets\GameMain\Scripts\Editor\DataTableGenerator\DataTableProcessor.DecimalProcessor.cs" />
     <Compile Include="Assets\GameMain\Scripts\Editor\GameFrameworkConfigs.cs" />
-    <Compile Include="Assets\Editor\UIMenuOpentionsExtend.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Editor\UIMenuOpentionsExtend.cs" />
     <Compile Include="Assets\GameMain\Scripts\Editor\DataTableGenerator\DataTableGenerator.cs" />
     <Compile Include="Assets\GameMain\Scripts\Editor\DataTableGenerator\DataTableProcessor.cs" />
     <Compile Include="Assets\GameMain\Scripts\Editor\DataTableGenerator\DataTableProcessor.UInt64Processor.cs" />

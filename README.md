@@ -6,3 +6,5 @@
 - 使用IPause接口实现暂停和恢复游戏
 - 黑边适配，安全区适配
 - 接入Luban
+- Achievement
+- RedDot

@@ -19,9 +19,10 @@ public sealed partial class Equipment : Luban.BeanBase
     {
         { if(!_buf["Id"].IsNumber) { throw new SerializationException(); }  Id = _buf["Id"]; }
         { if(!_buf["EquipmentType"].IsNumber) { throw new SerializationException(); }  EquipmentType = (EquipmentType)_buf["EquipmentType"].AsInt; }
+        { if(!_buf["Quality"].IsNumber) { throw new SerializationException(); }  Quality = (equipment.QualityType)_buf["Quality"].AsInt; }
         { if(!_buf["Name"].IsString) { throw new SerializationException(); }  Name = _buf["Name"]; }
         { if(!_buf["AssetName"].IsString) { throw new SerializationException(); }  AssetName = _buf["AssetName"]; }
-        { var __json0 = _buf["Modifiers"]; if(!__json0.IsArray) { throw new SerializationException(); } int _n0 = __json0.Count; Modifiers = new ModifierData[_n0]; int __index0=0; foreach(JSONNode __e0 in __json0.Children) { ModifierData __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = ModifierData.DeserializeModifierData(__e0);  }  Modifiers[__index0++] = __v0; }   }
+        { var __json0 = _buf["BaseAttributes"]; if(!__json0.IsArray) { throw new SerializationException(); } int _n0 = __json0.Count; BaseAttributes = new equipment.AttributeData[_n0]; int __index0=0; foreach(JSONNode __e0 in __json0.Children) { equipment.AttributeData __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = equipment.AttributeData.DeserializeAttributeData(__e0);  }  BaseAttributes[__index0++] = __v0; }   }
     }
 
     public static Equipment DeserializeEquipment(JSONNode _buf)
@@ -31,9 +32,10 @@ public sealed partial class Equipment : Luban.BeanBase
 
     public readonly int Id;
     public readonly EquipmentType EquipmentType;
+    public readonly equipment.QualityType Quality;
     public readonly string Name;
     public readonly string AssetName;
-    public readonly ModifierData[] Modifiers;
+    public readonly equipment.AttributeData[] BaseAttributes;
    
     public const int __ID__ = -1214642834;
     public override int GetTypeId() => __ID__;
@@ -44,7 +46,8 @@ public sealed partial class Equipment : Luban.BeanBase
         
         
         
-        foreach (var _e in Modifiers) { _e?.ResolveRef(tables); }
+        
+        foreach (var _e in BaseAttributes) { _e?.ResolveRef(tables); }
     }
 
     public override string ToString()
@@ -52,9 +55,10 @@ public sealed partial class Equipment : Luban.BeanBase
         return "{ "
         + "Id:" + Id + ","
         + "EquipmentType:" + EquipmentType + ","
+        + "Quality:" + Quality + ","
         + "Name:" + Name + ","
         + "AssetName:" + AssetName + ","
-        + "Modifiers:" + Luban.StringUtil.CollectionToString(Modifiers) + ","
+        + "BaseAttributes:" + Luban.StringUtil.CollectionToString(BaseAttributes) + ","
         + "}";
     }
 }

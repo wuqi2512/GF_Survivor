@@ -1,7 +1,7 @@
-﻿using GameFramework;
+﻿using cfg;
+using GameFramework;
 using System.Collections.Generic;
 using UnityGameFramework.Runtime;
-using cfg;
 
 public class ChaAttribute : IReference
 {
@@ -11,6 +11,8 @@ public class ChaAttribute : IReference
     {
         m_Numerics = new Dictionary<int, Numeric>();
     }
+
+    public int Count => m_Numerics.Count;
 
     public void AddNumeric(int key, float baseValue)
     {
@@ -31,9 +33,25 @@ public class ChaAttribute : IReference
         m_Numerics[(int)modifier.NumericType].AddModifier(modifier);
     }
 
+    public void AddModifier(List<Modifier> modifiers)
+    {
+        foreach (Modifier modifier in modifiers)
+        {
+            AddModifier(modifier);
+        }
+    }
+
     public void RemoveModifier(Modifier modifier)
     {
         m_Numerics[(int)modifier.NumericType].RemoveModifier(modifier);
+    }
+
+    public void RemoveModifier(List<Modifier> modifiers)
+    {
+        foreach (Modifier modifier in modifiers)
+        {
+            RemoveModifier(modifier);
+        }
     }
 
     public Numeric this[NumericType key]

@@ -4,29 +4,49 @@ using UnityEngine;
 
 public class AttributeList : MonoBehaviour
 {
-    public AttributeItem[] Items;
+    public Transform Content;
     public GameObject ItemPrefab;
-    public ChaAttribute ChaAttribute;
 
-    public void Init()
+    private bool m_Visible = true;
+    private AttributeItem[] m_Items;
+    private ChaAttribute m_ChaAttribute;
+
+    public bool Visible
     {
-        Items = new AttributeItem[4];
-        for (int i = 0; i < Items.Length; i++)
+        get
         {
-            GameObject obj = Instantiate(ItemPrefab, gameObject.transform);
-            Items[i] = obj.GetComponent<AttributeItem>();
+            return m_Visible;
+        }
+        set
+        {
+            if (m_Visible != value)
+            {
+                m_Visible = value;
+                Content.gameObject.SetActive(m_Visible);
+            }
+        }
+    }
+
+    public void Init(ChaAttribute chaAttribute)
+    {
+        m_ChaAttribute = chaAttribute;
+        m_Items = new AttributeItem[m_ChaAttribute.Count];
+        for (int i = 0; i < m_Items.Length; i++)
+        {
+            GameObject obj = Instantiate(ItemPrefab, Content.transform);
+            m_Items[i] = obj.GetComponent<AttributeItem>();
         }
     }
 
     public void UpdateItem()
     {
-        for (int i = 0; i < Items.Length; i++)
+        for (int i = 0; i < m_Items.Length; i++)
         {
             NumericType numericType = (NumericType)(i + 1);
-            Items[i].NameText.text = numericType.ToString();
-            Numeric numeric = ChaAttribute[numericType];
+            m_Items[i].NameText.text = numericType.ToString();
+            Numeric numeric = m_ChaAttribute[numericType];
             string valueText = Utility.Text.Format("{0}=({1}+{2})*{3}%", numeric.Value, numeric.Base, numeric.Add, numeric.Pct + 100f);
-            Items[i].ValueText.text = valueText;
+            m_Items[i].ValueText.text = valueText;
         }
     }
 }

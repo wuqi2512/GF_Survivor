@@ -2,54 +2,482 @@
   {
     "Id": 10000,
     "EquipmentType": 1,
-    "Name": "Armor_0",
+    "Quality": 0,
+    "Name": "Equipment.Armor_0.Name",
     "AssetName": "Armor_0",
-    "Modifiers": [
+    "BaseAttributes": [
       {
-        "NumericType": 2,
-        "ModifierType": 0,
-        "Value": 50
+        "Numeric": 2,
+        "Modifier": 0,
+        "Values": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
       },
       {
-        "NumericType": 2,
-        "ModifierType": 1,
-        "Value": 10
+        "Numeric": 6,
+        "Modifier": 0,
+        "Values": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
       }
     ]
   },
   {
     "Id": 10001,
     "EquipmentType": 3,
-    "Name": "Glovers_0",
+    "Quality": 0,
+    "Name": "Equipment.Glovers_0.Name",
     "AssetName": "Glovers_0",
-    "Modifiers": [
+    "BaseAttributes": [
       {
-        "NumericType": 4,
-        "ModifierType": 0,
-        "Value": 1
+        "Numeric": 2,
+        "Modifier": 0,
+        "Values": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
       },
       {
-        "NumericType": 4,
-        "ModifierType": 1,
-        "Value": 10
+        "Numeric": 5,
+        "Modifier": 0,
+        "Values": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
       }
     ]
   },
   {
     "Id": 10002,
     "EquipmentType": 2,
-    "Name": "Boots_0",
+    "Quality": 0,
+    "Name": "Equipment.Boots_0.Name",
     "AssetName": "Boots_0",
-    "Modifiers": [
+    "BaseAttributes": [
       {
-        "NumericType": 3,
-        "ModifierType": 0,
-        "Value": 1
+        "Numeric": 2,
+        "Modifier": 0,
+        "Values": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
       },
       {
-        "NumericType": 3,
-        "ModifierType": 1,
-        "Value": 10
+        "Numeric": 3,
+        "Modifier": 1,
+        "Values": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      }
+    ]
+  },
+  {
+    "Id": 10003,
+    "EquipmentType": 5,
+    "Quality": 0,
+    "Name": "Equipment.Necklace_0.Name",
+    "AssetName": "Necklace_0",
+    "BaseAttributes": [
+      {
+        "Numeric": 2,
+        "Modifier": 0,
+        "Values": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      {
+        "Numeric": 6,
+        "Modifier": 0,
+        "Values": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      }
+    ]
+  },
+  {
+    "Id": 10004,
+    "EquipmentType": 4,
+    "Quality": 0,
+    "Name": "Equipment.Belt_0.Name",
+    "AssetName": "Belt_0",
+    "BaseAttributes": [
+      {
+        "Numeric": 2,
+        "Modifier": 0,
+        "Values": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      {
+        "Numeric": 6,
+        "Modifier": 0,
+        "Values": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      }
+    ]
+  },
+  {
+    "Id": 10005,
+    "EquipmentType": 0,
+    "Quality": 0,
+    "Name": "Equipment.Weapon_0.Name",
+    "AssetName": "Weapon_0",
+    "BaseAttributes": [
+      {
+        "Numeric": 5,
+        "Modifier": 0,
+        "Values": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      }
+    ]
+  },
+  {
+    "Id": 10006,
+    "EquipmentType": 1,
+    "Quality": 1,
+    "Name": "Equipment.Armor_1.Name",
+    "AssetName": "Armor_1",
+    "BaseAttributes": [
+      {
+        "Numeric": 2,
+        "Modifier": 0,
+        "Values": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
+      },
+      {
+        "Numeric": 6,
+        "Modifier": 0,
+        "Values": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
+      }
+    ]
+  },
+  {
+    "Id": 10007,
+    "EquipmentType": 3,
+    "Quality": 1,
+    "Name": "Equipment.Glovers_1.Name",
+    "AssetName": "Glovers_1",
+    "BaseAttributes": [
+      {
+        "Numeric": 2,
+        "Modifier": 0,
+        "Values": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
+      },
+      {
+        "Numeric": 5,
+        "Modifier": 0,
+        "Values": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
+      }
+    ]
+  },
+  {
+    "Id": 10008,
+    "EquipmentType": 2,
+    "Quality": 1,
+    "Name": "Equipment.Boots_1.Name",
+    "AssetName": "Boots_1",
+    "BaseAttributes": [
+      {
+        "Numeric": 2,
+        "Modifier": 0,
+        "Values": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
+      },
+      {
+        "Numeric": 3,
+        "Modifier": 1,
+        "Values": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
+      }
+    ]
+  },
+  {
+    "Id": 10009,
+    "EquipmentType": 5,
+    "Quality": 1,
+    "Name": "Equipment.Necklace_1.Name",
+    "AssetName": "Necklace_1",
+    "BaseAttributes": [
+      {
+        "Numeric": 2,
+        "Modifier": 0,
+        "Values": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
+      },
+      {
+        "Numeric": 6,
+        "Modifier": 0,
+        "Values": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
+      }
+    ]
+  },
+  {
+    "Id": 10010,
+    "EquipmentType": 4,
+    "Quality": 1,
+    "Name": "Equipment.Belt_1.Name",
+    "AssetName": "Belt_1",
+    "BaseAttributes": [
+      {
+        "Numeric": 2,
+        "Modifier": 0,
+        "Values": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
+      },
+      {
+        "Numeric": 6,
+        "Modifier": 0,
+        "Values": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
+      }
+    ]
+  },
+  {
+    "Id": 10011,
+    "EquipmentType": 0,
+    "Quality": 1,
+    "Name": "Equipment.Weapon_1.Name",
+    "AssetName": "Weapon_1",
+    "BaseAttributes": [
+      {
+        "Numeric": 5,
+        "Modifier": 0,
+        "Values": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
       }
     ]
   }

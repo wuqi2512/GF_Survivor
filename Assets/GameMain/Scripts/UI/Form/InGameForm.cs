@@ -16,7 +16,6 @@ public partial class InGameForm : UGuiForm
 
         AttributeList = GetComponentInChildren<AttributeList>();
         m_Btn_Pause.OnClick += OnBtnPauseClick;
-        m_Btn_Equipment.OnClick += OnBtnEquipmentClick;
     }
 
     protected override void OnOpen(object userData)
@@ -32,7 +31,6 @@ public partial class InGameForm : UGuiForm
 
         SetHpBar(1f);
         SetKillCount(0);
-        AttributeList.Init();
     }
 
     public void SetHpBar(float ratio)
@@ -55,15 +53,10 @@ public partial class InGameForm : UGuiForm
         GameEntry.UI.OpenUIForm(UIFormId.PauseMenuForm, m_ProcedureMain);
     }
 
-    private void OnBtnEquipmentClick()
-    {
-        GameEntry.UI.OpenUIForm(UIFormId.EquipmentForm);
-    }
-
     public void SetHeroLogic(HeroLogic heroLogic)
     {
         HeroLogic = heroLogic;
-        AttributeList.ChaAttribute = HeroLogic.GetChaAttribute();
+        AttributeList.Init(HeroLogic.GetChaAttribute());
         AttributeList.UpdateItem();
     }
 }

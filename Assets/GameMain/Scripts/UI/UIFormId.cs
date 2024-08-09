@@ -39,5 +39,6 @@ namespace StarForce
         BlackEdgeForm = 106,
         EquipmentForm = 107,
         EquipmentPopupForm = 108,
+        AchievementForm = 109,
     }
 }

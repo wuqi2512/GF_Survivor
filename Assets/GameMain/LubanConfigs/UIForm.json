@@ -4,7 +4,7 @@
     "AssetName": "DialogForm",
     "UIGroupName": "Default",
     "AllowMultiInstance": true,
-    "PauseCoveredUIForm": true
+    "PauseCoveredUIForm": false
   },
   {
     "Id": 100,
@@ -16,13 +16,6 @@
   {
     "Id": 101,
     "AssetName": "SettingForm",
-    "UIGroupName": "Default",
-    "AllowMultiInstance": false,
-    "PauseCoveredUIForm": true
-  },
-  {
-    "Id": 103,
-    "AssetName": "TileMapForm",
     "UIGroupName": "Default",
     "AllowMultiInstance": false,
     "PauseCoveredUIForm": true
@@ -58,6 +51,13 @@
   {
     "Id": 108,
     "AssetName": "EquipPopupForm",
+    "UIGroupName": "Default",
+    "AllowMultiInstance": false,
+    "PauseCoveredUIForm": false
+  },
+  {
+    "Id": 109,
+    "AssetName": "AchievementForm",
     "UIGroupName": "Default",
     "AllowMultiInstance": false,
     "PauseCoveredUIForm": false

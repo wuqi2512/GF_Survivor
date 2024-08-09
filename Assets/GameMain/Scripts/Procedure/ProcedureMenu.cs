@@ -36,7 +36,9 @@ namespace StarForce
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
 
             m_StartGame = false;
+
             GameEntry.UI.OpenUIForm(UIFormId.MainMenuForm, this);
+            GameEntry.Player.Save();
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)

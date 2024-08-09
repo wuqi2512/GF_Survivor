@@ -23,6 +23,8 @@ public sealed partial class Hero : Luban.BeanBase
         { if(!_buf["MaxHp"].IsNumber) { throw new SerializationException(); }  MaxHp = _buf["MaxHp"]; }
         { if(!_buf["MoveSpeed"].IsNumber) { throw new SerializationException(); }  MoveSpeed = _buf["MoveSpeed"]; }
         { if(!_buf["AttackSpeed"].IsNumber) { throw new SerializationException(); }  AttackSpeed = _buf["AttackSpeed"]; }
+        { if(!_buf["Attack"].IsNumber) { throw new SerializationException(); }  Attack = _buf["Attack"]; }
+        { if(!_buf["Defense"].IsNumber) { throw new SerializationException(); }  Defense = _buf["Defense"]; }
     }
 
     public static Hero DeserializeHero(JSONNode _buf)
@@ -36,6 +38,8 @@ public sealed partial class Hero : Luban.BeanBase
     public readonly float MaxHp;
     public readonly float MoveSpeed;
     public readonly float AttackSpeed;
+    public readonly float Attack;
+    public readonly float Defense;
    
     public const int __ID__ = 2245658;
     public override int GetTypeId() => __ID__;
@@ -44,6 +48,8 @@ public sealed partial class Hero : Luban.BeanBase
     {
         
         EntityId_Ref = tables.TbEntity.GetOrDefault(EntityId);
+        
+        
         
         
         
@@ -57,6 +63,8 @@ public sealed partial class Hero : Luban.BeanBase
         + "MaxHp:" + MaxHp + ","
         + "MoveSpeed:" + MoveSpeed + ","
         + "AttackSpeed:" + AttackSpeed + ","
+        + "Attack:" + Attack + ","
+        + "Defense:" + Defense + ","
         + "}";
     }
 }

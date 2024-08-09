@@ -14,7 +14,6 @@ namespace cfg
 {
 public partial class Tables
 {
-    public TbItem TbItem {get; }
     public TbEntity TbEntity {get; }
     public TbEntityGroup TbEntityGroup {get; }
     public TbBullet TbBullet {get; }
@@ -23,10 +22,10 @@ public partial class Tables
     public TbUIForm TbUIForm {get; }
     public TbScene TbScene {get; }
     public TbEquipment TbEquipment {get; }
+    public TbAchievement TbAchievement {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
-        TbItem = new TbItem(loader("Item"));
         TbEntity = new TbEntity(loader("Entity"));
         TbEntityGroup = new TbEntityGroup(loader("EntityGroup"));
         TbBullet = new TbBullet(loader("Bullet"));
@@ -35,12 +34,12 @@ public partial class Tables
         TbUIForm = new TbUIForm(loader("UIForm"));
         TbScene = new TbScene(loader("Scene"));
         TbEquipment = new TbEquipment(loader("Equipment"));
+        TbAchievement = new TbAchievement(loader("Achievement"));
         ResolveRef();
     }
     
     private void ResolveRef()
     {
-        TbItem.ResolveRef(this);
         TbEntity.ResolveRef(this);
         TbEntityGroup.ResolveRef(this);
         TbBullet.ResolveRef(this);
@@ -49,6 +48,7 @@ public partial class Tables
         TbUIForm.ResolveRef(this);
         TbScene.ResolveRef(this);
         TbEquipment.ResolveRef(this);
+        TbAchievement.ResolveRef(this);
     }
 }
 

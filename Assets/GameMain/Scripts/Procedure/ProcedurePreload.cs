@@ -22,7 +22,6 @@ namespace StarForce
     {
         public static readonly string[] LubanTableNames = new string[]
         {
-            "Item",
             "Entity",
             "EntityGroup",
             "Scene",
@@ -31,6 +30,12 @@ namespace StarForce
             "Bullet",
             "Effect",
             "Equipment",
+            "Achievement"
+        };
+
+        public static readonly string[] DictionaryNames = new string[]
+        {
+            "UIForm",
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
@@ -91,6 +96,10 @@ namespace StarForce
             }
 
             AddEntityGroup();
+            GameEntry.Player.Load();
+            GameEntry.Achievement.Load();
+            
+            GameEntry.RedDot.InitNodes();
             procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
             ChangeState<ProcedureChangeScene>(procedureOwner);
         }
@@ -103,7 +112,7 @@ namespace StarForce
             LoadJsonNodes();
 
             // Preload dictionaries
-            LoadDictionary("Default");
+            LoadDictionary();
 
             // Preload fonts
             LoadFont("MainFont");
@@ -117,11 +126,18 @@ namespace StarForce
             GameEntry.Config.ReadData(configAssetName, this);
         }
 
-        private void LoadDictionary(string dictionaryName)
+        private void LoadDictionary()
         {
-            string dictionaryAssetName = AssetUtility.GetDictionaryAsset(dictionaryName, false);
-            m_LoadedFlag.Add(dictionaryAssetName, false);
-            GameEntry.Localization.ReadData(dictionaryAssetName, this);
+            string languageAssetName = AssetUtility.GetLanguageDictionaryAsset();
+            m_LoadedFlag.Add(languageAssetName, false);
+            GameEntry.Localization.ReadData(languageAssetName, this);
+
+            foreach (var name in DictionaryNames)
+            { 
+                string dictionaryAssetName = AssetUtility.GetDictionaryAsset(name, false);
+                m_LoadedFlag.Add(dictionaryAssetName, false);
+                GameEntry.Localization.ReadData(dictionaryAssetName, this);
+            }
         }
 
         private void LoadFont(string fontName)

@@ -1,25 +1,37 @@
 ﻿using cfg;
+using GameFramework;
 using StarForce;
 using System.Collections.Generic;
 using UnityEngine;
 
 public partial class EquipmentForm : UGuiForm
 {
-    public EquipItem[] EquipItems;
+    public SlotItem[] EquippedItems;
     public GameObject SlotPrefab;
 
-    private List<SlotItem> m_Slots;
+    private AttributeList m_AttributeList;
+    private List<SlotItem> m_SlotItems;
     private Player m_Player;
+    private ChaAttribute m_ChaAttribute;
+    private List<Modifier> m_TempModifiers;
 
     protected override void OnInit(object userData)
     {
         base.OnInit(userData);
 
         this.GetBindComponents(this.gameObject);
-        m_Btn_Close.OnClick += Close;
-        m_Slots = new List<SlotItem>();
+        m_AttributeList = GetComponentInChildren<AttributeList>();
+        m_Player = GameEntry.Player;
+        m_SlotItems = new List<SlotItem>();
+        m_ChaAttribute = ReferencePool.Acquire<ChaAttribute>();
+        m_TempModifiers = new List<Modifier>();
 
-        foreach (var equipItem in EquipItems)
+        m_Btn_Close.OnClick += Close;
+        m_Btn_AttributeList.OnClick += OnClickAttributeList;
+        m_AttributeList.Init(m_ChaAttribute);
+        m_AttributeList.Visible = false;
+
+        foreach (var equipItem in EquippedItems)
         {
             if (equipItem != null)
             {
@@ -32,114 +44,194 @@ public partial class EquipmentForm : UGuiForm
     {
         base.OnOpen(userData);
 
-        GameEntry.Event.Fire(this, LevelOperationEventArgs.Create(LevelOperation.Pasue));
-        m_Player = GameEntry.Controller.Player;
-        m_Player.SetEquipmentForm(this);
-        RefreshAllSlot(m_Player.GetAllEquipment());
+        RefreshAllSlot();
+        m_Player.GetChaAttribute(m_ChaAttribute);
+
+        foreach (var item in EquippedItems)
+        {
+            item.RedDotItem.Set(GameEntry.RedDot.GetOrAddNode(null, RedDotConfig.EquipmentForm, item.EquipmentType.ToString()).Value);
+        }
+
+        foreach (var item in EquippedItems)
+        {
+            GameEntry.RedDot.GetOrAddNode(null, RedDotConfig.EquipmentForm, item.EquipmentType.ToString()).OnValueChanged += item.RedDotItem.Set;
+        }
+
+        m_Player.OnEquip += OnEquip;
+        m_Player.OnUnequip += OnUnequip;
+        m_Player.OnAddEquip += OnAddEquipment;
+        m_Player.OnRemoveEquip += OnRemoveEquipment;
+        m_Player.OnUpgradeEquip += OnUpgradeEquipment;
     }
 
     protected override void OnClose(bool isShutdown, object userData)
     {
         base.OnClose(isShutdown, userData);
 
-        m_Player.SetEquipmentForm(null);
-        GameEntry.Event.Fire(this, LevelOperationEventArgs.Create(LevelOperation.Resume));
-    }
-
-    public void RefreshAllSlot(List<int> equipmentIds)
-    {
-        DestroyAllSlot();
-
-        foreach (int id in equipmentIds)
+        foreach (var item in EquippedItems)
         {
-            AddEquipment(id);
+            GameEntry.RedDot.GetOrAddNode(null, RedDotConfig.EquipmentForm, item.EquipmentType.ToString()).OnValueChanged -= item.RedDotItem.Set;
         }
+
+        m_Player.OnEquip -= OnEquip;
+        m_Player.OnUnequip -= OnUnequip;
+        m_Player.OnAddEquip -= OnAddEquipment;
+        m_Player.OnRemoveEquip -= OnRemoveEquipment;
+        m_Player.OnUpgradeEquip -= OnUpgradeEquipment;
     }
 
-    public void DestroyAllSlot()
+    private void OnAddEquipment(EquipmentData equipmentData)
     {
-        for (int i = m_Slots.Count - 1; i >= 0; i--)
-        {
-            Destroy(m_Slots[i].gameObject);
-            m_Slots.RemoveAt(i);
-        }
+        SlotItem slotItem = CreateSlotItem();
+        slotItem.OnClick += OnClickSlotItem;
+        m_SlotItems.Add(slotItem);
+        slotItem.SetEquipmentData(equipmentData);
     }
 
-    public void AddEquipment(int equipmentId)
+    private void OnRemoveEquipment(EquipmentData equipmentData)
     {
-        Equipment equipment = GameEntry.Luban.Tables.TbEquipment.GetOrDefault(equipmentId);
-        GameObject obj = Instantiate(SlotPrefab, m_Trans_SlotContent);
-        SlotItem item = obj.GetComponent<SlotItem>();
-        item.EquipmentId = equipmentId;
-        item.OnClick += OnClickSlotItem;
-        GameEntry.Resource.LoadAsset(AssetUtility.GetEquipmentSpriteAsset(equipment.AssetName), (asset) =>
+        for (int i = 0; i < m_SlotItems.Count; i++)
         {
-            Texture2D texture = (Texture2D)asset;
-            item.Image.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-        });
-        m_Slots.Add(item);
-    }
-
-    public void RemoveEquipment(int equipmentId)
-    {
-        for (int i = 0; i < m_Slots.Count; i++)
-        {
-            if (m_Slots[i].EquipmentId == equipmentId)
+            if (m_SlotItems[i].EquipmentData == equipmentData)
             {
-                SlotItem item = m_Slots[i];
-                m_Slots.RemoveAt(i);
-                GameObject.Destroy(item.gameObject);
-                return;
-            }
-        }
-    }
-
-    public void Equip(int equipmentId)
-    {
-        Equipment equipment = GameEntry.Luban.Tables.TbEquipment.GetOrDefault(equipmentId);
-        EquipItem equipItem = null;
-        foreach (EquipItem item in EquipItems)
-        {
-            if (item.EquipmentType == equipment.EquipmentType)
-            {
-                equipItem = item;
+                Destroy(m_SlotItems[i].gameObject);
+                m_SlotItems.RemoveAt(i);
                 break;
             }
         }
-
-        equipItem.EquipmentId = equipmentId;
-        GameEntry.Resource.LoadAsset(AssetUtility.GetEquipmentSpriteAsset(equipment.AssetName), (asset) =>
-        {
-            Texture2D texture = (Texture2D)asset;
-            equipItem.Image.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-        });
     }
 
-    public void Unequip(EquipmentType equipmentType)
+    private void OnEquip(EquipmentData oldEquip, EquipmentData newEquip)
     {
-        EquipItem equipItem = null;
-        foreach (EquipItem item in EquipItems)
+        if (oldEquip != null)
+        {
+            m_ChaAttribute.RemoveModifier(oldEquip.Modifiers);
+
+            var oldSlotItem = FindSlotItem(oldEquip);
+            oldSlotItem.SetEquppiedTextVisible(false);
+        }
+
+        m_ChaAttribute.AddModifier(newEquip.Modifiers);
+
+        var slotItem = FindSlotItem(newEquip);
+        slotItem.SetEquppiedTextVisible(true);
+
+        SlotItem equippedSlotItem = FindEquippedItem(newEquip.EquipmentType);
+        equippedSlotItem.SetEquipmentData(newEquip);
+    }
+
+    private void OnUnequip(EquipmentData equipmentData)
+    {
+        m_ChaAttribute.RemoveModifier(equipmentData.Modifiers);
+
+        var slotItem = FindSlotItem(equipmentData);
+        slotItem.SetEquppiedTextVisible(false);
+
+        SlotItem equippedSlotItem = FindEquippedItem(equipmentData.EquipmentType);
+        equippedSlotItem.Clear();
+    }
+
+    private void OnUpgradeEquipment(EquipmentData equipmentData)
+    {
+        equipmentData.GetModifiers(equipmentData.Level - 1, m_TempModifiers);
+        m_ChaAttribute.RemoveModifier(m_TempModifiers);
+        m_ChaAttribute.AddModifier(equipmentData.Modifiers);
+
+        var slotItem = FindSlotItem(equipmentData);
+        slotItem.SetLevelText(equipmentData.Level);
+
+        var equippedSlotItem = FindEquippedItem(equipmentData.EquipmentType);
+        if (equippedSlotItem.EquipmentData == equipmentData)
+        {
+            equippedSlotItem.SetLevelText(equipmentData.Level);
+        }
+    }
+
+    public void RefreshAllSlot()
+    {
+        var equipments = m_Player.GetAllEquipment();
+
+        foreach (var slot in m_SlotItems)
+        {
+            slot.Clear();
+        }
+        while (equipments.Count > m_SlotItems.Count)
+        {
+            var item = CreateSlotItem();
+            item.OnClick += OnClickSlotItem;
+            m_SlotItems.Add(item);
+        }
+        while (equipments.Count < m_SlotItems.Count)
+        {
+            var last = m_SlotItems[equipments.Count - 1];
+            m_SlotItems.RemoveAt(equipments.Count - 1);
+            Destroy(last.gameObject);
+        }
+        foreach (var slot in EquippedItems)
+        {
+            slot.Clear();
+        }
+
+        for (int i = 0; i < equipments.Count; i++)
+        {
+            EquipmentData data = equipments[i];
+            SlotItem slotItem = m_SlotItems[i];
+            slotItem.SetEquipmentData(data);
+            if (m_Player.IsEquipped(data))
+            {
+                slotItem.SetEquppiedTextVisible(true);
+                var equippedItem = FindEquippedItem(data.EquipmentType);
+                equippedItem.SetEquipmentData(data);
+            }
+        }
+    }
+
+    private SlotItem CreateSlotItem()
+    {
+        GameObject obj = Instantiate(SlotPrefab, m_Trans_SlotContent);
+        SlotItem item = obj.GetComponent<SlotItem>();
+        return item;
+    }
+
+    public SlotItem FindEquippedItem(EquipmentType equipmentType)
+    {
+        foreach (SlotItem item in EquippedItems)
         {
             if (item.EquipmentType == equipmentType)
             {
-                equipItem = item;
-                break;
+                return item;
             }
         }
 
-        equipItem.Image.sprite = null;
-        equipItem.EquipmentId = -1;
+        return null;
     }
 
-    private void OnClickSlotItem(int equipmentId)
+    public SlotItem FindSlotItem(EquipmentData equipmentData)
     {
-        Equipment equipment = GameEntry.Luban.Tables.TbEquipment.GetOrDefault(equipmentId);
-        GameEntry.UI.OpenUIForm(UIFormId.EquipmentPopupForm, new EquipPopupForm.EquipmentPopupParams(0, equipment, () => { m_Player.Equip(equipmentId); }, null));
+        foreach (var item in m_SlotItems)
+        {
+            if (item.EquipmentData == equipmentData)
+            {
+                return item;
+            }
+        }
+
+        return null;
     }
 
-    private void OnClickEquipItem(int equipmentId)
+    private static void OnClickSlotItem(EquipmentData equipmentData)
     {
-        Equipment equipment = GameEntry.Luban.Tables.TbEquipment.GetOrDefault(equipmentId);
-        GameEntry.UI.OpenUIForm(UIFormId.EquipmentPopupForm, new EquipPopupForm.EquipmentPopupParams(1, equipment, null, () => { m_Player.Unequip(equipment.EquipmentType); }));
+        GameEntry.UI.OpenUIForm(UIFormId.EquipmentPopupForm, equipmentData);
+    }
+
+    private static void OnClickEquipItem(EquipmentData equipmentData)
+    {
+        GameEntry.UI.OpenUIForm(UIFormId.EquipmentPopupForm, equipmentData);
+    }
+
+    private void OnClickAttributeList()
+    {
+        m_AttributeList.UpdateItem();
+        m_AttributeList.Visible = !m_AttributeList.Visible;
     }
 }

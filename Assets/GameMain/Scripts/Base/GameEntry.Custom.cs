@@ -37,7 +37,23 @@ public partial class GameEntry : MonoBehaviour
         private set;
     }
 
-    public static ControllerComponent Controller;
+    public static Player Player
+    {
+        get;
+        private set;
+    }
+
+    public static RedDotComponent RedDot
+    {
+        get;
+        private set;
+    }
+
+    public static AchievementComponent Achievement
+    {
+        get;
+        private set;
+    }
 
     private static void InitCustomComponents()
     {
@@ -45,6 +61,8 @@ public partial class GameEntry : MonoBehaviour
         HPBar = UnityGameFramework.Runtime.GameEntry.GetComponent<HPBarComponent>();
         DamageNumber = UnityGameFramework.Runtime.GameEntry.GetComponent<DamageNumberComponent>();
         Luban = UnityGameFramework.Runtime.GameEntry.GetComponent<LubanComponent>();
-        Controller = UnityGameFramework.Runtime.GameEntry.GetComponent<ControllerComponent>();
+        Player = UnityGameFramework.Runtime.GameEntry.GetComponent<Player>();
+        RedDot = UnityGameFramework.Runtime.GameEntry.GetComponent<RedDotComponent>();
+        Achievement = UnityGameFramework.Runtime.GameEntry.GetComponent<AchievementComponent>();
     }
 }

@@ -18,6 +18,8 @@ namespace cfg
         MaxHp = 2,
         MoveSpeed = 3,
         AttackSpeed = 4,
+        Attack = 5,
+        Defence = 6,
     }
 
 } 

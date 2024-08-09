@@ -6,6 +6,8 @@
 //------------------------------------------------------------
 
 using System;
+using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 namespace GameFramework
 {
@@ -85,6 +87,11 @@ namespace GameFramework
                 return (float)s_Random.NextDouble();
             }
 
+            public static float GetRandomFloat(float maxValue)
+            {
+                return (float)GetRandomDouble(0f, maxValue);
+            }
+
             public static float GetRandomFloat(float minValue, float maxValue)
             {
                 return (float)GetRandomDouble(minValue, maxValue);
@@ -93,6 +100,27 @@ namespace GameFramework
             public static bool GetRandomBool()
             {
                 return s_Random.Next(2) == 1;
+            }
+
+            /// <summary>
+            /// 范围是个空心圆
+            /// </summary>
+            /// <param name="min"></param>
+            /// <param name="max"></param>
+            /// <returns></returns>
+            public static Vector2 GetRandomVector2(float min, float max)
+            {
+                Vector2 result = new Vector2(GetRandomFloat(min, max), GetRandomFloat(min, max));
+                if (GetRandomBool())
+                {
+                    result.x *= -1;
+                }
+                if (GetRandomBool())
+                {
+                    result.y *= -1;
+                }
+
+                return result;
             }
         }
     }

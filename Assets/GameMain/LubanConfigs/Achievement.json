@@ -1,0 +1,34 @@
+[
+  {
+    "Id": 10000,
+    "EventName": "HideEntityInLevelEventArgs",
+    "MaxValue": 10,
+    "NameKey": "Achievement.Kill0",
+    "DescriptionKey": "Achievement.KillDescription",
+    "AwardDiamond": 10
+  },
+  {
+    "Id": 10001,
+    "EventName": "HideEntityInLevelEventArgs",
+    "MaxValue": 50,
+    "NameKey": "Achievement.Kill1",
+    "DescriptionKey": "Achievement.KillDescription",
+    "AwardDiamond": 50
+  },
+  {
+    "Id": 10002,
+    "EventName": "HideEntityInLevelEventArgs",
+    "MaxValue": 100,
+    "NameKey": "Achievement.Kill2",
+    "DescriptionKey": "Achievement.KillDescription",
+    "AwardDiamond": 100
+  },
+  {
+    "Id": 10003,
+    "EventName": "HideEntityInLevelEventArgs",
+    "MaxValue": 250,
+    "NameKey": "Achievement.Kill3",
+    "DescriptionKey": "Achievement.KillDescription",
+    "AwardDiamond": 250
+  }
+]

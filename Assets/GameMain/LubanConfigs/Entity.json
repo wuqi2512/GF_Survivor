@@ -48,5 +48,15 @@
     "Id": 70003,
     "AssetName": "Slash",
     "EntityGroupId": 10002
+  },
+  {
+    "Id": 80000,
+    "AssetName": "DropItem",
+    "EntityGroupId": 10000
+  },
+  {
+    "Id": 80001,
+    "AssetName": "Chest",
+    "EntityGroupId": 10000
   }
 ]

@@ -22,6 +22,7 @@ public class HeroLogic : Targetable
     }
     public override float MaxHp => m_HeroData.ChaAttribute[NumericType.MaxHp].Value;
     public override CampType Camp => CampType.Player;
+    public HeroData HeroData => m_HeroData;
 
     protected override void OnShow(object userData)
     {
@@ -80,5 +81,18 @@ public class HeroLogic : Targetable
         return m_HeroData.ChaAttribute;
     }
 
-    public HeroData HeroData => m_HeroData;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == Constant.Layer.DropItemId)
+        {
+            DropItemLogic logic = collision.gameObject.GetComponent<DropItemLogic>();
+            if (logic == null || logic.IsDestroyed)
+            {
+                return;
+            }
+
+            GameEntry.Player.GainDropItem(logic.GetDropItemData());
+            logic.Hide();
+        }
+    }
 }
